@@ -1,0 +1,5 @@
+awful.key({ modkey,           }, "a",
+        function ()
+        awful.util.spawn("konsole -name menu -e bash -c \'cmd=bash /vagrant_data/shs/listen.sh; setsid -f \$cmd\'")
+        end,
+        {description = "audio", group = "client"}),

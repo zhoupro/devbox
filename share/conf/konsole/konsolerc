@@ -1,0 +1,16 @@
+[Desktop Entry]
+DefaultProfile=mydev.profile
+
+[Favorite Profiles]
+Favorites=mydev.profile
+
+[KonsoleWindow]
+ShowMenuBarByDefault=false
+
+[MainWindow]
+Height 680=656
+Height 720=696
+MenuBar=Disabled
+State=AAAA/wAAAAD9AAAAAAAABPwAAAK4AAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1280=1276
