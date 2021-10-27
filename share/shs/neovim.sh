@@ -128,6 +128,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    Plug 'vim-test/vim-test'
    Plug 'nvim-treesitter/nvim-treesitter', {'branch' : '0.5-compat'}
    Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
+   Plug 'ferrine/md-img-paste.vim'
    
 call plug#end()
 EOF
@@ -447,8 +448,10 @@ nvim "+CocInstall -sync coc-html coc-css coc-tsserver coc-emmet" +qall
 if ! which bash-language-server > /dev/null; then
     sudo npm i -g bash-language-server --unsafe-perm
 fi
+
 nvim "+CocInstall -sync coc-sh" +qall
 nvim "+CocInstall -sync coc-snippets" +qall
+nvim "+CocInstall -sync coc-clangd" +qall
 
 
 
@@ -472,6 +475,15 @@ cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
 colorscheme gruvbox
 set background=dark
 EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
+    autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+    " there are some defaults for image directory and image name, you can change them
+    " let g:mdip_imgdir = 'img'
+    " let g:mdip_imgname = 'image'"
+EOF
+
+
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {

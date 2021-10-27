@@ -14,7 +14,8 @@ fi
 sudo sed -i  's/cn.archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.list
 sudo sed -i  's/archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.list
 sudo apt update 
-sudo  apt-get install -y   git curl fzf meld python3-pip flameshot
+sudo  apt-get install -y   git curl fzf meld python3-pip flameshot xclip
+sudo  apt-get install -y   clang clangd
 
 
 sudo rm -rf /vagrant_data
@@ -115,6 +116,10 @@ sudo tee /usr/bin/fsed <<'END'
 END
 sudo chmod u+x /usr/bin/fsed
 
+# vim 
+sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
+
+exit 1
 
 #awesome
 sudo  apt-get install -y   awesome konsole
@@ -281,6 +286,4 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
 fi
 
 
-# vim 
-sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
 
