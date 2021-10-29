@@ -57,7 +57,6 @@ sudo chmod 777 /usr/bin/pxy
 
 # zsh
 sudo apt install -y zsh
-sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
 
 
 if [ ! -f /usr/share/fonts/jetfont.ttf ];then
@@ -116,10 +115,6 @@ sudo tee /usr/bin/fsed <<'END'
 END
 sudo chmod u+x /usr/bin/fsed
 
-# vim 
-sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
-
-exit 1
 
 #awesome
 sudo  apt-get install -y   awesome konsole
@@ -200,8 +195,83 @@ read -r -d '' VAR <<-'EOF'
 EOF
 sudo sed -i "s#Layout manipulation#Layout manipulation@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
 
+read -r -d '' VAR <<-'EOF'
+ wibox.container.margin(awful.widget.watch('bash -c "cat /usr/share/dict/cracklib-small | shuf|   tail -n 1"', 10,function(widget,stdout)
+                 for line in stdout:gmatch("[a-z]+") do
+                     math.randomseed(os.time())
+                     array = {"red", "pink", "yellow"}
+                     index_int = math.ceil((math.random()*1000 % #array))
+                     widget:set_markup('<span color="' .. array[index_int] .. '">' .. line .. '</span>')
+                 end
+             end), 20),
+EOF
+sudo sed -i "s!mykeyboardlayout,!--mykeyboardlayout,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
+
+read -r -d '' VAR <<-'EOF'
+firefox_launcher  = awful.widget.launcher({ image = "/usr/share/icons/hicolor/48x48/apps/firefox.png", command = "firefox", spacing = 10 })    
+konsole_launcher  = awful.widget.launcher({ image = "/usr/share/icons/gnome/48x48/apps/utilities-terminal.png", command = "konsole" , spacing = 10})    
+thunar_launcher  = awful.widget.launcher({ image = "/usr/share/icons/elementary-xfce/apps/48/Thunar.png", command = "thunar" , spacing = 10})    
+shutdown_launcher  = awful.widget.launcher({ image = "/usr/share/icons/elementary-xfce-darker/actions/48/system-shutdown.png", command = "shutdown -h now" , spacing = 10})    
+lock_launcher  = awful.widget.launcher({ image = "/usr/share/icons/elementary-xfce/actions/48/lock.png", command = "xfce4-screensaver-command  -l" , spacing = 10}) 
+EOF
+sudo sed -i "s!Menubar configuration!Menubar configuration@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
 
 
+read -r -d '' VAR <<-'EOF'
+firefox_launcher,
+konsole_launcher,
+thunar_launcher,
+shutdown_launcher,
+lock_launcher,
+EOF
+sudo sed -i "s!mylauncher,!mylauncher,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
+
+read -r -d '' VAR <<-'EOF'
+ style = {
+                border_width = 3,
+                border_color = '#000',
+                shape = gears.shape.hexagon
+        },
+        layout = {
+            spacing = 1,
+            spacing_widget = {
+                {forced_width = 0, widget = wibox.widget.separator},
+                valign = 'right',
+                halign = 'center',
+                widget = wibox.container.place
+            },
+            layout = wibox.layout.fixed.horizontal
+        },
+        widget_template = {
+            {
+                {
+                    {
+                        {id = 'icon_role', widget = wibox.widget.imagebox},
+                        margins = 0,
+                        widget = wibox.container.margin
+                    },
+
+                    {id = 'text_role', widget = wibox.widget.textbox},
+                    layout = wibox.layout.fixed.horizontal
+                },
+                left = 20,
+                right = 20,
+                widget = wibox.container.margin
+            },
+            id = 'background_role',
+            forced_width = 200,
+            widget = wibox.container.background
+        },
+EOF
+sudo sed -i "s!currenttags,!currenttags,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
+
+
+sudo sed -i 's!theme.bg_normal     = "#222222"!theme.bg_normal     = "#535d6c"!g' /usr/share/awesome/themes/default/theme.lua
+sudo sed -i 's!theme.bg_focus      = "#535d6c"!theme.bg_focus      = "#242e30"!g' /usr/share/awesome/themes/default/theme.lua
+
+
+sudo sed -i 's!theme.bg_systray    = theme.bg_normal .. 50!theme.bg_systray    = theme.bg_normal!g' /usr/share/awesome/themes/default/theme.lua
+sudo sed -i 's!theme.bg_systray    = theme.bg_normal!theme.bg_systray    = theme.bg_normal .. 50!g' /usr/share/awesome/themes/default/theme.lua
 
 #golden
 sudo sed -i 's/enabled="1"/enabled="0"/g' /home/vagrant/.goldendict/config
@@ -287,3 +357,7 @@ fi
 
 
 
+sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
+
+# vim 
+sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
