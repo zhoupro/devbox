@@ -196,8 +196,8 @@ EOF
 sudo sed -i "s#Layout manipulation#Layout manipulation@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
- wibox.container.margin(awful.widget.watch('bash -c "cat /usr/share/dict/cracklib-small | shuf|   tail -n 1"', 10,function(widget,stdout)
-                 for line in stdout:gmatch("[a-z]+") do
+ wibox.container.margin(awful.widget.watch('bash -c "cat /tmp/words.txt | shuf | tail -n 1"', 10,function(widget,stdout)
+                 for line in stdout:gmatch(".+") do
                      math.randomseed(os.time())
                      array = {"red", "pink", "yellow"}
                      index_int = math.ceil((math.random()*1000 % #array))
