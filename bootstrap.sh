@@ -165,6 +165,17 @@ EOF
 sudo sed -i "s/Layout manipulation/Layout manipulation@$(echo "$VAR"|tr "\n" "@")/g;s/@/\n/g" /home/vagrant/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
+	awful.key({ modkey,           }, "l",
+	function ()  
+	awful.util.spawn("rofi -show window")
+	end,
+	{description = "rofi", group = "client"}),
+EOF
+
+sudo sed -i "s/Layout manipulation/Layout manipulation@$(echo "$VAR"|tr "\n" "@")/g;s/@/\n/g" /home/vagrant/.config/awesome/rc.lua
+
+
+read -r -d '' VAR <<-'EOF'
 	awful.key({ modkey,           }, "a",
         function ()
         awful.util.spawn("konsole -name menu -e bash -c 'cmd=bash /vagrant_data/shs/list.sh; setsid -f $cmd'")
@@ -357,7 +368,6 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
         sudo gdebi -n baiduyun.deb  && sudo rm -f baiduyun.deb
         sudo ln -s /opt/baidunetdisk/baidunetdisk /usr/bin/baidunetdisk
 fi
-
 
 sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
 
