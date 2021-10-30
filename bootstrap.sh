@@ -234,6 +234,21 @@ read -r -d '' VAR <<-'EOF'
 EOF
 sudo sed -i "s!mykeyboardlayout,!--mykeyboardlayout,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
 
+
+read -r -d '' VAR <<-'EOF'
+ wibox.container.margin(awful.widget.watch('date "+%H:%M"', 10,function(widget,stdout)
+                 for line in stdout:gmatch(".+") do
+                     math.randomseed(os.time())
+                     array = {"red", "pink", "yellow"}
+                     index_int = math.ceil((math.random()*1000 % #array))
+                     widget:set_markup('<span color="' .. array[index_int] .. '">' .. line .. '</span>')
+                 end
+             end), 10),
+EOF
+sudo sed -i "s!mytextclock,!--mytextclock,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
+
+
+
 read -r -d '' VAR <<-'EOF'
 firefox_launcher  = awful.widget.launcher({ image = "/usr/share/icons/hicolor/48x48/apps/firefox.png", command = "firefox", spacing = 10 })    
 konsole_launcher  = awful.widget.launcher({ image = "/usr/share/icons/gnome/48x48/apps/utilities-terminal.png", command = "konsole" , spacing = 10})    
@@ -368,7 +383,6 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
         sudo gdebi -n baiduyun.deb  && sudo rm -f baiduyun.deb
         sudo ln -s /opt/baidunetdisk/baidunetdisk /usr/bin/baidunetdisk
 fi
-
 sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
 
 # vim 
