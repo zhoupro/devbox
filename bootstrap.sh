@@ -151,6 +151,10 @@ sudo sed -i '$a\awful.util.spawn("nm-applet  &")' /home/vagrant/.config/awesome/
 sudo sed -i '$a\awful.util.spawn("autorandr --change")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("flameshot")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/bluetoothautoconnect.sh &")' /home/vagrant/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("go run /home/vagrant/github/copyproxy/main.go &")' /home/vagrant/.config/awesome/rc.lua
+
+
+
 
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  /home/vagrant/.config/awesome/rc.lua
 
