@@ -17,6 +17,22 @@ sudo apt update
 sudo  apt-get install -y   git curl fzf meld python3-pip flameshot xclip
 sudo  apt-get install -y   clang clangd
 
+# 安装
+sudo apt-get -y update && \
+    # tools
+    sudo apt-get install -y wget curl net-tools locales bzip2 unzip iputils-ping \
+    traceroute firefox firefox-locale-zh-hans ttf-wqy-microhei \
+    gedit gdebi python  gnome-font-viewer thunar awesome xfce4-terminal xrdp dbus-x11
+
+sudo apt-get -y update && \
+   sudo apt-get remove -y ibus indicator-keyboard && sudo apt-get purge -y ibus && \
+   sudo apt install -y fcitx-table-wbpy fcitx-config-gtk gdebi \
+   gawk curl  zsh \
+    git unzip wget    python3-pip  lsof sudo python \
+    autojump  nmap iproute2 net-tools  axel netcat ripgrep fzf  xcompmgr feh libappindicator3-1 software-properties-common \
+    konsole rofi
+
+
 
 sudo rm -rf /vagrant_data
 sudo mkdir /vagrant_data  && sudo chmod 777 /vagrant_data && cp -r share/*  /vagrant_data/
@@ -136,7 +152,7 @@ sudo sed -i '$a\awful.util.spawn("autorandr --change")' /home/vagrant/.config/aw
 sudo sed -i '$a\awful.util.spawn("flameshot")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/bluetoothautoconnect.sh &")' /home/vagrant/.config/awesome/rc.lua
 
-sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({ "A", "B", "C", "D","E" }, s, awful.layout.layouts[7])'  /home/vagrant/.config/awesome/rc.lua
+sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  /home/vagrant/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
 	awful.key({ modkey,           }, "q",
@@ -272,6 +288,9 @@ sudo sed -i 's!theme.bg_focus      = "#535d6c"!theme.bg_focus      = "#242e30"!g
 
 sudo sed -i 's!theme.bg_systray    = theme.bg_normal .. 50!theme.bg_systray    = theme.bg_normal!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.bg_systray    = theme.bg_normal!theme.bg_systray    = theme.bg_normal .. 50!g' /usr/share/awesome/themes/default/theme.lua
+sudo sed -i 's!theme.font          = "sans 8"!theme.font          = "JetBrainsMono Nerd Font Mono 12"!g' /usr/share/awesome/themes/default/theme.lua
+sudo sed -i 's!theme.fg_focus      = "#ffffff"!theme.fg_focus      = "#00ffef"!g' /usr/share/awesome/themes/default/theme.lua
+
 
 #golden
 sudo sed -i 's/enabled="1"/enabled="0"/g' /home/vagrant/.goldendict/config
@@ -306,22 +325,6 @@ EOF
 
 
 
-#sougou baidupan netease
-# 安装
-sudo apt-get -y update && \
-    # tools
-    sudo apt-get install -y wget curl net-tools locales bzip2 unzip iputils-ping \
-    traceroute firefox firefox-locale-zh-hans ttf-wqy-microhei \
-    gedit gdebi python  gnome-font-viewer thunar awesome xfce4-terminal xrdp dbus-x11
-
-sudo apt-get -y update && \
-   sudo apt-get remove -y ibus indicator-keyboard && sudo apt-get purge -y ibus && \
-   sudo apt install -y fcitx-table-wbpy fcitx-config-gtk gdebi \
-   gawk curl  zsh \
-    git unzip wget    python3-pip  lsof sudo python \
-    autojump  nmap iproute2 net-tools  axel netcat ripgrep fzf  xcompmgr feh libappindicator3-1 software-properties-common \
-    konsole rofi
-
 sudo rm -rf /home/vagrant/.local/share/konsole
 sudo rm -rf /home/vagrant/.config/konsolerc
 sudo cp -r /vagrant_data/conf/konsole/konsole  /home/vagrant/.local/share/konsole
@@ -354,7 +357,6 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
         sudo gdebi -n baiduyun.deb  && sudo rm -f baiduyun.deb
         sudo ln -s /opt/baidunetdisk/baidunetdisk /usr/bin/baidunetdisk
 fi
-
 
 
 sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
