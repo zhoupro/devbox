@@ -191,8 +191,8 @@ fun! Toggle_qmode()
          nmap bf <Plug>VimspectorAddFunctionBreakpoint
          nmap c <Plug>VimspectorContinue
          nmap n <Plug>VimspectorStepOver
-         nmap i <Plug>VimspectorStepInto
-         nmap 0 <Plug>VimspectorStepOut
+         nmap si <Plug>VimspectorStepInto
+         nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
          nmap t :call Mytest()<CR>
         echo "Using smart quotes"
@@ -203,8 +203,8 @@ fun! Toggle_qmode()
          unmap bf
          unmap c
          unmap n
-         unmap i
-         unmap 0
+         unmap si
+         unmap so
          unmap t
         echo "Using regular quotes"
      endif
