@@ -133,16 +133,21 @@ sudo chmod u+x /usr/bin/fsed
 
 
 #awesome
-sudo  apt-get install -y   awesome konsole
+sudo  apt-get install -y   awesome konsole evtest
 sudo  apt-get install -y   rofi vlc  goldendict ffmpeg feh  zathura
 sudo mkdir -p /home/vagrant/.config/awesome
+
+#keyboard input
+sudo chmod 664 /dev/input/event7
+sudo chmod 664 /dev/input/event2
+sudo chmod 664 /dev/input/event20
+
 sudo cp /etc/xdg/awesome/rc.lua /home/vagrant/.config/awesome/rc.lua
 sudo sed -i 's/"Mod4"/"Mod1"/g' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i 's/x-terminal-emulator/konsole/g' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i 's/mylauncher,/--mylauncher,/g' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i 's/titlebars_enabled = true/titlebars_enabled = false/g' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/feh.sh")' /home/vagrant/.config/awesome/rc.lua
-sudo sed -i '$a\awful.util.spawn("goldendict")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xcompmgr &")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-volumed &")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-power-manager &")' /home/vagrant/.config/awesome/rc.lua
@@ -151,7 +156,8 @@ sudo sed -i '$a\awful.util.spawn("nm-applet  &")' /home/vagrant/.config/awesome/
 sudo sed -i '$a\awful.util.spawn("autorandr --change")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("flameshot")' /home/vagrant/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/bluetoothautoconnect.sh &")' /home/vagrant/.config/awesome/rc.lua
-sudo sed -i '$a\awful.util.spawn("go run /home/vagrant/github/copyproxy/main.go &")' /home/vagrant/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("/usr/local/go/bin/go run /home/vagrant/github/copyproxy/main.go &")' /home/vagrant/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/ev.sh")' /home/vagrant/.config/awesome/rc.lua
 
 
 
@@ -226,15 +232,124 @@ read -r -d '' VAR <<-'EOF'
 EOF
 sudo sed -i "s#Layout manipulation#Layout manipulation@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
 
+
 read -r -d '' VAR <<-'EOF'
- wibox.container.margin(awful.widget.watch('bash -c "cat /tmp/words.txt | shuf | tail -n 1"', 10,function(widget,stdout)
-                 for line in stdout:gmatch(".+") do
-                     math.randomseed(os.time())
-                     array = {"red", "pink", "yellow"}
-                     index_int = math.ceil((math.random()*1000 % #array))
-                     widget:set_markup('<span color="' .. array[index_int] .. '">' .. line .. '</span>')
+    local function Split(s, delimiter)
+        result = {};
+        for match in (s..delimiter):gmatch("(.-)"..delimiter) do
+            table.insert(result, match);
+        end
+        return result;
+    end
+
+    local function popuptest(s, sen, title)
+        awful.popup {
+            widget = {
+                {
+                    {
+                        text   =  title
+                        widget = wibox.widget.textbox
+                    },
+
+                    {
+                        markup   =  s,
+                        widget = wibox.widget.textbox
+                    },
+                    {
+                        markup   =  sen,
+                        widget = wibox.widget.textbox
+                    },
+
+                    layout = wibox.layout.fixed.vertical,
+                },
+                margins = 10,
+                widget  = wibox.container.margin
+            },
+            hide_on_right_click = true,
+            ontop = true,
+            border_color = '#00ff00',
+            border_width = 5,
+            placement    = awful.placement.centered,
+            shape        = gears.shape.rounded_rect,
+            visible      = true,
+        }
+    end
+
+EOF
+
+sudo sed -i "s#Create a textclock widget#Create a textclock widget@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
+
+read -r -d '' VAR <<-'EOF'
+    gears.timer {
+        timeout = 360,
+        call_now = true,
+        autostart = true,
+        callback = function()
+            awful.util.spawn("bash /vagrant_data/shs/bingimg.sh")
+            awful.util.spawn("bash /vagrant_data/shs/feh.sh")
+            awful.util.spawn("bash /vagrant_data/shs/english/gen.sh")
+        end
+    }
+
+
+    start_up_time = 0
+    gears.timer {
+        timeout = 10,
+        call_now = false,
+        autostart = true,
+        callback = function()
+
+            if start_up_time == 0 then
+                start_up_time = time_str
+            end
+
+             local command = "tail -n 30  /tmp/keyboard | grep 'Event' | tail -n 1 | awk '{print $3}' | awk -F '.' '{print $1}'"
+              awful.spawn.easy_async_with_shell(command, function(out)
+                  last_time = tonumber(out)
+                  if not last_time or last_time < 1000  then
+                      return
+                  end
+
+                  time_delta = time_str - last_time
+                  if time_str > last_time and time_delta > 300 then
+                      start_up_time = time_str
+                  end
+
+                  if time_str - start_up_time > 1800 then
+                      start_up_time = time_str
+                      popuptest("have a reset", "guy", "rest remind")
+                  end
+              end)
+        end
+    }
+EOF
+
+sudo sed -i "s#Create a textclock widget#Create a textclock widget@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
+
+
+read -r -d '' VAR <<-'EOF'
+        wibox.container.margin(awful.widget.watch('bash -c "cat /tmp/words.txt | shuf | tail -n 1"', 20,function(widget,stdout)
+             for line in stdout:gmatch(".+") do
+                 math.randomseed(os.time())
+                 array = {"red", "pink", "yellow"}
+                 index_int = math.ceil((math.random()*1000 % #array))
+                 widget:set_markup('<span color="' .. array[index_int] .. '"> ' .. line .. ' </span>')
+                 local box_pressed = function(lx, ly, button, mods, find_widgets_result)
+                    local pop_str = widget:get_markup()
+                     split_string = Split(pop_str, " ")
+                     awful.util.spawn("bash /vagrant_data/shs/english/p.sh " .. split_string[3])
+                      local command = "sdcv ".. split_string[3] .." | grep -A 2 'Example Bank:' | grep  '^•'"
+                      awful.spawn.easy_async_with_shell(command, function(out)
+                          str_sen = out
+                          popuptest(pop_str,str_sen)
+                      end)
                  end
-             end), 20),
+                 if  sig_add   then
+                     sig_add = false
+                     widget:connect_signal("button::press", box_pressed)
+                 end
+             end
+         end), 20),
 EOF
 sudo sed -i "s!mykeyboardlayout,!--mykeyboardlayout,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
 

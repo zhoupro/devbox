@@ -129,7 +129,10 @@ call plug#begin('~/.local/share/nvim/plugged')
    Plug 'nvim-treesitter/nvim-treesitter', {'branch' : '0.5-compat'}
    Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
    Plug 'ferrine/md-img-paste.vim'
-   
+   Plug 'dhruvasagar/vim-table-mode'
+   Plug 'godlygeek/tabular'
+   Plug 'plasticboy/vim-markdown'
+
 call plug#end()
 EOF
 
@@ -312,7 +315,9 @@ EOF
 
 mkdir -p ~/.config/nvim/after/plugin
 
-
+cat <<'EOF' > ~/.config/nvim/after/plugin/markdown.rc.vim
+    let g:vim_markdown_folding_disabled = 1
+EOF
 
 cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
 "defx    
