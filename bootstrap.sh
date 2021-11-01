@@ -421,7 +421,7 @@ read -r -d '' VAR <<-'EOF'
         call_now = false,
         autostart = true,
         callback = function()
-
+            time_str = os.time()
             if start_up_time == 0 then
                 start_up_time = time_str
             end
