@@ -36,6 +36,8 @@ sudo apt-get -y update && \
 
 sudo rm -rf /vagrant_data
 sudo mkdir /vagrant_data  && sudo chmod 777 /vagrant_data && cp -r share/*  /vagrant_data/
+chmod u+x /vagrant_data/shs/english/*.sh
+chmod u+x /vagrant_data/shs/*.sh
 
 
 
@@ -165,6 +167,14 @@ sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/ev.sh")' /home/vagrant/
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  /home/vagrant/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
+sig_add = true
+EOF
+
+sudo sed -i "s/Notification library/Notification library@$(echo "$VAR"|tr "\n" "@")/g;s/@/\n/g" /home/vagrant/.config/awesome/rc.lua
+
+
+
+read -r -d '' VAR <<-'EOF'
 	awful.key({ modkey,           }, "q",
 	function ()  
 	awful.util.spawn("rofi -show run")
@@ -247,7 +257,7 @@ read -r -d '' VAR <<-'EOF'
             widget = {
                 {
                     {
-                        text   =  title
+                        text   =  title,
                         widget = wibox.widget.textbox
                     },
 
@@ -277,54 +287,7 @@ read -r -d '' VAR <<-'EOF'
 
 EOF
 
-sudo sed -i "s#Create a textclock widget#Create a textclock widget@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
-
-read -r -d '' VAR <<-'EOF'
-    gears.timer {
-        timeout = 360,
-        call_now = true,
-        autostart = true,
-        callback = function()
-            awful.util.spawn("bash /vagrant_data/shs/bingimg.sh")
-            awful.util.spawn("bash /vagrant_data/shs/feh.sh")
-            awful.util.spawn("bash /vagrant_data/shs/english/gen.sh")
-        end
-    }
-
-
-    start_up_time = 0
-    gears.timer {
-        timeout = 10,
-        call_now = false,
-        autostart = true,
-        callback = function()
-
-            if start_up_time == 0 then
-                start_up_time = time_str
-            end
-
-             local command = "tail -n 30  /tmp/keyboard | grep 'Event' | tail -n 1 | awk '{print $3}' | awk -F '.' '{print $1}'"
-              awful.spawn.easy_async_with_shell(command, function(out)
-                  last_time = tonumber(out)
-                  if not last_time or last_time < 1000  then
-                      return
-                  end
-
-                  time_delta = time_str - last_time
-                  if time_str > last_time and time_delta > 300 then
-                      start_up_time = time_str
-                  end
-
-                  if time_str - start_up_time > 1800 then
-                      start_up_time = time_str
-                      popuptest("have a reset", "guy", "rest remind")
-                  end
-              end)
-        end
-    }
-EOF
-
-sudo sed -i "s#Create a textclock widget#Create a textclock widget@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
+sudo sed -i "s!Menubar configuration!Menubar configuration@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" /home/vagrant/.config/awesome/rc.lua
 
 
 read -r -d '' VAR <<-'EOF'
@@ -437,6 +400,57 @@ sudo sed -i 's!theme.font          = "sans 8"!theme.font          = "JetBrainsMo
 sudo sed -i 's!theme.fg_focus      = "#ffffff"!theme.fg_focus      = "#00ffef"!g' /usr/share/awesome/themes/default/theme.lua
 
 
+
+echo "--END" >> /home/vagrant/.config/awesome/rc.lua
+read -r -d '' VAR <<-'EOF'
+    gears.timer {
+        timeout = 360,
+        call_now = true,
+        autostart = true,
+        callback = function()
+            awful.util.spawn("bash /vagrant_data/shs/bingimg.sh")
+            awful.util.spawn("bash /vagrant_data/shs/feh.sh")
+            awful.util.spawn("bash /vagrant_data/shs/english/gen.sh")
+        end
+    }
+
+
+    start_up_time = 0
+    gears.timer {
+        timeout = 10,
+        call_now = false,
+        autostart = true,
+        callback = function()
+
+            if start_up_time == 0 then
+                start_up_time = time_str
+            end
+
+             local command = "tail -n 30  /tmp/keyboard | grep 'Event' | tail -n 1 | awk '{print $3}' | awk -F '.' '{print $1}'"
+              awful.spawn.easy_async_with_shell(command, function(out)
+                  last_time = tonumber(out)
+                  if not last_time or last_time < 1000  then
+                      return
+                  end
+
+                  time_delta = time_str - last_time
+                  if time_str > last_time and time_delta > 300 then
+                      start_up_time = time_str
+                  end
+
+                  if time_str - start_up_time > 1800 then
+                      start_up_time = time_str
+                      popuptest("have a reset", "guy", "rest remind")
+                  end
+              end)
+        end
+    }
+EOF
+
+sudo sed -i "s#END#END@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" /home/vagrant/.config/awesome/rc.lua
+
+
+
 #golden
 sudo sed -i 's/enabled="1"/enabled="0"/g' /home/vagrant/.goldendict/config
 sudo sed -i 's#<paths/>#<paths><path recursive="1">/vagrant_data/dict/En-En_OALD8</path></paths>#g' /home/vagrant/.goldendict/config
@@ -502,7 +516,7 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
         sudo gdebi -n baiduyun.deb  && sudo rm -f baiduyun.deb
         sudo ln -s /opt/baidunetdisk/baidunetdisk /usr/bin/baidunetdisk
 fi
-sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
 
+sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
 # vim 
 sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
