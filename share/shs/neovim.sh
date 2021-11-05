@@ -49,11 +49,9 @@ cat <<EOF > ~/.config/nvim/settings.vim
     set shiftwidth=4
     set expandtab
     set foldmethod=manual
-    highlight Normal ctermbg=None
-
-
-   let g:vimspector_enable_mappings = 'HUMAN'
-   let test#strategy='neovim'
+    autocmd Filetype json let g:indentLine_enabled = 0
+    let g:vimspector_enable_mappings = 'HUMAN'
+    let test#strategy='neovim'
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -479,6 +477,7 @@ go_ins
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
 colorscheme gruvbox
 set background=dark
+highlight Normal ctermbg=None
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim

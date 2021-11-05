@@ -185,7 +185,7 @@ EOF
 sudo sed -i "s/Layout manipulation/Layout manipulation@$(echo "$VAR"|tr "\n" "@")/g;s/@/\n/g" /home/vagrant/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
-	awful.key({ modkey,           }, "l",
+	awful.key({ modkey,           }, "c",
 	function ()  
 	awful.util.spawn("rofi -show window")
 	end,
