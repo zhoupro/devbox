@@ -15,7 +15,10 @@ sudo sed -i  's/cn.archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.li
 sudo sed -i  's/archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.list
 sudo apt update 
 sudo  apt-get install -y   git curl fzf meld python3-pip flameshot xclip
-sudo  apt-get install -y   clang clangd
+sudo  apt-get install -y   clang-12 clangd-12  bc
+sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
+sudo apt install -o Dpkg::Options::="--force-overwrite" bat ripgrep
+sudo ln -s  /usr/bin/batcat /usr/bin/bat
 
 # 安装
 sudo apt-get -y update && \

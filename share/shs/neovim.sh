@@ -90,6 +90,7 @@ cat <<EOF > ~/.config/nvim/maps.vim
     nmap <silent> gr <Plug>(coc-references)
     autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
     map  <leader>ef  :call ExtraFunc()<CR>
+    map  ma  :call Mybks()<CR>
 EOF
 
 
@@ -130,7 +131,7 @@ call plug#begin('~/.local/share/nvim/plugged')
    Plug 'dhruvasagar/vim-table-mode'
    Plug 'godlygeek/tabular'
    Plug 'plasticboy/vim-markdown'
-
+   Plug 'MattesGroeger/vim-bookmarks'
 call plug#end()
 EOF
 
@@ -295,6 +296,46 @@ fun! ExtraFunc()
     execute "call  CocActionAsync('rename')"
 endfun
 
+function! Mybookmarks() abort
+  return filter(map(bm#location_list(), { _, b -> s:bookmarks_format_line(b) }), { _, b -> b !=# '' })
+endfunction
+
+function! s:bookmarks_format_line(line) abort
+  let line = split(a:line, ':')
+  let filename = fnamemodify(line[0], ':.')
+  if !filereadable(filename)
+    return ''
+  endif
+
+  let line_number = line[1]
+  let text = line[2]
+
+  if text ==# 'Annotation'
+    let comment = line[3]
+  else
+    let text = join(line[2:], ':')
+  endif
+
+  return line_number ." ".  filename
+
+endfunction
+
+    "\ call fzf#vim#marks(<q-args>, fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=? -complete=dir MyFile
+    \ call fzf#vim#marks(<bang>0)
+
+function! MySink(line)
+  let lineinfo=split(a:line)
+  exec "e ".lineinfo[1]
+  exec lineinfo[0]
+  exec "normal zz"
+endfunction
+
+function! Mybks()
+    let mmm=Mybookmarks()
+    call fzf#run(fzf#wrap({'source': mmm,'options': ['--preview', 'start=$(echo {1}-4|bc) && if [ $start -lt 0 ];then start=0;fi;end=$(echo {1}+12|bc)  &&  bat    --color=always --style=numbers -H {1} --line-range=$start:$end {2}'],'sink':function("MySink") }))
+endfunction
+
 EOF
 
 cat <<EOF > ~/.config/nvim/cmd.vim
@@ -307,6 +348,13 @@ command! -bang -nargs=* Rg
 command Gg call system('echo '.expand("%"). '>> .git/info/exclude')
 command! ToggleDebug call Toggle_qmode()
 
+fun! My()    
+      let cur_line = line(".")    
+      execute "normal yaf"    
+      let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
+      execute cur_line    
+      call system("bash /home/vagrant/playground/go/vimspector_config_gen.sh " . funcName)    
+endfun
 
 EOF
 
