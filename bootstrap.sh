@@ -10,10 +10,11 @@ if ! grep -q "223.5.5.5" /etc/resolv.conf; then
     sudo sed -i '$a\nameserver 223.6.6.6' /etc/resolv.conf
 fi
 
+
 # change aliyun mirrors
 sudo sed -i  's/cn.archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.list
 sudo sed -i  's/archive.ubuntu.com/mirrors.aliyun.com/g'  /etc/apt/sources.list
-sudo apt update 
+sudo apt update
 sudo  apt-get install -y   git curl fzf meld python3-pip flameshot xclip
 sudo  apt-get install -y   clang-12 clangd-12  bc
 sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
@@ -39,10 +40,12 @@ sudo apt-get -y update && \
 
 sudo rm -rf /vagrant_data
 sudo mkdir /vagrant_data  && sudo chmod 777 /vagrant_data && cp -r share/*  /vagrant_data/
+
+sudo rm -rf /home/vagrant/.config/nvim/coc-settings.json
+sudo cp  /vagrant_data/conf/coc-settings.json  /home/vagrant/.config/nvim/coc-settings.json
+
 chmod u+x /vagrant_data/shs/english/*.sh
 chmod u+x /vagrant_data/shs/*.sh
-
-
 
 
 if  nc -zv localhost 8087 ;then
@@ -135,6 +138,9 @@ sudo tee /usr/bin/fsed <<'END'
 	sed -i "${LINENUMBER}s/.*/$2/" "$3"
 END
 sudo chmod u+x /usr/bin/fsed
+
+# vim 
+sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 
 
 
 #awesome
@@ -521,5 +527,3 @@ if ! dpkg -l | grep -q "baidunetdisk" ; then
 fi
 
 sudo -H -u vagrant bash /vagrant_data/shs/zsh.sh
-# vim 
-sudo -H -u vagrant bash /vagrant_data/shs/neovim.sh 

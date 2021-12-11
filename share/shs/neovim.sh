@@ -88,9 +88,11 @@ cat <<EOF > ~/.config/nvim/maps.vim
     nmap <silent> gy <Plug>(coc-type-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
+    nmap <silent> gc :CocCommand  document.showIncomingCalls<CR>
     autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
     map  <leader>ef  :call ExtraFunc()<CR>
     map  ma  :call Mybks()<CR>
+    map  <leader>ef  :call ExtraFunc()<CR>
 EOF
 
 
@@ -357,7 +359,6 @@ fun! My()
 endfun
 
 EOF
-
 
 mkdir -p ~/.config/nvim/after/plugin
 
