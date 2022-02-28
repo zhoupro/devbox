@@ -1,7 +1,7 @@
 #ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 Vagrant.configure("2") do |config|
-  config.vm.provision "shell", path: "bootstrap_test.sh"
+  config.vm.provision "shell", path: "bootstrap_leet_with_go.sh"
   # k8s master server
   config.vm.define "kmaster" do |node|
     node.vm.box               = "linuxmint"
@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Kubernetes Worker Nodes
-  NodeCount = 2
+  NodeCount = 0
   (1..NodeCount).each do |i|
     config.vm.define "kworker#{i}" do |node|
       node.vm.box               = "linuxmint"

@@ -1,30 +1,28 @@
-#读取参数
-# install neovim
+#!/bin/bash
+source /vagrant_data/shs/utils.sh
 
+#读取参数# install neovim
 if [ ! -f /usr/local/bin/vim ];then
     if [ ! -f nvim.appimage ];then
-        pxy wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+        axel -n 20 -o nvim.appimage `getDownloadUrl 'https://github.com/neovim/neovim/releases/download/stable/nvim.appimage'`
+        sudo mv ./nvim.appimage /usr/local/bin/nvim    && \
+        sudo ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
+        sudo chmod 777 /usr/local/bin/nvim 
     fi
-    sudo chmod u+x nvim.appimage && sudo ./nvim.appimage --appimage-extract
-    sudo mkdir -p /opt/soft/nvim
-    sudo mv squashfs-root/* /opt/soft/nvim/
-    sudo rm -f /usr/local/bin/vim
-    sudo ln -s  /opt/soft/nvim/usr/bin/nvim /usr/local/bin/vim
-    sudo rm -f /usr/local/bin/nvim
-    sudo ln -s  /opt/soft/nvim/usr/bin/nvim /usr/local/bin/nvim
-    rm -rf nvim.appimage
 fi
 
 if [ ! "$(pip3 list | grep neovim)" ];then
     pip3 install neovim --upgrade
 fi
 
+
 #-------------------------------------------------------------------------------
 # install vim-plug
 #-------------------------------------------------------------------------------
 if  [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ] ; then
-    pxy curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs `getDownloadUrl 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'` 
 fi
+
 
 rm -f ~/.config/nvim/init.vim
 
@@ -491,7 +489,7 @@ EOF
 
 
 
-pxy nvim +'PlugInstall --sync' +qall
+nvim +'PlugInstall --sync' +qall
 # install some lsp
 nvim "+CocInstall -sync coc-vimlsp" +qall
 nvim "+CocInstall -sync coc-python" +qall
@@ -511,9 +509,9 @@ function go_ins(){
     ! (grep -F 'sebdah/vim-delve' /home/vagrant/.config/nvim/plug.vim &>/dev/null ) && \
     sed -i "/plug#begin/aPlug 'fatih/vim-go'" /home/vagrant/.config/nvim/plug.vim
     export PATH=$PATH:/usr/local/go/bin:/home/vagrant/go/bin
-    pxy nvim +'GoInstallBinaries' +qall
-    pxy go get -u github.com/cweill/gotests/...
-    pxy nvim -E -c 'CocCommand go.install.tools' -c qall
+    nvim +'GoInstallBinaries' +qall
+    go get -u github.com/cweill/gotests/...
+     nvim -E -c 'CocCommand go.install.tools' -c qall
     nvim +'CocInstall -sync coc-go' +qall
     ! ( grep -F "leetcode_solution_filetype" /home/vagrant/.config/nvim/init.vim ) && \
     cat >> /home/vagrant/.config/nvim/init.vim <<END
@@ -524,7 +522,7 @@ go_ins
 
 
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
-colorscheme gruvbox
+"colorscheme gruvbox
 set background=dark
 highlight Normal ctermbg=None
 EOF
@@ -549,14 +547,7 @@ require'nvim-treesitter.configs'.setup {
     disable = {},
   },
   ensure_installed = {
-    "toml",
-    "fish",
-    "python",
-    "go",
-    "json",
-    "yaml",
-    "html",
-    "scss"
+    "go"
   },
     textobjects = {
       select = {
@@ -585,5 +576,3 @@ require'nvim-treesitter.configs'.setup {
   }
 
 EOF
-
-
