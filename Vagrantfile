@@ -1,7 +1,7 @@
 #ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 Vagrant.configure("2") do |config|
-  config.vm.provision "shell", path: "bootstrap_leet_with_go.sh"
+  config.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
   # k8s master server
   config.vm.define "kmaster" do |node|
     node.vm.box               = "linuxmint"

@@ -26,7 +26,7 @@ fi
 
 rm -f ~/.config/nvim/init.vim
 
-cat <<EOF > ~/.config/nvim/init.vim
+cat <<EOF > /home/vagrant/.config/nvim/init.vim
 
 runtime ./settings.vim
 runtime ./plug.vim
@@ -36,7 +36,7 @@ runtime ./cmd.vim
 
 EOF
 
-cat <<EOF > ~/.config/nvim/settings.vim
+cat <<EOF > /home/vagrant/.config/nvim/settings.vim
     let mapleader=","
     set noswapfile
     set hlsearch
@@ -52,7 +52,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     let test#strategy='neovim'
 EOF
 
-cat <<EOF > ~/.config/nvim/maps.vim
+cat <<EOF > /home/vagrant/.config/nvim/maps.vim
    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
    map <leader>n :Defx<CR>
@@ -94,7 +94,7 @@ cat <<EOF > ~/.config/nvim/maps.vim
 EOF
 
 
-cat <<EOF > ~/.config/nvim/plug.vim
+cat <<EOF > /home/vagrant/.config/nvim/plug.vim
 call plug#begin('~/.local/share/nvim/plugged')
    Plug 'honza/vim-snippets'
    Plug 'fvictorio/vim-extract-variable'
@@ -136,7 +136,7 @@ call plug#end()
 EOF
 
 
-cat <<'EOF' > ~/.config/nvim/func.vim
+cat <<'EOF' > /home/vagrant/.config/nvim/func.vim
 func! RunProgram()    
       exec "w"    
       if &filetype == 'c'    
@@ -338,7 +338,7 @@ endfunction
 
 EOF
 
-cat <<EOF > ~/.config/nvim/cmd.vim
+cat <<EOF > /home/vagrant/.config/nvim/cmd.vim
 command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
     \   'rg --column --line-number --hidden --ignore-case --ignore-file ~/.fzf_ignore --no-heading --color=always '.<q-args>, 1,
@@ -358,13 +358,13 @@ endfun
 
 EOF
 
-mkdir -p ~/.config/nvim/after/plugin
+mkdir -p /home/vagrant/.config/nvim/after/plugin
 
-cat <<'EOF' > ~/.config/nvim/after/plugin/markdown.rc.vim
+cat <<'EOF' > /home/vagrant/.config/nvim/after/plugin/markdown.rc.vim
     let g:vim_markdown_folding_disabled = 1
 EOF
 
-cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
+cat <<'EOF' > /home/vagrant/.config/nvim/after/plugin/defx.rc.vim
 "defx    
   augroup vimrc_defx    
     autocmd!    
@@ -466,7 +466,7 @@ cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
 EOF
 
 
-cat <<EOF > ~/.config/nvim/coc-settings.json
+cat <<EOF > /home/vagrant/.config/nvim/coc-settings.json
 
 {
   "suggest.triggerAfterInsertEnter": true,
@@ -521,13 +521,13 @@ END
 go_ins
 
 
-cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
+cat <<EOF > /home/vagrant/.config/nvim/after/plugin/colorschem.rc.vim
 "colorscheme gruvbox
 set background=dark
 highlight Normal ctermbg=None
 EOF
 
-cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
+cat <<EOF > /home/vagrant/.config/nvim/after/plugin/mdpaste.rc.vim
     autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
     " there are some defaults for image directory and image name, you can change them
     " let g:mdip_imgdir = 'img'
@@ -536,7 +536,7 @@ EOF
 
 
 
-cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
+cat <<EOF > /home/vagrant/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {
     highlight = {
     enable = true,
