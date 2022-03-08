@@ -24,6 +24,9 @@ proxy() {
     #git
     git config --global http.proxy "$prox"
     git config --global https.proxy "$prox"
+    git config --global http.sslVerify false
+    git config --global https.sslVerify false
+
     #go
     #export GOPROXY=https://goproxy.cn
     
@@ -31,6 +34,7 @@ proxy() {
     /usr/local/go/bin/go env -w GO111MODULE=on 
     #go env -w GOPROXY=https://goproxy.cn,direct
    /usr/local/go/bin/go env -w GOPROXY=https://goproxy.cn,direct
+    /usr/local/lib/nodejs/node/bin/w2 start
 
 }
 

@@ -3,40 +3,96 @@ source /vagrant_data/shs/utils.sh
 
 #读取参数# install neovim
 if [ ! -f /usr/local/bin/vim ];then
-    if [ ! -f nvim.appimage ];then
-        axel -n 20 -o nvim.appimage `getDownloadUrl 'https://github.com/neovim/neovim/releases/download/stable/nvim.appimage'`
-        sudo mv ./nvim.appimage /usr/local/bin/nvim    && \
-        sudo ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
-        sudo chmod 777 /usr/local/bin/nvim 
-    fi
+      proxy && \
+      axel -n 20 -o nvim.appimage 'https://github.com/neovim/neovim/releases/download/stable/nvim.appimage'
+      noproxy && \
+      mv ./nvim.appimage /usr/local/bin/nvim    && \
+      ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
+      chmod 777 /usr/local/bin/nvim 
 fi
 
 if [ ! "$(pip3 list | grep neovim)" ];then
     pip3 install neovim --upgrade
 fi
 
-
+ cp /vagrant_data/conf/rootCA.crt /usr/local/share/ca-certificates/
+ update-ca-certificates
+#-------------------------------------------------------------------------------
+# install dein 
+#-------------------------------------------------------------------------------
+#if  [ ! -f ~/.vim/dein/repos/github.com/Shougo/dein.vim ] ; then
+#    cp /vagrant_data/shs/install.sh  . && \
+#    chmod u+x install.sh && ./install.sh ~/.vim/dein
+#fi
 #-------------------------------------------------------------------------------
 # install vim-plug
 #-------------------------------------------------------------------------------
 if  [ ! -f ~/.local/share/nvim/site/autoload/plug.vim ] ; then
-    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs `getDownloadUrl 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'` 
+    curl -k -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs `getDownloadUrl 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'` 
+    #mkdir -p ~/.local/share/nvim/site/autoload 
+    #cp /vagrant_data/conf/plug.vim  ~/.local/share/nvim/site/autoload/
 fi
 
-
+mkdir -p ~/.config/nvim
 rm -f ~/.config/nvim/init.vim
 
-cat <<EOF > /home/vagrant/.config/nvim/init.vim
+
+cat <<EOF > ~/.config/nvim/init.vim
 
 runtime ./settings.vim
 runtime ./plug.vim
 runtime ./maps.vim
 runtime ./func.vim
 runtime ./cmd.vim
-
 EOF
 
-cat <<EOF > /home/vagrant/.config/nvim/settings.vim
+cat <<EOF > ~/.config/nvim/plug.vim
+
+call plug#begin('~/.local/share/nvim/plugged')
+   Plug 'honza/vim-snippets'
+   Plug 'fvictorio/vim-extract-variable'
+   Plug 'morhetz/gruvbox'
+   Plug 'tpope/vim-commentary'
+   "complete
+   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+   Plug 'kristijanhusak/defx-icons'
+   Plug 'kristijanhusak/defx-git'
+    " explore
+   "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+   Plug 'junegunn/fzf', { 'dir': '~/.fzf' }
+   Plug 'junegunn/fzf.vim'
+   Plug 'puremourning/vimspector'
+   Plug 'majutsushi/tagbar'
+   "outline
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'vim-scripts/ctags.vim'
+   "git
+   Plug 'tpope/vim-fugitive'
+   Plug 'airblade/vim-gitgutter'
+
+   Plug 'wellle/targets.vim'
+   Plug 'jiangmiao/auto-pairs'
+   Plug 'tpope/vim-abolish'
+   Plug 'tpope/vim-surround'
+   Plug 'tpope/vim-repeat'
+
+   Plug 'vim-test/vim-test'
+  " Plug 'nvim-treesitter/nvim-treesitter', {'branch' : '0.5-compat'}
+  " Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
+   Plug 'ferrine/md-img-paste.vim'
+   Plug 'dhruvasagar/vim-table-mode'
+   Plug 'godlygeek/tabular'
+   Plug 'plasticboy/vim-markdown'
+   Plug 'MattesGroeger/vim-bookmarks'
+call plug#end()
+EOF
+
+
+
+
+cat <<EOF > ~/.config/nvim/settings.vim
     let mapleader=","
     set noswapfile
     set hlsearch
@@ -52,7 +108,7 @@ cat <<EOF > /home/vagrant/.config/nvim/settings.vim
     let test#strategy='neovim'
 EOF
 
-cat <<EOF > /home/vagrant/.config/nvim/maps.vim
+cat <<EOF > ~/.config/nvim/maps.vim
    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
    map <leader>n :Defx<CR>
@@ -94,49 +150,8 @@ cat <<EOF > /home/vagrant/.config/nvim/maps.vim
 EOF
 
 
-cat <<EOF > /home/vagrant/.config/nvim/plug.vim
-call plug#begin('~/.local/share/nvim/plugged')
-   Plug 'honza/vim-snippets'
-   Plug 'fvictorio/vim-extract-variable'
-   Plug 'morhetz/gruvbox'
-   Plug 'tpope/vim-commentary'
-   "complete
-   Plug 'neoclide/coc.nvim', {'branch': 'release'}
-   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-   Plug 'kristijanhusak/defx-icons'
-   Plug 'kristijanhusak/defx-git'
-    " explore
-   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-   Plug 'junegunn/fzf.vim'
-   Plug 'puremourning/vimspector'
-   Plug 'majutsushi/tagbar'
-   "outline
-   Plug 'vim-airline/vim-airline'
-   Plug 'vim-airline/vim-airline-themes'
-   Plug 'vim-scripts/ctags.vim'
-   "git
-   Plug 'tpope/vim-fugitive'
-   Plug 'airblade/vim-gitgutter'
 
-   Plug 'wellle/targets.vim'
-   Plug 'jiangmiao/auto-pairs'
-   Plug 'tpope/vim-abolish'
-   Plug 'tpope/vim-surround'
-   Plug 'tpope/vim-repeat'
-
-   Plug 'vim-test/vim-test'
-   Plug 'nvim-treesitter/nvim-treesitter', {'branch' : '0.5-compat'}
-   Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
-   Plug 'ferrine/md-img-paste.vim'
-   Plug 'dhruvasagar/vim-table-mode'
-   Plug 'godlygeek/tabular'
-   Plug 'plasticboy/vim-markdown'
-   Plug 'MattesGroeger/vim-bookmarks'
-call plug#end()
-EOF
-
-
-cat <<'EOF' > /home/vagrant/.config/nvim/func.vim
+cat <<'EOF' > ~/.config/nvim/func.vim
 func! RunProgram()    
       exec "w"    
       if &filetype == 'c'    
@@ -338,7 +353,7 @@ endfunction
 
 EOF
 
-cat <<EOF > /home/vagrant/.config/nvim/cmd.vim
+cat <<EOF > ~/.config/nvim/cmd.vim
 command! -bang -nargs=* Rg
     \ call fzf#vim#grep(
     \   'rg --column --line-number --hidden --ignore-case --ignore-file ~/.fzf_ignore --no-heading --color=always '.<q-args>, 1,
@@ -353,18 +368,18 @@ fun! My()
       execute "normal yaf"    
       let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
       execute cur_line    
-      call system("bash /home/vagrant/playground/go/vimspector_config_gen.sh " . funcName)    
+      call system("bash ~/playground/go/vimspector_config_gen.sh " . funcName)    
 endfun
 
 EOF
 
-mkdir -p /home/vagrant/.config/nvim/after/plugin
+mkdir -p ~/.config/nvim/after/plugin
 
-cat <<'EOF' > /home/vagrant/.config/nvim/after/plugin/markdown.rc.vim
+cat <<'EOF' > ~/.config/nvim/after/plugin/markdown.rc.vim
     let g:vim_markdown_folding_disabled = 1
 EOF
 
-cat <<'EOF' > /home/vagrant/.config/nvim/after/plugin/defx.rc.vim
+cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
 "defx    
   augroup vimrc_defx    
     autocmd!    
@@ -466,7 +481,7 @@ cat <<'EOF' > /home/vagrant/.config/nvim/after/plugin/defx.rc.vim
 EOF
 
 
-cat <<EOF > /home/vagrant/.config/nvim/coc-settings.json
+cat <<EOF > ~/.config/nvim/coc-settings.json
 
 {
   "suggest.triggerAfterInsertEnter": true,
@@ -488,46 +503,50 @@ cat <<EOF > /home/vagrant/.config/nvim/coc-settings.json
 EOF
 
 
-
-nvim +'PlugInstall --sync' +qall
-# install some lsp
-nvim "+CocInstall -sync coc-vimlsp" +qall
-nvim "+CocInstall -sync coc-python" +qall
-nvim "+CocInstall -sync coc-html coc-css coc-tsserver coc-emmet" +qall
-
 if ! which bash-language-server > /dev/null; then
-    sudo npm i -g bash-language-server --unsafe-perm
+    #npm i -g bash-language-server --unsafe-perm
+    echo "helo"
 fi
 
-nvim "+CocInstall -sync coc-sh" +qall
-nvim "+CocInstall -sync coc-snippets" +qall
+proxy
+nvim +'PlugInstall --sync' +qall  
+
+nvim "+CocInstall -sync coc-vimlsp" +qall && \
+nvim "+CocInstall -sync coc-python" +qall && \
+nvim "+CocInstall -sync coc-html coc-css coc-tsserver coc-emmet" +qall
+nvim "+CocInstall -sync coc-sh" +qall && \
+nvim "+CocInstall -sync coc-snippets" +qall && \
 nvim "+CocInstall -sync coc-clangd" +qall
+noproxy
 
 
 
 function go_ins(){
-    ! (grep -F 'sebdah/vim-delve' /home/vagrant/.config/nvim/plug.vim &>/dev/null ) && \
-    sed -i "/plug#begin/aPlug 'fatih/vim-go'" /home/vagrant/.config/nvim/plug.vim
-    export PATH=$PATH:/usr/local/go/bin:/home/vagrant/go/bin
+    ! (grep -F 'sebdah/vim-delve' ~/.config/nvim/plug.vim &>/dev/null ) && \
+    sed -i "/plug#begin/aPlug 'fatih/vim-go'" ~/.config/nvim/plug.vim
+    export PATH=$PATH:/usr/local/go/bin:~/go/bin
     nvim +'GoInstallBinaries' +qall
     go get -u github.com/cweill/gotests/...
-     nvim -E -c 'CocCommand go.install.tools' -c qall
+    nvim -E -c 'CocCommand go.install.tools' -c qall
     nvim +'CocInstall -sync coc-go' +qall
-    ! ( grep -F "leetcode_solution_filetype" /home/vagrant/.config/nvim/init.vim ) && \
-    cat >> /home/vagrant/.config/nvim/init.vim <<END
+    ! ( grep -F "leetcode_solution_filetype" ~/.config/nvim/init.vim ) && \
+    cat >> ~/.config/nvim/init.vim <<END
     let g:leetcode_solution_filetype='golang'
 END
+  nvim +'PlugInstall --sync' +qall
 }
+proxy
 go_ins
+noproxy
 
 
-cat <<EOF > /home/vagrant/.config/nvim/after/plugin/colorschem.rc.vim
-"colorscheme gruvbox
+cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
+silent! colorscheme gruvbox
 set background=dark
 highlight Normal ctermbg=None
 EOF
 
-cat <<EOF > /home/vagrant/.config/nvim/after/plugin/mdpaste.rc.vim
+cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
     autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
     " there are some defaults for image directory and image name, you can change them
     " let g:mdip_imgdir = 'img'
@@ -535,8 +554,9 @@ cat <<EOF > /home/vagrant/.config/nvim/after/plugin/mdpaste.rc.vim
 EOF
 
 
+exit 0
 
-cat <<EOF > /home/vagrant/.config/nvim/after/plugin/nvim-treesitter.rc.lua
+cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {
     highlight = {
     enable = true,
@@ -546,10 +566,7 @@ require'nvim-treesitter.configs'.setup {
     enable = false,
     disable = {},
   },
-  ensure_installed = {
-    "go"
-  },
-    textobjects = {
+  textobjects = {
       select = {
        enable = true,
   

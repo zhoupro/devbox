@@ -1,9 +1,8 @@
 #!/bin/bash
 
-if [ ! -d /home/vagrant/.oh-my-zsh ];then
+if [ ! -d ~/.oh-my-zsh ];then
 	#sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-	sudo usermod -s /bin/zsh vagrant
-
+	usermod -s /bin/zsh  `whoami`
 
 	! (grep -F 'zsh-autosuggestions' ~/.zshrc &>/dev/null )  && \
 	  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
@@ -13,7 +12,6 @@ if [ ! -d /home/vagrant/.oh-my-zsh ];then
 	! (grep -F 'zsh-syntax-highlighting' ~/.zshrc &>/dev/null )  && \
 	   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
 	   sed -E -i "s/plugins=\((.*)\)/plugins=\(\1 zsh-syntax-highlighting\)/g" ~/.zshrc
-
 
 
 	#zsh pure
