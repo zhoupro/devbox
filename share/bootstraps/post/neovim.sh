@@ -79,8 +79,8 @@ call plug#begin('~/.local/share/nvim/plugged')
    Plug 'tpope/vim-repeat'
 
    Plug 'vim-test/vim-test'
-  " Plug 'nvim-treesitter/nvim-treesitter', {'branch' : '0.5-compat'}
-  " Plug 'nvim-treesitter/nvim-treesitter-textobjects', {'branch' : '0.5-compat'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'nvim-treesitter/nvim-treesitter-textobjects'
    Plug 'ferrine/md-img-paste.vim'
    Plug 'dhruvasagar/vim-table-mode'
    Plug 'godlygeek/tabular'
@@ -503,22 +503,11 @@ cat <<EOF > ~/.config/nvim/coc-settings.json
 EOF
 
 
-if ! which bash-language-server > /dev/null; then
-    #npm i -g bash-language-server --unsafe-perm
-    echo "helo"
-fi
-
 proxy
 nvim +'PlugInstall --sync' +qall  
-
-nvim "+CocInstall -sync coc-vimlsp" +qall && \
-nvim "+CocInstall -sync coc-python" +qall && \
-nvim "+CocInstall -sync coc-html coc-css coc-tsserver coc-emmet" +qall
-nvim "+CocInstall -sync coc-sh" +qall && \
-nvim "+CocInstall -sync coc-snippets" +qall && \
-nvim "+CocInstall -sync coc-clangd" +qall
 noproxy
 
+nvim "+CocInstall -sync coc-snippets" +qall 
 
 
 function go_ins(){
@@ -533,12 +522,11 @@ function go_ins(){
     cat >> ~/.config/nvim/init.vim <<END
     let g:leetcode_solution_filetype='golang'
 END
+  proxy
   nvim +'PlugInstall --sync' +qall
+  noproxy
 }
-proxy
 go_ins
-noproxy
-
 
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
 silent! colorscheme gruvbox
@@ -554,7 +542,6 @@ cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
 EOF
 
 
-exit 0
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {
