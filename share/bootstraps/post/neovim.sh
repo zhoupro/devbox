@@ -106,6 +106,9 @@ cat <<EOF > ~/.config/nvim/settings.vim
     autocmd Filetype json let g:indentLine_enabled = 0
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
+    let g:airline_section_z = 'happy'
+
+
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -147,6 +150,21 @@ cat <<EOF > ~/.config/nvim/maps.vim
     map  <leader>ef  :call ExtraFunc()<CR>
     map  ma  :call Mybks()<CR>
     map  <leader>ef  :call ExtraFunc()<CR>
+
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#buffer_idx_mode = 1
+    nmap <leader>1 <Plug>AirlineSelectTab1
+    nmap <leader>2 <Plug>AirlineSelectTab2
+    nmap <leader>3 <Plug>AirlineSelectTab3
+    nmap <leader>4 <Plug>AirlineSelectTab4
+    nmap <leader>5 <Plug>AirlineSelectTab5
+    nmap <leader>6 <Plug>AirlineSelectTab6
+    nmap <leader>7 <Plug>AirlineSelectTab7
+    nmap <leader>8 <Plug>AirlineSelectTab8
+    nmap <leader>9 <Plug>AirlineSelectTab9
+    nmap <leader>0 <Plug>AirlineSelectTab0
+    nmap <leader>- <Plug>AirlineSelectPrevTab
+    nmap <leader>+ <Plug>AirlineSelectNextTab
 EOF
 
 
@@ -437,7 +455,7 @@ cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
           nnoremap <silent><buffer><expr> q
           \ defx#do_action('quit')
           nnoremap <silent><buffer><expr> <Space>
-          \ defx#do_action('toggle_select') . 'j'
+          \ defx#do_action('toggle_select') . ''
           nnoremap <silent><buffer><expr> *
           \ defx#do_action('toggle_select_all')
           nnoremap <silent><buffer><expr> j
@@ -478,6 +496,11 @@ cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
          if s:isdir(expand('%')) | bd | exe 'Defx' | endif
       endfunction
       let s:default_columns = 'indent:git:icons:filename'
+augroup defx
+    au!
+    au VimEnter * sil! au! FileExplorer *
+    au BufEnter * if s:isdir(expand('%')) | bd | exe 'Defx' | endif
+augroup END
 EOF
 
 
@@ -522,11 +545,29 @@ function go_ins(){
     cat >> ~/.config/nvim/init.vim <<END
     let g:leetcode_solution_filetype='golang'
 END
-  proxy
-  nvim +'PlugInstall --sync' +qall
-  noproxy
 }
 go_ins
+
+
+function leetcode_ins(){
+    ! (grep -F 'zhoupro/leetcode' ~/.config/nvim/plug.vim &>/dev/null ) && \
+    pip3 install requests beautifulsoup4 && \
+    sed -i "/plug#begin/aPlug 'zhoupro/leetcode.vim', { 'do': 'pip3 install -r requirements.txt' }" ~/.config/nvim/plug.vim
+
+    ! ( grep -F "LeetCodeList" ~/.config/nvim/init.vim ) && \
+cat >> ~/.config/nvim/init.vim <<END
+    nnoremap <leader>ll :LeetCodeList<cr>
+    nnoremap <leader>lt :LeetCodeTest<cr>
+    nnoremap <leader>ls :LeetCodeSubmit<cr>
+END
+}
+
+leetcode_ins
+
+proxy
+nvim +'PlugInstall --sync' +qall
+noproxy
+
 
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
 silent! colorscheme gruvbox
