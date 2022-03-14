@@ -107,8 +107,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
     let g:airline_section_z = 'happy'
-
-
+    set cmdheight=2
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -199,27 +198,43 @@ fu! s:isdir(dir) abort
       \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
   endfu
 
-fun! Mytest()
-      execute "normal yaf"
-      let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')
-      let tmplDir = ''
-      let file = expand('%')
-  
-      if stridx(funcName, "Test") >= 0
-         let normal_file = substitute(file, '_test\.go', '\.go', "")
-         let normalFuncName = substitute(funcName, 'Test_', '', "")
-         execute "edit " . normal_file
-         execute "normal /" . normalFuncName ."\<CR>"
-      else
-         let test_file = substitute(file, '\.go', '_test\.go', "")
-         let out = system('gotests -w -only ' . shellescape(funcName) . ' ' . tmplDir . ' ' . shellescape(file))
-         execute "edit " . test_file
-         execute "normal /Test_" . funcName ."\<CR>"
-      endif
-  endfun
+fun! GenTest()
+    execute "normal yaf"
+    " func line
+    let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')
+    
+    " func name
+    "let funcName = matchstr(@*, '\vfunc ?\(.*\) ?\zs\w+\ze\(')
+
+    " type name
+    let typeName = matchstr(@*, '\v^func ?\([a-z]+ \zs[a-z]+\ze\)')
+
+    let testPrefix="Test_"
+    if typeName
+      let testPrefix="Test_".typeName."_"
+    endif
+
+    echom "prefix ".testPrefix
+
+
+    let tmplDir = ''
+    let file = expand('%')
+    
+    if stridx(funcName, "Test") >= 0
+       let normal_file = substitute(file, '_test\.go', '\.go', "")
+       let splitParts = split(funcName, '_')
+       execute "edit " . normal_file
+       execute "normal /" . splitParts[-1] ."<CR>"
+    else
+       let test_file = substitute(file, '\.go', '_test\.go', "")
+       let out = system('gotests -w -only ' . shellescape(funcName) . ' ' . tmplDir . ' ' . shellescape(file))
+       execute "edit " . test_file
+       execute "normal /". testPrefix . funcName ."<CR>"
+    endif
+endfun
 
 fun! Toggle_qmode()
-     if !exists('b:qmode')
+    if !exists('b:qmode')
         let b:qmode = 1
          nmap b <Plug>VimspectorToggleBreakpoint
          nmap bc <Plug>VimspectorToggleConditionalBreakpoint
@@ -229,7 +244,7 @@ fun! Toggle_qmode()
          nmap si <Plug>VimspectorStepInto
          nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
-         nmap t :call Mytest()<CR>
+         nmap t :call GenTest()<CR>
         echo "Using smart quotes"
      else
         unlet b:qmode
@@ -243,8 +258,8 @@ fun! Toggle_qmode()
          unmap t
         echo "Using regular quotes"
      endif
-      AirlineToggle
-  endfun
+     AirlineToggle
+endfun
 
 function! Get_visual_content()
     " Why is this not a built-in Vim script function?!
@@ -590,31 +605,13 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
     disable = {},
   },
-  indent = {
-    enable = false,
-    disable = {},
-  },
   textobjects = {
       select = {
        enable = true,
-  
        -- Automatically jump forward to textobj, similar to targets.vim-
-       lookahead = true,
-  
+       lookahead = false,
        keymaps = {
-         -- You can use the capture groups defined in textobjects.scm
          ["af"] = "@function.outer",
-         ["if"] = "@function.inner",
-         ["ac"] = "@class.outer",
-         ["ic"] = "@class.inner",
-  
-         -- Or you can define your own textobjects like this
-         ["iF"] = {
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function",
-         },
        },
       },
     },

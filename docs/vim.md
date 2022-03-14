@@ -42,3 +42,5 @@ augroup END
 ```vimscript
 let g:leetcode_firefox_home='/home/vagrant'
 ```
+
+set cmdheight=2
