@@ -46,6 +46,7 @@ fun! Toggle_qmode()
 endfun
 ```
 #### 覆盖率
+GoCoverage
 
 #### 自动生成单侧
 
@@ -87,6 +88,7 @@ endfun
 
 ## 重构
 函数重命名
+`nmap <leader>rn <Plug>(coc-rename)`
 
 运行
 GoRun

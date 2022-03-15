@@ -9,7 +9,7 @@ aptenv(){
   myarray=(
             git  unrar p7zip    build-essential 
             wget curl axel gdebi fcitx
-            zsh python3-pip 
+            zsh python3-pip exuberant-ctags
          )
 	
 	for i in ${myarray[@]};
