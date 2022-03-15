@@ -210,31 +210,40 @@ fun! GenTest()
     let typeName = matchstr(@*, '\v^func ?\([a-z]+ \zs[a-z]+\ze\)')
 
     let testPrefix="Test_"
-    if typeName
+    if len(typeName) > 0
       let testPrefix="Test_".typeName."_"
     endif
-
-    echom "prefix ".testPrefix
 
 
     let tmplDir = ''
     let file = expand('%')
     
-    if stridx(funcName, "Test") >= 0
+    if stridx(file, "_test") >= 0
        let normal_file = substitute(file, '_test\.go', '\.go', "")
        let splitParts = split(funcName, '_')
        execute "edit " . normal_file
-       execute "normal /" . splitParts[-1] ."<CR>"
+       execute "normal /" . splitParts[-1] ."\<CR>"
     else
        let test_file = substitute(file, '\.go', '_test\.go', "")
-       let out = system('gotests -w -only ' . shellescape(funcName) . ' ' . tmplDir . ' ' . shellescape(file))
+       let out = system('gotests -w -only "(?i)^(' . typeName . funcName . ')" ' . tmplDir . ' ' . shellescape(file))
        execute "edit " . test_file
-       execute "normal /". testPrefix . funcName ."<CR>"
+       execute "normal /". testPrefix . funcName ."\<CR>"
     endif
 endfun
 
+fun! VimspectorConfigGen()    
+      let cur_line = line(".")    
+      execute "normal yaf"    
+      let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
+      execute cur_line    
+      call system("bash /vagrant_data/shs/vimspector_config_gen.sh " . funcName)    
+endfun
+
+
+
 fun! Toggle_qmode()
     if !exists('b:qmode')
+        call VimspectorConfigGen()
         let b:qmode = 1
          nmap b <Plug>VimspectorToggleBreakpoint
          nmap bc <Plug>VimspectorToggleConditionalBreakpoint
@@ -245,9 +254,8 @@ fun! Toggle_qmode()
          nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
          nmap t :call GenTest()<CR>
-        echo "Using smart quotes"
      else
-        unlet b:qmode
+         unlet b:qmode
          unmap b
          unmap bc
          unmap bf
@@ -256,10 +264,21 @@ fun! Toggle_qmode()
          unmap si
          unmap so
          unmap t
-        echo "Using regular quotes"
      endif
-     AirlineToggle
+     "AirlineToggle
 endfun
+
+
+fun! Toggle_gomode()
+    if !exists('b:gomode')
+        let b:gomode = 1
+        nmap t :call GenTest()<CR>
+     else
+        unlet b:gomode
+        unmap t
+     endif
+endfun
+
 
 function! Get_visual_content()
     " Why is this not a built-in Vim script function?!
@@ -395,14 +414,7 @@ command! -bang -nargs=* Rg
     \   <bang>0)
 command Gg call system('echo '.expand("%"). '>> .git/info/exclude')
 command! ToggleDebug call Toggle_qmode()
-
-fun! My()    
-      let cur_line = line(".")    
-      execute "normal yaf"    
-      let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
-      execute cur_line    
-      call system("bash ~/playground/go/vimspector_config_gen.sh " . funcName)    
-endfun
+command! ToggleTest call Toggle_gomode()
 
 EOF
 

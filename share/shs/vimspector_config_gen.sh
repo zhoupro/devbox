@@ -1,7 +1,8 @@
 #!/bin/bash
 
 FILE_NAME=".vimspector.json"
-cat << 'EOF' > $FILE_NAME
+if [[ $1 =~ ^Test_ ]] ;then
+  cat << 'EOF' > $FILE_NAME
 {
   "configurations": {
       "test": {
@@ -29,4 +30,26 @@ cat << 'EOF' > $FILE_NAME
   }
 }
 EOF
+
+else
+
+  cat << 'EOF' > $FILE_NAME
+{
+  "configurations": {
+    "run": {
+      "adapter": "vscode-go",
+      "configuration": {
+        "args": [ "-conf-dir","conf" ],
+        "request": "launch",
+        "program": "${fileDirname}",
+        "mode": "debug",
+        "dlvToolPath": "$HOME/go/bin/dlv"     
+       }
+    } 
+  }
+}
+EOF
+
+fi
+
 sed -i "s#FuncName#$1#g" $FILE_NAME
