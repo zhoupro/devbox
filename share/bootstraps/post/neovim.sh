@@ -67,7 +67,6 @@ call plug#begin('~/.local/share/nvim/plugged')
    "outline
    Plug 'vim-airline/vim-airline'
    Plug 'vim-airline/vim-airline-themes'
-   Plug 'vim-scripts/ctags.vim'
    "git
    Plug 'tpope/vim-fugitive'
    Plug 'airblade/vim-gitgutter'
@@ -108,6 +107,9 @@ cat <<EOF > ~/.config/nvim/settings.vim
     let test#strategy='neovim'
     let g:airline_section_z = 'happy'
     set cmdheight=2
+
+    let g:bookmark_save_per_working_dir = 1
+    let g:bookmark_auto_save = 1
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -400,7 +402,7 @@ endfunction
 
 function! Mybks()
     let mmm=Mybookmarks()
-    call fzf#run(fzf#wrap({'source': mmm,'options': ['--preview', 'start=$(echo {1}-4|bc) && if [ $start -lt 0 ];then start=0;fi;end=$(echo {1}+12|bc)  &&  bat    --color=always --style=numbers -H {1} --line-range=$start:$end {2}'],'sink':function("MySink") }))
+    call fzf#run(fzf#wrap({'source': mmm,'options': ['--preview', 'start=$(echo {1}-4|bc) && if [ $start -lt 0 ];then start=0;fi;end=$(echo {1}+12|bc)  &&  batcat    --color=always --style=numbers -H {1} --line-range=$start:$end {2}'],'sink':function("MySink") }))
 endfunction
 
 EOF

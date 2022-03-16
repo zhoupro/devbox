@@ -24,6 +24,8 @@ aptenv(){
 #base apt
 aptenv
 
+apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
+
 #pip speed
 mkdir $HOME/.pip
 

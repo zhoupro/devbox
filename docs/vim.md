@@ -1,10 +1,12 @@
 # vim setup
 ## usage
-
+### vim-snippet
+代码片段
+### bookmarks
+ma
 ### airline
 
 ### defx
-
 
 ## base plugin
 ### airline
