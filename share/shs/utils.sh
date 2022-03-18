@@ -34,8 +34,12 @@ proxy() {
     /usr/local/go/bin/go env -w GO111MODULE=on 
     #go env -w GOPROXY=https://goproxy.cn,direct
    /usr/local/go/bin/go env -w GOPROXY=https://goproxy.cn,direct
-    /usr/local/lib/nodejs/node/bin/w2 start
 
+    # ca cert
+    /usr/local/lib/nodejs/node/bin/w2 start >/dev/null
+    curl http://localhost:8899/cgi-bin/rootca -o   /usr/local/share/ca-certificates/rootCA.crt
+    update-ca-certificates
+    /usr/local/lib/nodejs/node/bin/w2 restart >/dev/null
 }
 
 noproxy() {

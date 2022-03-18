@@ -1,9 +1,8 @@
 #!/bin/bash
 
 if [ ! -d ~/.oh-my-zsh ];then
-	#sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 	usermod -s /bin/zsh  `whoami`
-
 	! (grep -F 'zsh-autosuggestions' ~/.zshrc &>/dev/null )  && \
 	  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
 	  sed -E -i "s/plugins=\((.*)\)/plugins=\(\1 zsh-autosuggestions\)/g" ~/.zshrc

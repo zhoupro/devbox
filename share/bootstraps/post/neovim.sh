@@ -15,8 +15,6 @@ if [ ! "$(pip3 list | grep neovim)" ];then
     pip3 install neovim --upgrade
 fi
 
- cp /vagrant_data/conf/rootCA.crt /usr/local/share/ca-certificates/
- update-ca-certificates
 #-------------------------------------------------------------------------------
 # install dein 
 #-------------------------------------------------------------------------------
@@ -49,6 +47,7 @@ EOF
 cat <<EOF > ~/.config/nvim/plug.vim
 
 call plug#begin('~/.local/share/nvim/plugged')
+   Plug 'akinsho/toggleterm.nvim'
    Plug 'honza/vim-snippets'
    Plug 'fvictorio/vim-extract-variable'
    Plug 'morhetz/gruvbox'
@@ -110,6 +109,8 @@ cat <<EOF > ~/.config/nvim/settings.vim
 
     let g:bookmark_save_per_working_dir = 1
     let g:bookmark_auto_save = 1
+    let g:go_def_mapping_enabled = 0
+
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -233,19 +234,29 @@ fun! GenTest()
     endif
 endfun
 
-fun! VimspectorConfigGen()    
+fun! VimspectorConfigGenForGo()    
       let cur_line = line(".")    
       execute "normal yaf"    
       let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
       execute cur_line    
-      call system("bash /vagrant_data/shs/vimspector_config_gen.sh " . funcName)    
+      call system("bash /vagrant_data/shs/vimspector_config/gen_go.sh " . funcName)    
 endfun
 
+fun! VimspectorConfigGenForC()    
+    call system("bash /vagrant_data/shs/vimspector_config/gen_c.sh ")    
+endfun
 
 
 fun! Toggle_qmode()
     if !exists('b:qmode')
-        call VimspectorConfigGen()
+      exec "w"    
+      if &filetype == 'c'    
+        call VimspectorConfigGenForC()
+      elseif &filetype == 'go'    
+        call VimspectorConfigGenForGo()
+      endif    
+
+
         let b:qmode = 1
          nmap b <Plug>VimspectorToggleBreakpoint
          nmap bc <Plug>VimspectorToggleConditionalBreakpoint
@@ -425,6 +436,23 @@ mkdir -p ~/.config/nvim/after/plugin
 cat <<'EOF' > ~/.config/nvim/after/plugin/markdown.rc.vim
     let g:vim_markdown_folding_disabled = 1
 EOF
+
+
+cat <<'EOF' > ~/.config/nvim/after/plugin/toggleterm.rc.vim
+  " set
+  let g:toggleterm_terminal_mapping = '<C-t>'
+  " or manually...
+  autocmd TermEnter term://*toggleterm#*
+        \ tnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+
+  " By applying the mappings this way you can pass a count to your
+  " mapping to open a specific window.
+  " For example: 2<C-t> will open terminal 2
+  nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
+  inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
+EOF
+
+
 
 cat <<'EOF' > ~/.config/nvim/after/plugin/defx.rc.vim
 "defx    
