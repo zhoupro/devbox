@@ -10,3 +10,6 @@ docs/go.md
 
 ## c编程环境
 docs/c.md
+
+## fe编程环境
+docs/fe.md

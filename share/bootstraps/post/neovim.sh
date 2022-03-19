@@ -47,6 +47,7 @@ EOF
 cat <<EOF > ~/.config/nvim/plug.vim
 
 call plug#begin('~/.local/share/nvim/plugged')
+   Plug 'mlaursen/vim-react-snippets'
    Plug 'akinsho/toggleterm.nvim'
    Plug 'honza/vim-snippets'
    Plug 'fvictorio/vim-extract-variable'
