@@ -103,7 +103,6 @@ function install_go_server(){
 }
 
 install_go_server 1.17.7
-install_go_server 1.17.7
 
 proxy
 source /vagrant_data/shs/zsh.sh

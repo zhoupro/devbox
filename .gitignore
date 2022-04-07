@@ -1,3 +1,5 @@
 share/dict
 share/soft
 .vagrant
+disk
+share/background
