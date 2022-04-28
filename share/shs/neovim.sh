@@ -572,13 +572,17 @@ cat <<EOF > ~/.config/nvim/coc-settings.json
   "suggest.timeout": 3500,
   "suggest.minTriggerInputLength": 2,
   "suggest.echodocSupport": true,
-  "Lua.runtime.path":["/usr/local/share/lua/5.3/?.lua","/usr/local/share/lua/5.3/?/init.lua","/usr/local/lib/lua/5.3/?.lua","/usr/local/lib/lua/5.3/?/init.lua","/usr/share/lua/5.3/?.lua","/usr/share/lua/5.3/?/init.lua","./?.lua","./?/init.lua","/root/.config/awesome/?.lua","/root/.config/awesome/?/init.lua","/etc/xdg/awesome/?.lua","/etc/xdg/awesome/?/init.lua","/usr/share/awesome/lib/?.lua","/usr/share/awesome/lib/?/init.lua"],
-  "Lua.workspace.library":["/usr/share/awesome/lib"],
   "Lua.diagnostics.enable":false,
   "suggest.enablePreview": false,
   "go.goplsOptions": {
       "analyses": { "unsafeptr": false }
-  }
+  },
+  "Lua.telemetry.enable": true, 
+  "Lua.runtime.path":["/usr/local/share/lua/5.3/?.lua","/usr/local/share/lua/5.3/?/init.lua","/usr/local/lib/lua/5.3/?.lua","/usr/local/lib/lua/5.3/?/init.lua","/usr/share/lua/5.3/?.lua","/usr/share/lua/5.3/?/init.lua","./?.lua","./?/init.lua","/root/.config/awesome/?.lua","/root/.config/awesome/?/init.lua","/etc/xdg/awesome/?.lua","/etc/xdg/awesome/?/init.lua","/usr/share/awesome/lib/?.lua","/usr/share/awesome/lib/?/init.lua"],
+  "Lua.workspace.library":["/usr/share/awesome/lib"],   
+  "sumneko-lua.enableNvimLuaDev":true,    
+  "Lua.diagnostics.globals":["vim", "awesome"],    
+  "Lua.completion.showWord":"Disable"
 }
 
 EOF
@@ -589,7 +593,7 @@ nvim +'PlugInstall --sync' +qall
 noproxy
 
 nvim "+CocInstall -sync coc-snippets" +qall 
-
+nvim +'CocInstall -sync coc-sumneko-lua' +qall
 
 function go_ins(){
     ! (grep -F 'sebdah/vim-delve' ~/.config/nvim/plug.vim &>/dev/null ) && \
