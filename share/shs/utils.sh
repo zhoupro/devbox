@@ -3,8 +3,41 @@ getDownloadUrl(){
     echo $1
 }
 
-
 proxy() {
+     if  [  -z $1 ];then
+        prox="http://localhost:8899"
+    else
+        prox=$1
+    fi
+    echo $prox
+
+    export ALL_PROXY="$prox"
+    export all_proxy="$prox"
+    export https_proxy="$prox"
+    export http_proxy="$prox"
+    #git
+    git config --global http.proxy "$prox"
+    git config --global https.proxy "$prox"
+    git config --global http.sslVerify false
+    git config --global https.sslVerify false
+}
+
+
+noproxy() {
+    echo "noproxy"
+    unset ALL_PROXY
+    unset all_proxy 
+    unset https_proxy
+    unset http_proxy
+    #git
+    git config --global --unset http.proxy 
+    git config --global --unset  https.proxy 
+   
+}
+
+
+
+proxy1() {
     if  [  -z $1 ];then
         prox="http://localhost:8899"
     else
@@ -42,7 +75,7 @@ proxy() {
     /usr/local/lib/nodejs/node/bin/w2 restart >/dev/null
 }
 
-noproxy() {
+noproxy1() {
     unset ALL_PROXY
     unset all_proxy 
     unset https_proxy

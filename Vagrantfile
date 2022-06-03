@@ -1,10 +1,10 @@
 #ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 Vagrant.configure("2") do |config|
-  config.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
-  # k8s master server
+  config.vm.provision "shell", path: "share/bootstraps/base.sh"
+  # master server
   config.vm.define "kmaster" do |node|
-    node.vm.box               = "linuxmint"
+    node.vm.box               = "xubuntu22_04"
     node.vm.box_check_update  = false
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.100"
@@ -19,13 +19,14 @@ Vagrant.configure("2") do |config|
       v.memory  =  4096 
       v.cpus    =  2
     end
+    #node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
   end
 
   # Kubernetes Worker Nodes
   NodeCount = 0
   (1..NodeCount).each do |i|
     config.vm.define "kworker#{i}" do |node|
-      node.vm.box               = "linuxmint"
+      node.vm.box               = "xubuntu22_04"
       node.vm.box_check_update  = false
       node.vm.hostname          = "kworker#{i}.example.com"
       node.vm.network "private_network", ip: "192.168.56.10#{i}"

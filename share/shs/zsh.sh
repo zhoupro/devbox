@@ -1,8 +1,14 @@
 #!/bin/bash
 
+if (( $(dpkg -l | awk '{print $2}' | grep ^zsh | wc -l)==0 )) ;then
+	echo "Install zsh"
+	apt-get install -y zsh
+fi
+
+
 if [ ! -d ~/.oh-my-zsh ];then
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-	usermod -s /bin/zsh  `whoami`
+	sh -c "$(curl -fsSL --insecure https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended  && \
+	usermod -s /bin/zsh  `whoami` 
 	! (grep -F 'zsh-autosuggestions' ~/.zshrc &>/dev/null )  && \
 	  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
 	  sed -E -i "s/plugins=\((.*)\)/plugins=\(\1 zsh-autosuggestions\)/g" ~/.zshrc
