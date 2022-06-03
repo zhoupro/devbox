@@ -88,7 +88,3 @@ fi
  /usr/local/lib/nodejs/node/bin/w2 restart > /dev/null
  /usr/local/lib/nodejs/node/bin/w2 add /vagrant_data/conf/.whistle.js --force
 
-proxy
-source /vagrant_data/shs/zsh.sh
-echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.zshrc
-noproxy

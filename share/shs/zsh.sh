@@ -1,10 +1,13 @@
 #!/bin/bash
 
+source /vagrant_data/shs/utils.sh
+
 if (( $(dpkg -l | awk '{print $2}' | grep ^zsh | wc -l)==0 )) ;then
 	echo "Install zsh"
 	apt-get install -y zsh
 fi
 
+proxy
 
 if [ ! -d ~/.oh-my-zsh ];then
 	sh -c "$(curl -fsSL --insecure https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended  && \
@@ -32,3 +35,5 @@ if [ ! -d ~/.oh-my-zsh ];then
 END
     
 fi
+echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.zshrc
+noproxy
