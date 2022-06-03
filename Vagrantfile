@@ -22,6 +22,7 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "share/shs/zsh.sh"
     node.vm.provision "shell", path: "share/shs/devbase.sh"
     node.vm.provision "shell", path: "share/shs/awesome.sh"
+    node.vm.provision "shell", path: "share/shs/dockerenv.sh"
   end
 
   # Kubernetes Worker Nodes
