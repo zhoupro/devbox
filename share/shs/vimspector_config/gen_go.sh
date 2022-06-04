@@ -6,7 +6,7 @@ if [[ $1 =~ ^Test_ ]] ;then
 {
   "configurations": {
       "test": {
-      "adapter": "vscode-go",
+      "adapter": "delve",
       "configuration": {
         "buildFlags": "-tags=BUILDTAG",
         "args": [
@@ -37,15 +37,17 @@ else
 {
   "configurations": {
     "run": {
-      "adapter": "vscode-go",
+      "adapter": "delve",
+      "filetypes": [ "go" ],
+      "variables": {
+         "dlvFlags": "--check-go-version=false"
+      },
       "configuration": {
-        "args": [ "-conf-dir","conf" ],
         "request": "launch",
         "program": "${fileDirname}",
-        "mode": "debug",
-        "dlvToolPath": "$HOME/go/bin/dlv"     
-       }
-    } 
+        "mode": "debug"
+      }
+    }
   }
 }
 EOF
