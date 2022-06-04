@@ -128,6 +128,7 @@ fun! Toggle_debug_go()
          nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
          nmap t :call GenTest()<CR>
+         nmap rs :VimspectorReset<CR>
      else
          unlet b:qmode_go
          unmap b
