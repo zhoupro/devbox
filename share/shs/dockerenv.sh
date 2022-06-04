@@ -12,6 +12,14 @@ dockerenv(){
     if (( $( which docker-compose | wc -l)==0 )) ;then
         pip install -U docker-compose
     fi
+    sudo mkdir -p /etc/docker
+    sudo tee /etc/docker/daemon.json <<-'EOF'
+    {
+    "registry-mirrors": ["https://pg3p5mmo.mirror.aliyuncs.com"]
+    }
+EOF
+    sudo systemctl daemon-reload
+    sudo systemctl restart docker
 
 }
 
