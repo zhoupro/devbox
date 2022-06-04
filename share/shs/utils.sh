@@ -20,6 +20,10 @@ proxy() {
     git config --global https.proxy "$prox"
     git config --global http.sslVerify false
     git config --global https.sslVerify false
+    if [ -f /usr/local/go/bin/go ];then
+         /usr/local/go/bin/go env -w GO111MODULE=on 
+         /usr/local/go/bin/go env -w GOPROXY=https://goproxy.cn,direct
+    fi
 }
 
 
@@ -32,6 +36,7 @@ noproxy() {
     #git
     git config --global --unset http.proxy 
     git config --global --unset  https.proxy 
+
    
 }
 

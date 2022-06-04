@@ -26,6 +26,7 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "share/shs/neovim_base_packer.sh"
     node.vm.provision "shell", path: "share/shs/neovim_c.sh"
     node.vm.provision "shell", path: "share/shs/neovim_php.sh"
+    node.vm.provision "shell", path: "share/shs/neovim_go.sh"
   end
 
   # Kubernetes Worker Nodes
