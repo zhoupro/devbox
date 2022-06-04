@@ -50,6 +50,7 @@ go_vim_ins
 
 
 cat <<EOF >> ~/.config/nvim/settings.vim
+    let g:vimspector_ui_mode = "vertical"
     let g:go_def_mapping_enabled = 0
 EOF
 
@@ -152,6 +153,28 @@ fun! Toggle_test_go()
      endif
 endfun
 
+function! s:CustomiseUI()    
+  let wins = g:vimspector_session_windows    
+     
+  " Close the Variables window    
+  call win_execute( wins.variables, 'q' )    
+  call win_execute( wins.stack_trace, 'q' )    
+  call win_execute( wins.watches, 'q' )    
+  call win_execute( wins.tabpage, 'q' )    
+     
+     
+  call win_gotoid( wins.code )    
+  resize 60    
+     
+  call win_gotoid( wins.output )    
+  resize 5    
+     
+endfunction    
+     
+augroup TestUICustomistaion    
+  autocmd!    
+  autocmd User VimspectorUICreated call s:CustomiseUI()    
+augroup END
 
 EOF
 
