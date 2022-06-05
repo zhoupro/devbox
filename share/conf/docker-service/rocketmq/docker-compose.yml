@@ -1,7 +1,7 @@
 version: '2'
 services:
   namesrv:
-    image: apacherocketmq/rocketmq:4.5.0
+    image: apache/rocketmq:4.9.3
     container_name: rmqnamesrv
     ports:
       - 9876:9876
@@ -10,7 +10,7 @@ services:
     environment:
       - JAVA_OPTS= -Xms128m -Xmx256m
   broker:
-    image: apacherocketmq/rocketmq:4.5.0
+    image: apache/rocketmq:4.9.3
     container_name: rmqbroker
     ports:
       - 10909:10909

@@ -1,0 +1,11 @@
+version: '3.1'
+services:
+  elasticsearch:
+    image: elasticsearch:7.17.4
+    restart: always    
+    container_name: elasticsearch  
+    environment:
+      - discovery.type=single-node  
+    ports:
+      - 9200:9200
+      - 9300:9300
