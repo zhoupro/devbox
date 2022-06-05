@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
     node.vm.network "private_network", ip: "192.168.56.100"
     config.vm.synced_folder "./share", "/vagrant_data"
     config.vm.synced_folder "./disk", "/vagrant_disk"
+    #config.vm.synced_folder "C:\\Users\\zhoupro\\.ssh", "/root/.ssh"
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"
     config.ssh.insert_key = false
@@ -27,6 +28,7 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "share/shs/neovim_c.sh"
     node.vm.provision "shell", path: "share/shs/neovim_php.sh"
     node.vm.provision "shell", path: "share/shs/neovim_go.sh"
+    node.vm.provision "shell", path: "share/shs/write.sh"
   end
 
   # Kubernetes Worker Nodes
