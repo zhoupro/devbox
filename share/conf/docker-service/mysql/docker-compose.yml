@@ -5,7 +5,7 @@ services:
     image: mysql:5.7
     container_name: mysql-5.7
     volumes:
-      - ./db:/var/lib/mysql
+      - ./store:/var/lib/mysql
       - ./conf/my.cnf:/etc/my.cnf
     environment:
       - "MYSQL_ROOT_PASSWORD=pass"
