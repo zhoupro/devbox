@@ -12,13 +12,15 @@ chmod u+x /usr/bin/fsed
 #awesome
 export CUSTOM_HOME=/home/vagrant
 apt-get install -y   awesome
-apt-get install -y   rofi    feh xcompmgr  flameshot
+apt-get install -y   rofi    feh xcompmgr  flameshot  x11-apps
 mkdir -p $CUSTOM_HOME/.config/awesome
 
 
 
 sudo cp /etc/xdg/awesome/rc.lua $CUSTOM_HOME/.config/awesome/rc.lua
 #sudo sed -i 's/"Mod4"/"Mod1"/g' $CUSTOM_HOME/.config/awesome/rc.lua
+
+sudo sed -i 's/x-terminal-emulator/alacritty/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/mylauncher,/--mylauncher,/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/titlebars_enabled = true/titlebars_enabled = false/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/custom/feh.sh")' $CUSTOM_HOME/.config/awesome/rc.lua
