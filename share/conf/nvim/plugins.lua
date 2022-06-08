@@ -8,12 +8,14 @@ return require('packer').startup(function(use)
   -- plugAddPoint
 
   -- plugEndPoint
+  use { 'nvim-treesitter/nvim-treesitter' }
+  --use {'nvim-treesitter/nvim-treesitter-textobjects'} 
   use {'akinsho/toggleterm.nvim'}
   use {'honza/vim-snippets'}
   use {'morhetz/gruvbox'}
   use {'tpope/vim-commentary'}
   use {'neoclide/coc.nvim', branch = 'release'}
-  use {'Shougo/defx.nvim', run = ':UpdateRemotePlugins'}
+  use {'Shougo/defx.nvim'}
   use {'kristijanhusak/defx-icons'}
   use {'kristijanhusak/defx-git'}
   use {'junegunn/fzf'}
@@ -37,5 +39,7 @@ return require('packer').startup(function(use)
   use {'godlygeek/tabular'}
   use {'plasticboy/vim-markdown'}
   use {'MattesGroeger/vim-bookmarks'}
+
+
 
 end)

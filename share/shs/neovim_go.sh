@@ -56,14 +56,14 @@ EOF
 
 
 
-cat <<EOF > ~/.config/nvim/maps.vim
+cat <<EOF >> ~/.config/nvim/maps.vim
     autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
     map  <leader>ef  :call ExtraFunc()<CR
 EOF
 
 
 
-cat <<'EOF' > ~/.config/nvim/func.vim
+cat <<'EOF' >> ~/.config/nvim/func.vim
    
  
 
@@ -179,7 +179,7 @@ augroup END
 
 EOF
 
-cat <<EOF > ~/.config/nvim/cmd.vim
+cat <<EOF >> ~/.config/nvim/cmd.vim
 command! ToggleDebugGo call Toggle_debug_go()
 command! ToggleTestGo call Toggle_test_go()
 EOF

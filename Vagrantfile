@@ -20,16 +20,17 @@ Vagrant.configure("2") do |config|
       v.memory  =  4096 
       v.cpus    =  2
     end
-    node.vm.provision "shell", path: "share/shs/zsh.sh"
+    # node.vm.provision "shell", path: "share/shs/zsh.sh"
     node.vm.provision "shell", path: "share/shs/devbase.sh"
-    node.vm.provision "shell", path: "share/shs/alacritty.sh"
-    node.vm.provision "shell", path: "share/shs/awesome.sh"
-    node.vm.provision "shell", path: "share/shs/dockerenv.sh"
+    # node.vm.provision "shell", path: "share/shs/alacritty.sh"
+    # node.vm.provision "shell", path: "share/shs/awesome.sh"
+    # node.vm.provision "shell", path: "share/shs/dockerenv.sh"
     node.vm.provision "shell", path: "share/shs/neovim_base_packer.sh"
-    node.vm.provision "shell", path: "share/shs/neovim_c.sh"
-    node.vm.provision "shell", path: "share/shs/neovim_php.sh"
+    # node.vm.provision "shell", path: "share/shs/neovim_c.sh"
+    # node.vm.provision "shell", path: "share/shs/neovim_php.sh"
     node.vm.provision "shell", path: "share/shs/neovim_go.sh"
-    node.vm.provision "shell", path: "share/shs/write.sh"
+    # node.vm.provision "shell", path: "share/shs/write.sh"
+    node.vm.provision "shell", path: "share/shs/after.sh"
   
   end
 
