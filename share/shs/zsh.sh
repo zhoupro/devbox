@@ -2,6 +2,8 @@
 
 source /vagrant_data/shs/utils.sh
 
+echo "install zsh"
+
 if (( $(dpkg -l | awk '{print $2}' | grep ^zsh | wc -l)==0 )) ;then
 	echo "Install zsh"
 	apt-get install -y zsh

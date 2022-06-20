@@ -1,5 +1,6 @@
 #!/bin/bash
 source /vagrant_data/shs/utils.sh
+echo "install base packer"
 
 #读取参数# install neovim
 if [ ! -f /usr/local/bin/vim ];then
@@ -56,18 +57,21 @@ cat <<EOF > ~/.config/nvim/settings.vim
    
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
-    let g:airline_section_z = 'happy'
     set cmdheight=2
     let g:bookmark_save_per_working_dir = 1
     let g:bookmark_auto_save = 1
-     autocmd Filetype json let g:indentLine_enabled = 0
+    autocmd Filetype json let g:indentLine_enabled = 0
+    set mouse+=a
+    let g:go_gopls_enabled = 0
 
+    let g:fzf_preview_window = ['up:10%:hidden','ctrl-/']
+    let g:fzf_layout = {'window':{'width':0.90, 'height':0.90}}
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-   map <leader>n :Defx<CR>
+   map <leader>n :NvimTreeToggle<CR>
    map <leader>m :TagbarOpenAutoClose<CR>
    autocmd VimEnter * noremap  <leader>t  :call RunProgram()<CR>
    nnoremap <Leader>f :Files<CR>
@@ -100,21 +104,12 @@ cat <<EOF > ~/.config/nvim/maps.vim
     nmap <silent> gr <Plug>(coc-references)
     nmap <silent> gic :CocCommand  document.showIncomingCalls<CR>
     map  ma  :call Mybks()<CR>
+    nnoremap <silent> <C-n>  <Cmd>BufferNext<CR>
+    nnoremap <silent> <C-c>  <Cmd>BufferClose<CR>
+    nnoremap <silent> <C-p>  <Cmd>BufferPick<CR>
 
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#buffer_idx_mode = 1
-    nmap <leader>1 <Plug>AirlineSelectTab1
-    nmap <leader>2 <Plug>AirlineSelectTab2
-    nmap <leader>3 <Plug>AirlineSelectTab3
-    nmap <leader>4 <Plug>AirlineSelectTab4
-    nmap <leader>5 <Plug>AirlineSelectTab5
-    nmap <leader>6 <Plug>AirlineSelectTab6
-    nmap <leader>7 <Plug>AirlineSelectTab7
-    nmap <leader>8 <Plug>AirlineSelectTab8
-    nmap <leader>9 <Plug>AirlineSelectTab9
-    nmap <leader>0 <Plug>AirlineSelectTab0
-    nmap <leader>- <Plug>AirlineSelectPrevTab
-    nmap <leader>+ <Plug>AirlineSelectNextTab
+
+
 EOF
 
 
@@ -240,6 +235,7 @@ cat <<EOF > ~/.config/nvim/coc-settings.json
   "suggest.timeout": 3500,
   "suggest.minTriggerInputLength": 2,
   "suggest.echodocSupport": true,
+  "notification.disabledProgressSources": ["*"],
   "Lua.diagnostics.enable":false,
   "suggest.enablePreview": false,
   "go.goplsOptions": {
@@ -256,11 +252,9 @@ cat <<EOF > ~/.config/nvim/coc-settings.json
 EOF
 
 
-proxy
+
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless +TSUpdate +qa
-noproxy
-
 nvim "+CocInstall -sync coc-snippets" +qall 
 
 
@@ -277,3 +271,6 @@ cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
     " let g:mdip_imgdir = 'img'
     " let g:mdip_imgname = 'image'"
 EOF
+
+
+

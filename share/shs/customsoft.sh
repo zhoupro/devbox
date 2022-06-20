@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "install customsoft"
 
 #lantern
 if (( $(dpkg -l | awk '{print $2}' | grep ^lantern | wc -l)==0 )) ;then

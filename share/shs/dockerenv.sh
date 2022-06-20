@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+echo "install docker env"
 
 #docker devevlop enviroment
 dockerenv(){

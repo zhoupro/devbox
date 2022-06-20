@@ -32,9 +32,7 @@ function go_vim_ins(){
     export PATH=$PATH:/usr/local/go/bin:~/go/bin
     export GO111MODULE=on
     export GOPROXY=https://goproxy.cn
-    proxy
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerInstall'
-    noproxy
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
     nvim +'GoInstallBinaries' +qall
     #go get -u github.com/cweill/gotests/...
     nvim -E -c 'CocCommand go.install.tools' -c qall

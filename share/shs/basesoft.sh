@@ -1,5 +1,6 @@
 
 source /vagrant_data/shs/utils.sh
+echo "install basesoft"
 
 # apt package
 aptenv(){

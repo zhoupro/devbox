@@ -16,10 +16,7 @@ set -g @plugin 'tmux-plugins/tmux-sensible'
 
 # other plugins
 set -g @plugin 'dracula/tmux'
-set -g @dracula-plugins "battery weather"
-set -g @dracula-show-fahrenheit false
-set -g @dracula-show-location false
-
+set -g @dracula-plugins "battery cpu-usage ram-usage"
 
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)

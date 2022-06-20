@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source /vagrant_data/shs/utils.sh
+echo "install usebase"
 
 # apt package
 aptenv(){

@@ -15,15 +15,27 @@ return require('packer').startup(function(use)
   use {'morhetz/gruvbox'}
   use {'tpope/vim-commentary'}
   use {'neoclide/coc.nvim', branch = 'release'}
-  use {'Shougo/defx.nvim'}
-  use {'kristijanhusak/defx-icons'}
-  use {'kristijanhusak/defx-git'}
   use {'junegunn/fzf'}
   use {'junegunn/fzf.vim'}
   use {'puremourning/vimspector'}
   use {'majutsushi/tagbar'}
-  use {'vim-airline/vim-airline'}
-  use {'vim-airline/vim-airline-themes'}
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = {
+      'kyazdani42/nvim-web-devicons',
+    }
+  }
+
+  use {
+    'romgrk/barbar.nvim',
+    requires = {'kyazdani42/nvim-web-devicons'}
+  }
+
   use {'tpope/vim-fugitive'}
   use {'airblade/vim-gitgutter'}
 
@@ -39,7 +51,5 @@ return require('packer').startup(function(use)
   use {'godlygeek/tabular'}
   use {'plasticboy/vim-markdown'}
   use {'MattesGroeger/vim-bookmarks'}
-
-
 
 end)

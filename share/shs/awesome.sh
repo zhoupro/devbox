@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "install awesome"
 
 rm -rf /usr/bin/fsed
 tee /usr/bin/fsed <<'END'

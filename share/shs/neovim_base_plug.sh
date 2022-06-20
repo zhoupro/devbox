@@ -1,5 +1,6 @@
 #!/bin/bash
 source /vagrant_data/shs/utils.sh
+echo "install base plug"
 
 #读取参数# install neovim
 if [ ! -f /usr/local/bin/vim ];then

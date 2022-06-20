@@ -6,7 +6,7 @@ if [[ $1 =~ ^Test_ ]] ;then
 {
   "configurations": {
       "test": {
-      "adapter": "delve",
+      "adapter": "vscode-go",
       "configuration": {
         "buildFlags": "-tags=BUILDTAG",
         "args": [
@@ -16,13 +16,13 @@ if [[ $1 =~ ^Test_ ]] ;then
         ],
         "dlvLoadConfig": {
             "followPointers": true,
-            "maxVariableRecurse": 2,
+            "maxVariableRecurse": 8,
             "maxStringLen": 1000,
             "maxArrayValues": 64,
             "maxStructFields": -1
         },
         "request": "launch",
-        "timeout": 3,
+        "timeout": 30,
         "program": "${fileDirname}",
         "mode": "test",
         "dlvToolPath": "$HOME/go/bin/dlv"     }
