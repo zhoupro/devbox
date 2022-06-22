@@ -29,6 +29,8 @@ sudo sed -i '$a\awful.util.spawn("xcompmgr &")' $CUSTOM_HOME/.config/awesome/rc.
 sudo sed -i '$a\awful.util.spawn("xfce4-volumed &")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-power-manager &")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("flameshot")' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("xfce4-clipman")' $CUSTOM_HOME/.config/awesome/rc.lua
+
 sudo sed -i '$a\awful.util.spawn("/usr/local/go/bin/go run $CUSTOM_HOME/github/copyproxy/main.go &")' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  $CUSTOM_HOME/.config/awesome/rc.lua

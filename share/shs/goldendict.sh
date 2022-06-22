@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo  apt-get install -y    goldendict ffmpeg
+sudo  apt-get install -y    goldendict ffmpeg xfce4-clipman
 rm -rf  /home/vagrant/.goldendict/config && mkdir -p /home/vagrant/.goldendict && \
 cp /vagrant_data/conf/goldendict/config  /home/vagrant/.goldendict/config
 
