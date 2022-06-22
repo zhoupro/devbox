@@ -10,7 +10,7 @@ aptenv(){
  
   myarray=(
             git  unrar p7zip   
-            wget curl axel gdebi fcitx
+            wget curl axel gdebi fcitx shotwell
          )
 	
 	for i in ${myarray[@]};
