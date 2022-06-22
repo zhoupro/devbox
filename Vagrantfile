@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
     node.vm.provision "shell", path: "share/shs/neovim_go.sh"
     node.vm.provision "shell", path: "share/shs/write.sh"
     node.vm.provision "shell", path: "share/shs/after.sh"
-  
+    node.vm.provision "shell", path: "share/shs/goldendict.sh"
   end
 
   # Kubernetes Worker Nodes
