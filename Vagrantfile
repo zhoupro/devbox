@@ -1,7 +1,7 @@
 #ENV['VAGRANT_NO_PARALLEL'] = 'yes'
 
 Vagrant.configure("2") do |config|
-  config.vm.provision "shell", path: "share/bootstraps/base.sh"
+  #config.vm.provision "shell", path: "share/bootstraps/base.sh"
   # master server
   config.vm.define "kmaster" do |node|
     node.vm.box               = "xubuntu20_04"
@@ -9,7 +9,6 @@ Vagrant.configure("2") do |config|
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.100"
     config.vm.synced_folder "./share", "/vagrant_data"
-    config.vm.synced_folder "./disk", "/vagrant_disk"
     #config.vm.synced_folder "C:\\Users\\zhoupro\\.ssh", "/root/.ssh"
     config.ssh.username = "vagrant"
     config.ssh.password = "vagrant"
@@ -17,9 +16,10 @@ Vagrant.configure("2") do |config|
     node.vm.provider :virtualbox do |v|
       v.gui = true
       v.name    = "kmaster"
-      v.memory  =  8096 
+      v.memory  =  1024*4 
       v.cpus    =  4
     end
+    node.vm.provision "shell", path: "share/shs/usebase.sh"
     node.vm.provision "shell", path: "share/shs/zsh.sh"
     node.vm.provision "shell", path: "share/shs/devbase.sh"
     node.vm.provision "shell", path: "share/shs/tmux.sh"
@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Kubernetes Worker Nodes
-  NodeCount = 0
+  NodeCount = 1
   (1..NodeCount).each do |i|
     config.vm.define "kworker#{i}" do |node|
       node.vm.box               = "xubuntu20_04"
@@ -50,9 +50,11 @@ Vagrant.configure("2") do |config|
       node.vm.provider :virtualbox do |v|
         v.gui = false
         v.name    = "kworker#{i}"
-        v.memory  = 1024
-        v.cpus    = 1
+        v.memory  = 1024*1
+        v.cpus    = 2
      end
+     node.vm.provision "shell", path: "share/shs/base.sh"
+     node.vm.provision "shell", path: "share/shs/dockerenv.sh"
     end
   end
 end
