@@ -64,13 +64,15 @@ sudo sed -i "s!mytextclock,!--mytextclock,!g"  $CUSTOM_HOME/.config/awesome/rc.l
 
 
 read -r -d '' VAR <<-'EOF'
-firefox_launcher  = awful.widget.launcher({ image = "/usr/share/icons/hicolor/48x48/apps/firefox.png", command = "firefox", spacing = 10 })    
+firefox_launcher  = awful.widget.launcher({ image = "/usr/share/icons/hicolor/48x48/apps/firefox.png", command = "firefox", spacing = 10 })
+ocr_launcher  = awful.widget.launcher({ image = "/usr/share/icons/hicolor/48x48/apps/xfce4-whiskermenu.png", command = "/vagrant_data/shs/ocr.sh", spacing = 10 })
 EOF
 sudo sed -i "s!Menubar configuration!Menubar configuration@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" $CUSTOM_HOME/.config/awesome/rc.lua
 
 
 read -r -d '' VAR <<-'EOF'
 firefox_launcher,
+ocr_launcher,
 EOF
 sudo sed -i "s!mylauncher,!mylauncher,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" $CUSTOM_HOME/.config/awesome/rc.lua
 
