@@ -7,5 +7,3 @@ if [ ! -f /usr/bin/clangd ];then
     ~/.local/share/nvim/site/pack/packer/start/vimspector/install_gadget.py --sudo --no-check-certificate --enable-c
  fi
 
-nvim "+CocInstall -sync coc-clangd" +qall 
-

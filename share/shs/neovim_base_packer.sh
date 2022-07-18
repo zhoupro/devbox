@@ -98,11 +98,11 @@ cat <<EOF > ~/.config/nvim/maps.vim
     nnoremap <leader>l <c-w>l
     nnoremap <silent> <Leader>a :Rg <C-R><C-W><CR>
     noremap \ ,
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gy <Plug>(coc-type-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
-    nmap <silent> gic :CocCommand  document.showIncomingCalls<CR>
+    "nmap <silent> gd <Plug>(coc-definition)
+    "nmap <silent> gy <Plug>(coc-type-definition)
+    "nmap <silent> gi <Plug>(coc-implementation)
+    "nmap <silent> gr <Plug>(coc-references)
+    "nmap <silent> gic :CocCommand  document.showIncomingCalls<CR>
     map  ma  :call Mybks()<CR>
     nnoremap <silent> <C-n>  <Cmd>BufferNext<CR>
     nnoremap <silent> <C-c>  <Cmd>BufferClose<CR>
@@ -225,37 +225,12 @@ EOF
 
 
 
-cat <<EOF > ~/.config/nvim/coc-settings.json
 
-{
-  "suggest.triggerAfterInsertEnter": true,
-  "suggest.noselect": false,
-  "python.linting.enabled": false,
-  "python.jediEnabled": false,
-  "suggest.timeout": 3500,
-  "suggest.minTriggerInputLength": 2,
-  "suggest.echodocSupport": true,
-  "notification.disabledProgressSources": ["*"],
-  "Lua.diagnostics.enable":false,
-  "suggest.enablePreview": false,
-  "go.goplsOptions": {
-      "analyses": { "unsafeptr": false }
-  },
-  "Lua.telemetry.enable": true, 
-  "Lua.runtime.path":["/usr/local/share/lua/5.3/?.lua","/usr/local/share/lua/5.3/?/init.lua","/usr/local/lib/lua/5.3/?.lua","/usr/local/lib/lua/5.3/?/init.lua","/usr/share/lua/5.3/?.lua","/usr/share/lua/5.3/?/init.lua","./?.lua","./?/init.lua","/root/.config/awesome/?.lua","/root/.config/awesome/?/init.lua","/etc/xdg/awesome/?.lua","/etc/xdg/awesome/?/init.lua","/usr/share/awesome/lib/?.lua","/usr/share/awesome/lib/?/init.lua"],
-  "Lua.workspace.library":["/usr/share/awesome/lib"],   
-  "sumneko-lua.enableNvimLuaDev":true,    
-  "Lua.diagnostics.globals":["vim", "awesome"],    
-  "Lua.completion.showWord":"Disable"
-}
-
-EOF
 
 
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 nvim --headless +TSUpdate +qa
-nvim "+CocInstall -sync coc-snippets" +qall 
 
 
 
