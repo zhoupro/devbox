@@ -41,7 +41,7 @@ EOF
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-lspconfig.lua
 
 require("nvim-lsp-installer").setup {
-  automatic_installation = true
+  automatic_installation = false
 }
 
 local lspconfig = require("lspconfig")
@@ -117,7 +117,7 @@ lspconfig.sumneko_lua.setup {
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'pyright','clangd','phan' }
+local servers = { 'gopls', 'pyright','clangd','phpactor' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
