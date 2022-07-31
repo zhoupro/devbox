@@ -22,6 +22,10 @@ return require('packer').startup(function(use)
   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
   use 'L3MON4D3/LuaSnip' -- Snippets plugin
   use  'ray-x/lsp_signature.nvim'
+  use 'jbyuki/one-small-step-for-vimkind'
+  use 'mfussenegger/nvim-dap'
+  use 'ldelossa/litee.nvim'
+  use 'ldelossa/litee-calltree.nvim'
 
   use {
     'phaazon/hop.nvim',

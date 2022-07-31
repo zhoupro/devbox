@@ -180,3 +180,39 @@ cmp.setup {
   },
 }
 EOF
+
+
+cat <<EOF > ~/.config/nvim/after/plugin/nvim-dap.lua
+local dap = require"dap"
+dap.configurations.lua = { 
+  { 
+    type = 'nlua', 
+    request = 'attach',
+    name = "Attach to running Neovim instance",
+    host = function()
+      return '127.0.0.1'
+    end,
+    port = function()
+      local val = vim.fn.input('Port: ')
+      if val ~= "" then
+        return tonumber(val)
+      end
+      return 8086
+    end,
+  }
+}
+
+dap.adapters.nlua = function(callback, config)
+  callback({ type = 'server', host = config.host, port = config.port })
+end
+
+EOF
+
+
+cat <<EOF > ~/.config/nvim/after/plugin/litee-calltree.lua
+-- configure the litee.nvim library 
+require('litee.lib').setup({})
+-- configure litee-calltree.nvim
+require('litee.calltree').setup({})
+
+EOF

@@ -110,11 +110,30 @@ cat <<EOF > ~/.config/nvim/maps.vim
 
 
 
+
 EOF
 
 
 
 cat <<'EOF' > ~/.config/nvim/func.vim
+
+fun! VimspectorConfigGen()    
+      let cur_line = line(".")    
+      execute "normal yaf"    
+      execute cur_line
+      lua X = function(a) local _,_, funcName = string.find(a, 'func +([A-Za-z_]*)'); return funcName end
+      let funcName = luaeval('X(_A[1])', [@@])
+
+      if &filetype == 'c'    
+          call system("bash /vagrant_data/shs/vimspector_config/gen_c.sh " . funcName)  
+      elseif &filetype == 'go'    
+          call system("bash /vagrant_data/shs/vimspector_config/gen_go.sh " . funcName)  
+      elseif &filetype == 'lua'    
+         call system("bash /vagrant_data/shs/vimspector_config/gen_lua.sh " . funcName)      
+      endif        
+endfun
+
+
 func! RunProgram()    
       exec "w"    
       if &filetype == 'c'    
@@ -186,6 +205,31 @@ function! Mybks()
     call fzf#run(fzf#wrap({'source': mmm,'options': ['--preview', 'start=$(echo {1}-4|bc) && if [ $start -lt 0 ];then start=0;fi;end=$(echo {1}+12|bc)  &&  batcat    --color=always --style=numbers -H {1} --line-range=$start:$end {2}'],'sink':function("MySink") }))
 endfunction
 
+
+fun! Toggle_debug_vim()
+    if !exists('b:qmode_vim')
+      exec "w"    
+    
+        let b:qmode_vim = 1
+         nmap b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+         nmap c<Cmd>lua require'dap'.continue()<CR>
+         nmap n <Cmd>lua require'dap'.step_over()<CR>
+         nmap e <Cmd>lua require'dap'.repl.open()
+         nmap rs <Cmd>lua require'dap'.terminate()
+     else
+         unlet b:qmode_vim
+         unmap b
+         unmap c
+         unmap n
+         unmap e
+         unmap rs
+     endif
+endfun
+
+fun! Run_vim_server()
+   lua require"osv".launch({port=8086})
+endfun
+
 EOF
 
 cat <<EOF > ~/.config/nvim/cmd.vim
@@ -196,6 +240,12 @@ command! -bang -nargs=* Rg
     \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
     \   <bang>0)
 command Gg call system('echo '.expand("%"). '>> .git/info/exclude')
+
+command! ToggleDebugVim call  Toggle_test_vim()
+command! RunVimServer   call  Run_vim_server()
+
+
+
 
 EOF
 

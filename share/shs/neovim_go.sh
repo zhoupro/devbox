@@ -99,13 +99,6 @@ fun! GenTest()
     endif
 endfun
 
-fun! VimspectorConfigGenForGo()    
-      let cur_line = line(".")    
-      execute "normal yaf"    
-      let funcName = matchstr(@@, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')    
-      execute cur_line    
-      call system("bash /vagrant_data/shs/vimspector_config/gen_go.sh " . funcName)    
-endfun
 
 
 
