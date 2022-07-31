@@ -102,37 +102,6 @@ endfun
 
 
 
-fun! Toggle_debug_go()
-    if !exists('b:qmode_go')
-      exec "w"    
-      if &filetype == 'go'    
-        call VimspectorConfigGenForGo()
-      endif    
-
-        let b:qmode_go = 1
-         nmap b <Plug>VimspectorToggleBreakpoint
-         nmap bc <Plug>VimspectorToggleConditionalBreakpoint
-         nmap bf <Plug>VimspectorAddFunctionBreakpoint
-         nmap c <Plug>VimspectorContinue
-         nmap n <Plug>VimspectorStepOver
-         nmap si <Plug>VimspectorStepInto
-         nmap so <Plug>VimspectorStepOut
-         nmap e <Plug>VimspectorBalloonEval
-         nmap t :call GenTest()<CR>
-         nmap rs :VimspectorReset<CR>
-     else
-         unlet b:qmode_go
-         unmap b
-         unmap bc
-         unmap bf
-         unmap c
-         unmap n
-         unmap si
-         unmap so
-         unmap t
-     endif
-     "AirlineToggle
-endfun
 
 
 fun! Toggle_test_go()
@@ -171,7 +140,6 @@ augroup END
 EOF
 
 cat <<EOF >> ~/.config/nvim/cmd.vim
-command! ToggleDebugGo call Toggle_debug_go()
 command! ToggleTestGo call Toggle_test_go()
 EOF
 

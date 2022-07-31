@@ -123,6 +123,7 @@ fun! VimspectorConfigGen()
       execute cur_line
       lua X = function(a) local _,_, funcName = string.find(a, 'func +([A-Za-z_]*)'); return funcName end
       let funcName = luaeval('X(_A[1])', [@@])
+      echom funcName
 
       if &filetype == 'c'    
           call system("bash /vagrant_data/shs/vimspector_config/gen_c.sh " . funcName)  
@@ -131,6 +132,35 @@ fun! VimspectorConfigGen()
       elseif &filetype == 'lua'    
          call system("bash /vagrant_data/shs/vimspector_config/gen_lua.sh " . funcName)      
       endif        
+endfun
+
+fun! Toggle_debug()
+    if !exists('b:qmode_debug')
+      
+        call VimspectorConfigGen()
+      
+        let b:qmode_debug = 1
+         nmap b <Plug>VimspectorToggleBreakpoint
+         nmap bc <Plug>VimspectorToggleConditionalBreakpoint
+         nmap bf <Plug>VimspectorAddFunctionBreakpoint
+         nmap c <Plug>VimspectorContinue
+         nmap n <Plug>VimspectorStepOver
+         nmap si <Plug>VimspectorStepInto
+         nmap so <Plug>VimspectorStepOut
+         nmap e <Plug>VimspectorBalloonEval
+         nmap t :call GenTest()<CR>
+         nmap rs :VimspectorReset<CR>
+     else
+         unlet b:qmode_debug
+         unmap b
+         unmap bc
+         unmap bf
+         unmap c
+         unmap n
+         unmap si
+         unmap so
+         unmap t
+     endif
 endfun
 
 
@@ -241,7 +271,8 @@ command! -bang -nargs=* Rg
     \   <bang>0)
 command Gg call system('echo '.expand("%"). '>> .git/info/exclude')
 
-command! ToggleDebugVim call  Toggle_test_vim()
+command! ToggleDebugVim call  Toggle_debug_vim()
+command! ToggleDebug    call  Toggle_debug()
 command! RunVimServer   call  Run_vim_server()
 
 
