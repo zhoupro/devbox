@@ -242,10 +242,10 @@ fun! Toggle_debug_vim()
     
         let b:qmode_vim = 1
          nmap b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
-         nmap c<Cmd>lua require'dap'.continue()<CR>
+         nmap c <Cmd>lua require'dap'.continue()<CR>
          nmap n <Cmd>lua require'dap'.step_over()<CR>
-         nmap e <Cmd>lua require'dap'.repl.open()
-         nmap rs <Cmd>lua require'dap'.terminate()
+         nmap e <Cmd>lua require'dap'.repl.open()<CR>
+         nmap rs <Cmd>lua require'dap'.terminate()<CR>
      else
          unlet b:qmode_vim
          unmap b

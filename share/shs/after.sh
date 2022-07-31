@@ -101,7 +101,7 @@ lspconfig.sumneko_lua.setup {
           version = 'LuaJIT',
         },
         diagnostics = {
-          globals = {'vim'},
+          globals = {'vim','describe','it'},
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
