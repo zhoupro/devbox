@@ -12,21 +12,24 @@ fi
 proxy
 
 if [ ! -d ~/.oh-my-zsh ];then
-	sh -c "$(curl -fsSL --insecure https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended  && \
+    sudo rm -rf ohmyzsh && \
+	git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git && \
+	sh  ohmyzsh/tools/install.sh --unattended  && \
+	 sudo rm -rf ohmyzsh && \
 	sudo usermod -s /bin/zsh  `whoami` 
 	! (grep -F 'zsh-autosuggestions' ~/.zshrc &>/dev/null )  && \
-	  git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
+	  git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" && \
 	  sed -E -i "s/plugins=\((.*)\)/plugins=\(\1 zsh-autosuggestions\)/g" ~/.zshrc
 
 
 	! (grep -F 'zsh-syntax-highlighting' ~/.zshrc &>/dev/null )  && \
-	   git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
+	   git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting && \
 	   sed -E -i "s/plugins=\((.*)\)/plugins=\(\1 zsh-syntax-highlighting\)/g" ~/.zshrc
 
 
 	#zsh pure
 	if [ ! -d "$HOME/.zsh/pure" ];then
-	    git clone https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
+	    git clone --depth=1 https://github.com/sindresorhus/pure.git "$HOME/.zsh/pure"
 	fi
 
 	! (grep -F 'pure' ~/.zshrc &>/dev/null )  && \

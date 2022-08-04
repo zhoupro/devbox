@@ -6,7 +6,7 @@ sudo sed -i -E 's/http:\/\/cn.(archive|security).ubuntu.com/https:\/\/mirrors.al
 sudo rm -f /var/lib/dpkg/lock-frontend
 sudo rm -f /var/lib/dpkg/lock
 sudo rm -f /var/cache/apt/archives/lock
-sudo apt remove -y unattended-upgrade
+sudo apt remove -y unattended-upgrades
 
 
 
