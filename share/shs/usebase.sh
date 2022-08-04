@@ -2,10 +2,17 @@
 
 source /vagrant_data/shs/utils.sh
 echo "install usebase"
+sed -i -E 's/http:\/\/cn.(archive|security).ubuntu.com/https:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list
+sudo rm -f /var/lib/dpkg/lock-frontend
+sudo rm -f /var/lib/dpkg/lock
+sudo rm -f /var/cache/apt/archives/lock
+sudo apt remove -y unattended-upgrade
+
+
 
 # apt package
 aptenv(){
-   apt-get update
+   sudo apt-get update
    declare -a myarray
  
   myarray=(
@@ -17,7 +24,7 @@ aptenv(){
 	do
 	   if (( $(dpkg -l | awk '{print $2}' | grep ^$i | wc -l)==0 )) ;then
         echo Install $i
-	       apt-get install -y $i;
+	       sudo apt-get install -y $i;
 	   fi
 	done
 }
@@ -31,13 +38,13 @@ if (( $(dpkg -l | awk '{print $2}' | grep ^sogou | wc -l)==0 )) ;then
     if [ ! -f /vagrant_data/soft/sogou.deb ];then
       axel -n 40 -o /vagrant_data/soft/sogou.deb 'http://cdn2.ime.sogou.com/dl/index/1599192613/sogoupinyin_2.3.2.07_amd64-831.deb?st=1cXIZ9xRzyq4GPkctOsB3Q&e=1602396489&fn=sogoupinyin_2.3.2.07_amd64-831.deb'
     fi
-     gdebi -n /vagrant_data/soft/sogou.deb  && rm -f /vagrant_data/soft/sogou.deb
+     sudo gdebi -n /vagrant_data/soft/sogou.deb  && rm -f /vagrant_data/soft/sogou.deb
 fi
 
 # font
 if [ ! -f /usr/share/fonts/jetfont.ttf ];then
-     cp  /vagrant_data/jetfont.ttf   /usr/share/fonts/jetfont.ttf
-     fc-cache -f -v
+     sudo cp  /vagrant_data/jetfont.ttf   /usr/share/fonts/jetfont.ttf
+     sudo fc-cache -f -v
 fi
 
 
@@ -50,19 +57,19 @@ function install_node_server(){
         echo "nodejs had installed"
         return
     fi
-     rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz
-     rm -rf /usr/local/bin/npm
-     rm -rf /usr/local/bin/node
+    sudo  rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz
+    sudo  rm -rf /usr/local/bin/npm
+    sudo  rm -rf /usr/local/bin/node
 
     if [ ! -f  node-v${SERVER_VERSION}-linux-x64.tar.xz ];then
-         rm -rf /usr/local/lib/nodejs && \
-         mkdir -p /usr/local/lib/nodejs && \
-         axel -n 6 -o node-v${SERVER_VERSION}-linux-x64.tar.xz https://npmmirror.com/mirrors/node/v${SERVER_VERSION}/node-v${SERVER_VERSION}-linux-x64.tar.xz && \
+        sudo  rm -rf /usr/local/lib/nodejs && \
+        sudo mkdir -p /usr/local/lib/nodejs && sudo chmod 777 -R /usr/local/lib/nodejs && \
+         axel -n 6 -o node-v${SERVER_VERSION}-linux-x64.tar.xz https://npmmirror.com/mirrors/node/v${SERVER_VERSION}/node-v${SERVER_VERSION}-linux-x64.tar.xz && \ 
          tar -C /usr/local/lib/nodejs -xJf   node-v${SERVER_VERSION}-linux-x64.tar.xz && \
-         mv /usr/local/lib/nodejs/node-v${SERVER_VERSION}-linux-x64  /usr/local/lib/nodejs/node && \
-         rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz && \
-         ln -s  /usr/local/lib/nodejs/node/bin/npm /usr/local/bin/npm && \
-         ln -s  /usr/local/lib/nodejs/node/bin/node /usr/local/bin/node && \
+         sudo mv /usr/local/lib/nodejs/node-v${SERVER_VERSION}-linux-x64  /usr/local/lib/nodejs/node && \
+         sudo rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz && \
+         sudo ln -s  /usr/local/lib/nodejs/node/bin/npm /usr/local/bin/npm && \
+         sudo ln -s  /usr/local/lib/nodejs/node/bin/node /usr/local/bin/node && \
          echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.bashrc
     fi
 }
@@ -74,7 +81,7 @@ install_node_server 14.18.0
 #w2
 if [ ! -f /usr/local/bin/w2 ];then
      /usr/local/lib/nodejs/node/bin/npm install whistle -g --registry=https://registry.npm.taobao.org
-     ln -s  /usr/local/lib/nodejs/node/bin/w2 /usr/local/bin/w2
+     sudo ln -s  /usr/local/lib/nodejs/node/bin/w2 /usr/local/bin/w2
 fi
 
 

@@ -6,7 +6,7 @@ if [[ $1 =~ ^Test_ ]] ;then
 {
   "configurations": {
       "test": {
-      "adapter": "vscode-go",
+      "adapter": "delve",
       "configuration": {
         "buildFlags": "-tags=BUILDTAG",
         "args": [

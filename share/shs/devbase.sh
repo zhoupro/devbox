@@ -5,7 +5,7 @@ echo "install devbase"
 
 # apt package
 aptenv(){
-   apt-get update
+   sudo apt-get update
   declare -a myarray
  
   myarray=(
@@ -19,7 +19,7 @@ aptenv(){
 	do
 	   if (( $(dpkg -l | awk '{print $2}' | grep ^$i | wc -l)==0 )) ;then
         echo Install $i
-	       apt-get install -y $i;
+	       sudo apt-get install -y $i;
 	   fi
 	done
 }
@@ -29,7 +29,7 @@ aptenv
 
 if (( $(dpkg -l | awk '{print $2}' | grep ^bat | wc -l)==0 )) ;then
     echo "bat"
-    apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
+    sudo apt install -y -o Dpkg::Options::="--force-overwrite" bat ripgrep
 fi
 
 #pip speed

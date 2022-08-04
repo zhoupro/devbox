@@ -12,8 +12,8 @@ function install_go_server(){
 
     if [ ! -f  go${SERVER_VERSION}.linux-amd64.tar.gz ];then
          axel -n 40 -o go${SERVER_VERSION}.linux-amd64.tar.gz https://dl.google.com/go/go${SERVER_VERSION}.linux-amd64.tar.gz && \
-         tar -C /usr/local -xzf  go${SERVER_VERSION}.linux-amd64.tar.gz && \
-        rm -rf go${SERVER_VERSION}.linux-amd64.tar.gz 
+        sudo  tar -C /usr/local -xzf  go${SERVER_VERSION}.linux-amd64.tar.gz && \
+        sudo rm -rf go${SERVER_VERSION}.linux-amd64.tar.gz 
     fi
     export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
      echo "export PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.zshrc
@@ -35,9 +35,7 @@ function go_vim_ins(){
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
     nvim +'GoInstallBinaries' +qall
     #go get -u github.com/cweill/gotests/...
-    nvim -E -c 'CocCommand go.install.tools' -c qall
     go install github.com/cweill/gotests/...@latest
-    nvim +'CocInstall -sync coc-go' +qall
     ! ( grep -F "leetcode_solution_filetype" ~/.config/nvim/init.vim ) && \
     cat >> ~/.config/nvim/init.vim <<END
     let g:leetcode_solution_filetype='golang'

@@ -4,7 +4,7 @@ echo "install tmux"
 
 if (( $(dpkg -l | awk '{print $2}' | grep ^tmux | wc -l)==0 )) ;then
 	echo "Install tmux"
-	apt-get install -y tmux  tmux-plugin-manager tmuxinator
+	sudo apt-get install -y tmux  tmux-plugin-manager tmuxinator
 fi
 
 

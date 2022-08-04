@@ -1,20 +1,20 @@
 #!/bin/bash
 echo "install awesome"
 
-rm -rf /usr/bin/fsed
-tee /usr/bin/fsed <<'END'
+sudo rm -rf /usr/bin/fsed
+sudo tee /usr/bin/fsed <<'END'
 	#!/bin/bash
 	LINENUMBER="$( fgrep -n "$1" "$3" | cut -d':' -f1 )"
 	NEWSTRING="$2"
 	sed -i "${LINENUMBER}s/.*/$2/" "$3"
 END
-chmod u+x /usr/bin/fsed
+sudo chmod u+x /usr/bin/fsed
 
 #awesome
-export CUSTOM_HOME=/home/vagrant
-apt-get install -y   awesome
-apt-get install -y   rofi    feh xcompmgr  flameshot  x11-apps
-mkdir -p $CUSTOM_HOME/.config/awesome
+export CUSTOM_HOME=$HOME
+sudo apt-get install -y   awesome
+sudo apt-get install -y   rofi    feh xcompmgr  flameshot  x11-apps
+sudo mkdir -p $CUSTOM_HOME/.config/awesome
 
 
 
