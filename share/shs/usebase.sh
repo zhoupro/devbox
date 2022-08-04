@@ -2,7 +2,7 @@
 
 source /vagrant_data/shs/utils.sh
 echo "install usebase"
-sed -i -E 's/http:\/\/cn.(archive|security).ubuntu.com/https:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list
+sudo sed -i -E 's/http:\/\/cn.(archive|security).ubuntu.com/https:\/\/mirrors.aliyun.com/g' /etc/apt/sources.list
 sudo rm -f /var/lib/dpkg/lock-frontend
 sudo rm -f /var/lib/dpkg/lock
 sudo rm -f /var/cache/apt/archives/lock
