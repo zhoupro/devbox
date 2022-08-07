@@ -30,6 +30,8 @@ function go_vim_ins(){
     ! (grep -F 'fatih/vim-go' ~/.config/nvim/lua/plugins.lua &>/dev/null ) && \
     sed -i "/plugAddPoint/ause 'fatih/vim-go'" ~/.config/nvim/lua/plugins.lua
     export PATH=$PATH:/usr/local/go/bin:~/go/bin
+    echo "export PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.zshrc
+    echo "export PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bashrc
     export GO111MODULE=on
     export GOPROXY=https://goproxy.cn
     nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'

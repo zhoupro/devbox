@@ -19,7 +19,7 @@ sudo mkdir -p $CUSTOM_HOME/.config/awesome
 
 
 sudo cp /etc/xdg/awesome/rc.lua $CUSTOM_HOME/.config/awesome/rc.lua
-#sudo sed -i 's/"Mod4"/"Mod1"/g' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i 's/"Mod4"/"Mod1"/g' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo sed -i 's/x-terminal-emulator/alacritty/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/mylauncher,/--mylauncher,/g' $CUSTOM_HOME/.config/awesome/rc.lua
@@ -29,6 +29,7 @@ sudo sed -i '$a\awful.util.spawn("xcompmgr &")' $CUSTOM_HOME/.config/awesome/rc.
 sudo sed -i '$a\awful.util.spawn("xfce4-volumed &")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-power-manager &")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("flameshot")' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("fcitx")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-clipman")' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo sed -i '$a\awful.util.spawn("/usr/local/go/bin/go run $CUSTOM_HOME/github/copyproxy/main.go &")' $CUSTOM_HOME/.config/awesome/rc.lua

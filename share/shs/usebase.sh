@@ -6,7 +6,7 @@ sudo sed -i -E 's/http:\/\/cn.(archive|security).ubuntu.com/https:\/\/mirrors.al
 sudo rm -f /var/lib/dpkg/lock-frontend
 sudo rm -f /var/lib/dpkg/lock
 sudo rm -f /var/cache/apt/archives/lock
-sudo apt remove -y unattended-upgrades
+sudo apt remove -y unattended-upgrades update-notifier
 
 
 
@@ -32,14 +32,13 @@ aptenv(){
 #base apt
 aptenv
 
+sudo apt-get remove -y ibus
+sudo apt-get purge -y ibus
+sudo apt install -y fcitx-pinyin locales
+sudo local-gen zh_CN.UTF-8
+sudo im-config -n fcitx
 
-#sogou
-if (( $(dpkg -l | awk '{print $2}' | grep ^sogou | wc -l)==0 )) ;then
-    if [ ! -f /vagrant_data/soft/sogou.deb ];then
-      axel -n 40 -o /vagrant_data/soft/sogou.deb 'http://cdn2.ime.sogou.com/dl/index/1599192613/sogoupinyin_2.3.2.07_amd64-831.deb?st=1cXIZ9xRzyq4GPkctOsB3Q&e=1602396489&fn=sogoupinyin_2.3.2.07_amd64-831.deb'
-    fi
-     sudo gdebi -n /vagrant_data/soft/sogou.deb  && rm -f /vagrant_data/soft/sogou.deb
-fi
+
 
 # font
 if [ ! -f /usr/share/fonts/jetfont.ttf ];then
