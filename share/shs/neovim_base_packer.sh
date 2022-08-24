@@ -66,6 +66,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
 
     let g:fzf_preview_window = ['up:10%:hidden','ctrl-/']
     let g:fzf_layout = {'window':{'width':0.90, 'height':0.90}}
+    let g:vsnip_snippet_dir = expand('~/.config/nvim/snips')
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -109,6 +110,11 @@ cat <<EOF > ~/.config/nvim/maps.vim
     nnoremap <silent> <C-p>  <Cmd>BufferPick<CR>
 
 
+
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'    : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'    : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'    : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'    : '<S-Tab>'
 
 
 EOF

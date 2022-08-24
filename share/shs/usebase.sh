@@ -73,7 +73,7 @@ function install_node_server(){
     fi
 }
 
-install_node_server 14.18.0
+install_node_server 16.17.0
 
 
 
@@ -95,3 +95,5 @@ fi
  /usr/local/lib/nodejs/node/bin/w2 restart > /dev/null
  /usr/local/lib/nodejs/node/bin/w2 add /vagrant_data/conf/.whistle.js --force
 
+npm install -g awk-language-server
+npm i -g bash-language-server
