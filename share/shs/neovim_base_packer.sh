@@ -54,6 +54,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     set shiftwidth=4
     set expandtab
     set foldmethod=manual
+    set mouse=i
    
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
