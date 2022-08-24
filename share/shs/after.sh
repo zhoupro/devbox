@@ -195,3 +195,6 @@ require('litee.lib').setup({})
 require('litee.calltree').setup({})
 
 EOF
+
+echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.zshrc
+echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.bashrc
