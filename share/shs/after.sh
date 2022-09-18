@@ -196,5 +196,9 @@ require('litee.calltree').setup({})
 
 EOF
 
+cat <<EOF > ~/.config/nvim/after/plugin/md-image-paste.lua
+require('md-image-paste').setup({})
+EOF
+
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.zshrc
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.bashrc
