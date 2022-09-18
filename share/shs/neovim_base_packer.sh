@@ -73,7 +73,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     let g:mkdp_open_ip = '192.168.56.100'
     let g:mkdp_port = 8080
     function! g:Open_browser(url)
-        tmp = '!curl http://192.168.56.1:8377/openurl -d "{\"url\":\"' . a:url .  '\"}" -X POST -H "Content-Type:application/json"'
+        let tmp = '!curl http://192.168.56.1:8377/openurl -d "{\"url\":\"' . a:url .  '\"}" -X POST -H "Content-Type:application/json"'
         silent exe tmp
     endfunction
     let g:mkdp_browserfunc = 'g:Open_browser'
