@@ -6,6 +6,8 @@ return require('packer').startup(function(use)
 
   use 'wbthomason/packer.nvim'
   -- plugAddPoint
+  use {'MunifTanjim/nui.nvim'}
+
 
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }
@@ -25,8 +27,7 @@ return require('packer').startup(function(use)
   use  'ray-x/lsp_signature.nvim'
   use 'jbyuki/one-small-step-for-vimkind'
   use 'mfussenegger/nvim-dap'
-  use 'ldelossa/litee.nvim'
-  use 'ldelossa/litee-calltree.nvim'
+  use 'zhoupro/lsp_calltree'
 
   use {
     'phaazon/hop.nvim',

@@ -188,16 +188,12 @@ end
 EOF
 
 
-cat <<EOF > ~/.config/nvim/after/plugin/litee-calltree.lua
--- configure the litee.nvim library 
-require('litee.lib').setup({})
--- configure litee-calltree.nvim
-require('litee.calltree').setup({})
-
-EOF
-
 cat <<EOF > ~/.config/nvim/after/plugin/md-image-paste.lua
 require('md-image-paste').setup({})
+EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/lsp-calltree.lua
+require('calltree').setup({})
 EOF
 
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.zshrc
