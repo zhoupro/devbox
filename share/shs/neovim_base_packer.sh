@@ -68,6 +68,15 @@ cat <<EOF > ~/.config/nvim/settings.vim
     let g:fzf_preview_window = ['up:10%:hidden','ctrl-/']
     let g:fzf_layout = {'window':{'width':0.90, 'height':0.90}}
     let g:vsnip_snippet_dir = expand('~/.config/nvim/snips')
+
+    let g:mkdp_open_to_the_world = 1
+    let g:mkdp_open_ip = '192.168.56.100'
+    let g:mkdp_port = 8080
+    function! g:Open_browser(url)
+        tmp = '!curl http://192.168.56.1:8377/openurl -d "{\"url\":\"' . a:url .  '\"}" -X POST -H "Content-Type:application/json"'
+        silent exe tmp
+    endfunction
+    let g:mkdp_browserfunc = 'g:Open_browser'
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
@@ -77,7 +86,7 @@ cat <<EOF > ~/.config/nvim/maps.vim
    map <leader>m :TagbarOpenAutoClose<CR>
    autocmd VimEnter * noremap  <leader>t  :call RunProgram()<CR>
    nnoremap <Leader>f :Files<CR>
-   nnoremap <leader>y :call system('nc -q 1  localhost 8377', @0)<CR>
+   nnoremap <leader>y :call CopyToTmp()<CR>
    " Terminal mode:
     tnoremap <leader>h <c-\><c-n><c-w>h
     tnoremap <leader>j <c-\><c-n><c-w>j
@@ -123,6 +132,17 @@ EOF
 
 
 cat <<'EOF' > ~/.config/nvim/func.vim
+
+fun! CopyToTmp()
+   execute  "!rm /tmp/copy.txt"
+   execute  "edit /tmp/copy.txt"
+   execute  "normal p"
+   execute  "write"
+   execute  "bd"
+   call system('curl -H "Content-Type:text/plain" --data-binary @/tmp/copy.txt http://192.168.56.1:8377/setclip')
+endfun
+
+
 
 fun! VimspectorConfigGen()    
       let cur_line = line(".")    

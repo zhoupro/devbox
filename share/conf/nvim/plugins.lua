@@ -37,14 +37,19 @@ return require('packer').startup(function(use)
     end
   }
 
+  -- install without yarn or npm
+  use({
+    "iamcco/markdown-preview.nvim",
+    run = function() vim.fn["mkdp#util#install"]() end,
+  })
+  
+  use { 'kyazdani42/nvim-web-devicons' }
+
   use {'junegunn/fzf'}
   use {'junegunn/fzf.vim'}
   use {'puremourning/vimspector'}
   use {'majutsushi/tagbar'}
-  use {
-    'nvim-lualine/lualine.nvim',
-    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-  }
+  use {'nvim-lualine/lualine.nvim'}
 
   use {
     'kyazdani42/nvim-tree.lua',
