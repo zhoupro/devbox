@@ -37,11 +37,9 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- install without yarn or npm
-  use({
-    "iamcco/markdown-preview.nvim",
-    run = function() vim.fn["mkdp#util#install"]() end,
-  })
+
+ use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
   
   use { 'kyazdani42/nvim-web-devicons' }
 
@@ -73,7 +71,7 @@ return require('packer').startup(function(use)
   use {'tpope/vim-repeat'}
 
   use {'vim-test/vim-test'}
-  use {'ferrine/md-img-paste.vim'}
+  use {'zhoupro/md-image-paste'}
   use {'dhruvasagar/vim-table-mode'}
   use {'godlygeek/tabular'}
   use {'plasticboy/vim-markdown'}
