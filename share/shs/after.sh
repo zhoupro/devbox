@@ -91,6 +91,11 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
+capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true
+}
+
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     capabilities = capabilities,
@@ -195,6 +200,24 @@ EOF
 cat <<EOF > ~/.config/nvim/after/plugin/lsp-calltree.lua
 require('calltree').setup({})
 EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/nvim-ufo.lua
+vim.o.foldcolumn = '0'
+vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
+-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/harpoon.lua
+vim.keymap.set('n', 'tt',require("harpoon.mark").add_file() )
+vim.keymap.set('n', 'ta',require("harpoon.ui").toggle_quick_menu())
+EOF
+
+
 
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.zshrc
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.bashrc

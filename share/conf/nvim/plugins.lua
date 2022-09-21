@@ -12,7 +12,12 @@ return require('packer').startup(function(use)
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }
   --use {'nvim-treesitter/nvim-treesitter-textobjects'} 
-  use {'akinsho/toggleterm.nvim'}
+  use {"akinsho/toggleterm.nvim", tag = '*', config = function()
+  require("toggleterm").setup()
+  end}
+
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+  use {'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim'}
   use {'morhetz/gruvbox'}
   use {'tpope/vim-commentary'}
   --use {'neoclide/coc.nvim', branch = 'release'}
@@ -41,7 +46,6 @@ return require('packer').startup(function(use)
 
  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
-  
   use { 'kyazdani42/nvim-web-devicons' }
 
   use {'junegunn/fzf'}
