@@ -29,10 +29,15 @@ return require('packer').startup(function(use)
   use  'hrsh7th/vim-vsnip'
   use  'rafamadriz/friendly-snippets'
 
-  use  'ray-x/lsp_signature.nvim'
+  use 'ray-x/lsp_signature.nvim'
   use 'jbyuki/one-small-step-for-vimkind'
   use 'mfussenegger/nvim-dap'
   use 'zhoupro/lsp_calltree'
+  use 'linty-org/key-menu.nvim'
+  use 'RishabhRD/popfix'
+  use 'RishabhRD/nvim-cheat.sh'
+  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+
 
   use {
     'phaazon/hop.nvim',
