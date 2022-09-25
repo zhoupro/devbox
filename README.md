@@ -12,7 +12,7 @@
 |--------------------------|-------------------------------------------------------|------------------|
 | godlygeek/tabular        | Tabularize /=                                         | = is sep symbol  |
 | sindrets/diffview.nvim   | DiffviewOpen HEAD~2 -- lua/diffview                   | view branch file |
-| tpope/vim-fugitive       | Gblame                                                | who add it       |
+| tpope/vim-fugitive       | Gblame, Git log -- file: to find any version file     | git              |
 | airblade/vim-gitgutter   |                                                       | sign             |
 | kyazdani42/nvim-tree.lua | NvimTreeToggle:,-n copy:c,paste:p, clear find:F,      | file exploer     |
 | ...                      | create:a,delete:d,cut:x,rename:r,find:f,up:-,down:C-] |                  |
