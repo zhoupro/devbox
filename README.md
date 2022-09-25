@@ -1,15 +1,41 @@
+# self devbox
+## neovim
+###  writing
+| plugin                       | commands or maps | desc                               |
+|------------------------------|------------------|------------------------------------|
+| dhruvasagar/vim-table-mode   | TableModeToggle  | insert using \|,second line two \| |
+| zhoupro/md-image-paste       | PasteImg         | insert img from host to md img     |
+| iamcco/markdown-preview.nvim | MarkdownPreview  | priview current md file            |
 
-## 安装ubuntu和vagrant
+### coding
+| plugin                   | commands or maps                                      | desc             |
+|--------------------------|-------------------------------------------------------|------------------|
+| godlygeek/tabular        | Tabularize /=                                         | = is sep symbol  |
+| sindrets/diffview.nvim   | DiffviewOpen HEAD~2 -- lua/diffview                   | view branch file |
+| tpope/vim-fugitive       | Gblame                                                | who add it       |
+| airblade/vim-gitgutter   |                                                       | sign             |
+| kyazdani42/nvim-tree.lua | NvimTreeToggle:,-n copy:c,paste:p, clear find:F,      | file exploer     |
+| ...                      | create:a,delete:d,cut:x,rename:r,find:f,up:-,down:C-] |                  |
+
+
+
+
+### libray
+| plugin                | desc        |
+|-----------------------|-------------|
+| MunifTanjim/nui.nvim  | tree,input  |
+| nvim-lua/plenary.nvim | common code |
+
+
+## ubuntu & vagrant
 docs/vagrant_ubuntu.md
 
-## vim工具
-docs/vim.md
 
-## go编程环境
+## go
 docs/go.md
 
-## c编程环境
+## c
 docs/c.md
 
-## fe编程环境
+## fe
 docs/fe.md

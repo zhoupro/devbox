@@ -80,11 +80,9 @@ return require('packer').startup(function(use)
   use {'tpope/vim-surround'}
   use {'tpope/vim-repeat'}
 
-  use {'vim-test/vim-test'}
   use {'zhoupro/md-image-paste'}
   use {'dhruvasagar/vim-table-mode'}
   use {'godlygeek/tabular'}
-  use {'plasticboy/vim-markdown'}
   use {'MattesGroeger/vim-bookmarks'}
 
 end)

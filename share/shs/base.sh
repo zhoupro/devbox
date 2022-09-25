@@ -1,5 +1,9 @@
 #!/bin/bash
 # apt package
+sudo apt-get install -y software-properties-common
+sudo add-apt-repository -y ppa:git-core/ppa
+
+
 aptenv(){
    apt-get update
    declare -a myarray
