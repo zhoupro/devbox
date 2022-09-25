@@ -20,7 +20,8 @@ Vagrant.configure("2") do |config|
       v.memory  =  1024*6 
       v.cpus    =  4
     end
-    node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
+    #node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
+    node.vm.provision "shell", path: "share/shs/tiger.sh"
   end
 
   # Kubernetes Worker Nodes
