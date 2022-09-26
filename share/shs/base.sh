@@ -9,8 +9,8 @@ aptenv(){
    declare -a myarray
  
   myarray=(
-            git  unrar p7zip   
-            wget curl axel gdebi 
+            git  unrar p7zip   locales
+            wget curl axel gdebi tmux-plugin-manager
          )
 	
 	for i in ${myarray[@]};

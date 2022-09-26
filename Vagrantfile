@@ -9,6 +9,7 @@ Vagrant.configure("2") do |config|
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.100"
     config.vm.synced_folder "./share", "/vagrant_data"
+    config.vm.synced_folder "./disk", "/home/vagrant/playground"
     config.vm.synced_folder ".", "/home/vagrant/devbox"
     #config.vm.synced_folder "C:\\Users\\zhoupro\\.ssh", "/root/.ssh"
     config.ssh.username = "vagrant"
@@ -21,7 +22,7 @@ Vagrant.configure("2") do |config|
       v.cpus    =  4
     end
     node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
-    node.vm.provision "shell", path: "share/shs/tiger.sh", run: "always"
+    node.vm.provision "shell", path: "share/bootstraps/tiger.sh", run: "always"
   end
 
   # Kubernetes Worker Nodes
