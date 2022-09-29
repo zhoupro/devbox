@@ -35,7 +35,7 @@ aptenv
 sudo apt-get remove -y ibus
 sudo apt-get purge -y ibus
 sudo apt install -y fcitx-pinyin locales
-sudo local-gen zh_CN.UTF-8
+sudo locale-gen zh_CN.UTF-8
 sudo im-config -n fcitx
 
 
@@ -63,7 +63,7 @@ function install_node_server(){
     if [ ! -f  node-v${SERVER_VERSION}-linux-x64.tar.xz ];then
         sudo  rm -rf /usr/local/lib/nodejs && \
         sudo mkdir -p /usr/local/lib/nodejs && sudo chmod 777 -R /usr/local/lib/nodejs && \
-         axel -n 6 -o node-v${SERVER_VERSION}-linux-x64.tar.xz https://npmmirror.com/mirrors/node/v${SERVER_VERSION}/node-v${SERVER_VERSION}-linux-x64.tar.xz && \ 
+        axel -n 6 -o node-v${SERVER_VERSION}-linux-x64.tar.xz https://npmmirror.com/mirrors/node/v${SERVER_VERSION}/node-v${SERVER_VERSION}-linux-x64.tar.xz && \ 
          tar -C /usr/local/lib/nodejs -xJf   node-v${SERVER_VERSION}-linux-x64.tar.xz && \
          sudo mv /usr/local/lib/nodejs/node-v${SERVER_VERSION}-linux-x64  /usr/local/lib/nodejs/node && \
          sudo rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz && \
@@ -95,5 +95,5 @@ fi
  /usr/local/lib/nodejs/node/bin/w2 restart > /dev/null
  /usr/local/lib/nodejs/node/bin/w2 add /vagrant_data/conf/.whistle.js --force
 
-npm install -g awk-language-server
-npm i -g bash-language-server
+npm install -g awk-language-server --registry=https://registry.npm.taobao.org
+npm i -g bash-language-server --registry=https://registry.npm.taobao.org

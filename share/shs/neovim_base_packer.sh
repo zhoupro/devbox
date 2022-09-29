@@ -175,6 +175,9 @@ fun! Toggle_debug()
          nmap si <Plug>VimspectorStepInto
          nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
+         nmap d <Plug>VimspectorDownFrame
+         nmap u <Plug>VimspectorUpFrame	
+         
          nmap t :call GenTest()<CR>
          nmap rs :VimspectorReset<CR>
      else
@@ -184,6 +187,8 @@ fun! Toggle_debug()
          unmap bf
          unmap c
          unmap n
+         unmap u
+         unmap d
          unmap si
          unmap so
          unmap t
