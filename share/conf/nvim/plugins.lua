@@ -25,14 +25,14 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use  'hrsh7th/cmp-vsnip'
+  use  {'hrsh7th/cmp-vsnip', requires='hrsh7th/nvim-cmp'}
   use  'hrsh7th/vim-vsnip'
   use  'rafamadriz/friendly-snippets'
 
   use 'ray-x/lsp_signature.nvim'
   use 'jbyuki/one-small-step-for-vimkind'
   use 'mfussenegger/nvim-dap'
-  use 'zhoupro/lsp_calltree'
+  use {'zhoupro/lsp_calltree', requires='MunifTanjim/nui.nvim'}
   use 'linty-org/key-menu.nvim'
   use 'RishabhRD/popfix'
   use 'RishabhRD/nvim-cheat.sh'

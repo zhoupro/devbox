@@ -34,8 +34,9 @@ function go_vim_ins(){
     echo "export PATH=\$PATH:/usr/local/go/bin:$HOME/go/bin" >> ~/.bashrc
     export GO111MODULE=on
     export GOPROXY=https://goproxy.cn
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-    nvim +'GoInstallBinaries' +qall
+    proxy && \
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
+    nvim +'GoInstallBinaries' +qall && \
     #go get -u github.com/cweill/gotests/...
     go install github.com/cweill/gotests/...@latest
     ! ( grep -F "leetcode_solution_filetype" ~/.config/nvim/init.vim ) && \

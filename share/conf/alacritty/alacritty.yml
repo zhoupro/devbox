@@ -1,5 +1,12 @@
 live_config_reload: true
 
+shell:
+  program: /bin/bash
+  args:
+    - -l
+    - -c
+    - "tmux"
+working_directory: playground
 font:
   size: 12
   normal:

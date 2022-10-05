@@ -5,7 +5,7 @@ getDownloadUrl(){
 
 proxy() {
      if  [  -z $1 ];then
-        prox="http://localhost:8899"
+        prox=$CUSTOM_PROXY
     else
         prox=$1
     fi

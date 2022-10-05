@@ -1,5 +1,6 @@
 set timeout 5
-spawn ssh vagrant@192.168.56.100
+#ssh -R remote-port:target-host:target-port -N remotehost
+spawn ssh -R 7890:192.168.56.100:7890 vagrant@192.168.56.100
 expect "password*"
-send "varant\r"
+send "vagrant\r"
 interact

@@ -1,5 +1,6 @@
 #!/bin/bash
 source /vagrant_data/shs/utils.sh
+
 echo "install base packer"
 
 #读取参数# install neovim
@@ -55,7 +56,6 @@ cat <<EOF > ~/.config/nvim/settings.vim
     set expandtab
     set foldmethod=manual
     set mouse=i
-   
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
     set cmdheight=2
@@ -341,9 +341,10 @@ EOF
 
 
 
-
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-nvim --headless +TSUpdate +qa
+proxy && \
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
+nvim --headless +TSUpdate +qa && \
+noproxy
 
 
 

@@ -13,10 +13,14 @@ cat <<EOF > ~/.tmux.conf
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'samoshkin/tmux-plugin-sysstat'
+set -g @plugin 'tmux-plugins/tmux-battery'
+set -g @plugin 'tmux-plugins/tmux-net-speed'
 
-# other plugins
-set -g @plugin 'dracula/tmux'
-set -g @dracula-plugins "battery cpu-usage ram-usage"
+
+set -g @sysstat_mem_view_tmpl 'RAM:#{mem.used}/#{mem.total}'
+set -g status-right "#{sysstat_cpu} |#{sysstat_mem}|BAT:#{battery_percentage}|NET:#{download_speed}"
+set -g @download_speed_format "%7s"
 
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)

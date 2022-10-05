@@ -9,7 +9,7 @@ aptenv(){
    declare -a myarray
  
   myarray=(
-            git  unrar p7zip   locales
+            git  unrar p7zip   locales tig
             wget curl axel gdebi tmux-plugin-manager
          )
 	

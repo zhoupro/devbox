@@ -16,7 +16,7 @@ aptenv(){
    declare -a myarray
  
   myarray=(
-            git  unrar p7zip   
+            git  unrar p7zip  tig
             wget curl axel gdebi fcitx shotwell
          )
 	
