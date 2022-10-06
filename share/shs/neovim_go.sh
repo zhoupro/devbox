@@ -47,6 +47,9 @@ END
 
 go_vim_ins
 
+if [ ! -f /usr/local/bin/gopkgs  ];then
+	wget https://github.com/haya14busa/gopkgs/releases/download/v1.0.0/gopkgs_linux_amd64 && mv gopkgs_linux_amd64 /usr/local/bin/gopkgs && chmod u+x /usr/local/bin/gopkgs
+fi
 
 cat <<EOF >> ~/.config/nvim/settings.vim
     let g:vimspector_ui_mode = "vertical"

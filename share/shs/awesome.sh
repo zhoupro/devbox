@@ -24,6 +24,7 @@ sudo sed -i 's/"Mod4"/"Mod1"/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/x-terminal-emulator/alacritty/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/mylauncher,/--mylauncher,/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/titlebars_enabled = true/titlebars_enabled = false/g' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/custom/bingimg.sh")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("bash /vagrant_data/shs/custom/feh.sh")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xcompmgr &")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-volumed &")' $CUSTOM_HOME/.config/awesome/rc.lua
@@ -31,8 +32,6 @@ sudo sed -i '$a\awful.util.spawn("xfce4-power-manager &")' $CUSTOM_HOME/.config/
 sudo sed -i '$a\awful.util.spawn("flameshot")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("fcitx")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-clipman")' $CUSTOM_HOME/.config/awesome/rc.lua
-
-sudo sed -i '$a\awful.util.spawn("/usr/local/go/bin/go run $CUSTOM_HOME/github/copyproxy/main.go &")' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  $CUSTOM_HOME/.config/awesome/rc.lua
 
@@ -86,3 +85,19 @@ sudo sed -i 's!theme.bg_systray    = theme.bg_normal .. 50!theme.bg_systray    =
 sudo sed -i 's!theme.bg_systray    = theme.bg_normal!theme.bg_systray    = theme.bg_normal .. 50!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.font          = "sans 8"!theme.font          = "JetBrainsMono Nerd Font Mono 12"!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.fg_focus      = "#ffffff"!theme.fg_focus      = "#00ffef"!g' /usr/share/awesome/themes/default/theme.lua
+
+sudo sed -i '$ a --END'  $CUSTOM_HOME/.config/awesome/rc.lua
+
+read -r -d '' VAR <<-'EOF'
+    gears.timer {
+        timeout = 360,
+        call_now = false,
+        autostart = true,
+        callback = function()
+            awful.util.spawn("bash /vagrant_data/shs/custom/bingimg.sh")
+            awful.util.spawn("bash /vagrant_data/shs/custom/feh.sh")
+        end
+    }
+EOF
+
+sudo sed -i "s#END#END@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" $CUSTOM_HOME/.config/awesome/rc.lua

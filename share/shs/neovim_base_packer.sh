@@ -134,13 +134,33 @@ EOF
 cat <<'EOF' > ~/.config/nvim/func.vim
 
 fun! CopyToTmp()
-   execute  "!rm /tmp/copy.txt"
+   execute  "!echo "" > /tmp/copy.txt"
    execute  "edit /tmp/copy.txt"
    execute  "normal p"
    execute  "write"
    execute  "bd"
    call system('curl -H "Content-Type:text/plain" --data-binary @/tmp/copy.txt http://192.168.56.1:8377/setclip')
 endfun
+
+function! s:get_go_pkgs()
+	    function! s:go_import(pk)
+		execute 'GoImport' a:pk
+	    endfunction
+	    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_import')}))
+	endfunction
+	function! s:get_go_doc()
+	    function! s:go_doc(pk)
+		execute 'GoDoc' a:pk
+	    endfunction
+	    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_doc')}))
+	endfunction
+	augroup gopkgs
+	    autocmd!
+	    autocmd FileType go command! -buffer GI exe s:get_go_pkgs()
+	    autocmd FileType go command! -buffer GD exe s:get_go_doc()
+	augroup END
+	map <leader>i :GI<cr>
+	map <leader>d :GD<cr>
 
 
 
