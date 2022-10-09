@@ -84,5 +84,6 @@ return require('packer').startup(function(use)
   use {'dhruvasagar/vim-table-mode'}
   use {'godlygeek/tabular'}
   use {'MattesGroeger/vim-bookmarks'}
+  use {'rlue/vim-barbaric'}
 
 end)
