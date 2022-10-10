@@ -30,7 +30,7 @@ EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
 vim.api.nvim_create_autocmd('BufEnter', {
-    command = "if winnr('$') == 1 && bufname() == '  | quit | endif",
+    command = "if winnr('$') == 1 && bufname() == ''  | quit | endif",
     nested = true,
 })
   require("nvim-tree").setup({
