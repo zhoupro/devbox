@@ -252,5 +252,5 @@ EOF
 
 
 
-echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.zshrc
-echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.bashrc
+echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.zshrc
+echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.bashrc

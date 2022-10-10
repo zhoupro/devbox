@@ -239,6 +239,10 @@ func! RunProgram()
          exec "!java -cp %:p:h %:t:r"    
       endif    
   endfunc    
+
+  func! Run_Ranger() 
+       exec "FloatermNew --height=0.6 --width=0.4 --wintype=float --name=floaterm1 --position=topleft ranger"    
+  endfunc
  
 fu! s:isdir(dir) abort
       return !empty(a:dir) && (isdirectory(a:dir) ||
@@ -326,10 +330,7 @@ command Gg call system('echo '.expand("%"). '>> .git/info/exclude')
 command! ToggleDebugVim call  Toggle_debug_vim()
 command! ToggleDebug    call  Toggle_debug()
 command! RunVimServer   call  Run_vim_server()
-
-
-
-
+command! Ranger         call  Run_Ranger()
 EOF
 
 mkdir -p ~/.config/nvim/after/plugin

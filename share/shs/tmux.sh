@@ -2,7 +2,7 @@
 source /vagrant_data/shs/utils.sh
 echo "install tmux"
 
-if (( $(dpkg -l | awk '{print $2}' | grep ^tmux | wc -l)==0 )) ;then
+if (( $(dpkg -l | awk '{print $2}' | grep ^tmux-plugin-manager | wc -l)==0 )) ;then
 	echo "Install tmux"
 	sudo apt-get install -y tmux  tmux-plugin-manager tmuxinator
 fi

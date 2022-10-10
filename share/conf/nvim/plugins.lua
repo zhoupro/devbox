@@ -85,5 +85,6 @@ return require('packer').startup(function(use)
   use {'godlygeek/tabular'}
   use {'MattesGroeger/vim-bookmarks'}
   use {'rlue/vim-barbaric'}
+  use 'voldikss/vim-floaterm'
 
 end)

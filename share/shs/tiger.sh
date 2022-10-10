@@ -1,7 +1,8 @@
 #!/bin/bash
-sudo apt install -y tigervnc-standalone-server tigervnc-xorg-extension
 
 echo "awesome" > ~/.xsession
+#echo "gnome" > ~/.xsession
+
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
