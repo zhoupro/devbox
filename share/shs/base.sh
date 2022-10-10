@@ -17,7 +17,7 @@ aptenv(){
 	do
 	   if (( $(dpkg -l | awk '{print $2}' | grep ^$i | wc -l)==0 )) ;then
         echo Install $i
-	       apt-get install -y $i;
+	       sudo apt-get install -y $i;
 	   fi
 	done
 }

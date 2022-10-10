@@ -77,6 +77,17 @@ cat <<EOF > ~/.config/nvim/settings.vim
         silent exe tmp
     endfunction
     let g:mkdp_browserfunc = 'g:Open_browser'
+
+    augroup nvim-tree
+        au!
+        au VimEnter * sil! au! FileExplorer *
+        au BufEnter * if s:isdir(expand('%')) | bd | exe 'NvimTreeOpen' | endif
+    augroup END
+
+    fu! s:isdir(dir) abort
+        return !empty(a:dir) && (isdirectory(a:dir) ||
+        \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
+    endfu
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
