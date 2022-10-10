@@ -38,35 +38,36 @@ vim.api.nvim_create_autocmd('BufEnter', {
       open_file = {
         quit_on_open = true,
       },
-       view = {
-        adaptive_size = true,
-        centralize_selection = false,
-        width = 30,
-        hide_root_folder = false,
-        side = "left",
-        preserve_window_proportions = false,
-        number = false,
-        relativenumber = false,
-        signcolumn = "yes",
-        mappings = {
-          custom_only = false,
-          list = {
-            -- user mappings go here
-          },
-        },
-        float = {
-          enable = true,
-          open_win_config = {
-            relative = "editor",
-            border = "rounded",
-            width = 100,
-            height = 30,
-            row = 1,
-            col = 1,
-          },
+  
+    },
+    view = {
+      adaptive_size = true,
+      centralize_selection = false,
+      width = 30,
+      hide_root_folder = false,
+      side = "left",
+      preserve_window_proportions = false,
+      number = false,
+      relativenumber = false,
+      signcolumn = "yes",
+      mappings = {
+        custom_only = false,
+        list = {
+          -- user mappings go here
         },
       },
-    }
+      float = {
+        enable = true,
+        open_win_config = {
+          relative = "editor",
+          border = "rounded",
+          width = 100,
+          height = 30,
+          row = 1,
+          col = 1,
+        },
+      },
+    },
   }) 
 EOF
 

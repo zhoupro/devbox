@@ -86,7 +86,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
 
     fu! s:isdir(dir) abort
         return !empty(a:dir) && (isdirectory(a:dir) ||
-        \ (!empty($SYSTEMDRIVE) && isdirectory('/'.tolower($SYSTEMDRIVE[0]).a:dir)))
+        \ (!empty(\$SYSTEMDRIVE) && isdirectory('/'.tolower(\$SYSTEMDRIVE[0]).a:dir)))
     endfu
 EOF
 
