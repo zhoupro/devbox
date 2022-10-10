@@ -327,6 +327,30 @@ fun! Run_vim_server()
    lua require"osv".launch({port=8086})
 endfun
 
+fun! JsonPrettyFun()
+    let @a = system("jq . ". bufname("%"))
+    if v:shell_error
+        echom @a
+    else
+        %delete
+        normal! "ap
+        1delete
+        write
+    endif
+endfun
+
+fun! JsonMinFun()
+    let @a = system("jq -c . < ". bufname("%"))
+    if v:shell_error
+        echom @a
+    else
+        %delete
+        normal! "ap
+        1delete
+        write
+    endif
+endfun
+
 EOF
 
 cat <<EOF > ~/.config/nvim/cmd.vim
@@ -342,6 +366,8 @@ command! ToggleDebugVim call  Toggle_debug_vim()
 command! ToggleDebug    call  Toggle_debug()
 command! RunVimServer   call  Run_vim_server()
 command! Ranger         call  Run_Ranger()
+command! JsonMin         call  JsonMinFun()
+command! JsonPretty         call  JsonPrettyFun()
 EOF
 
 mkdir -p ~/.config/nvim/after/plugin
