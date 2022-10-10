@@ -5,7 +5,7 @@ sudo add-apt-repository -y ppa:git-core/ppa
 
 
 aptenv(){
-   apt-get update
+   sudo apt-get update
    declare -a myarray
  
   myarray=(
