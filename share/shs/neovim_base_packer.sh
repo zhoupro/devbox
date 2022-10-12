@@ -354,7 +354,8 @@ endfun
 fun! MkView()
     let fileName =  expand('%:t')
     let preFileName = "_pre-".fileName
-    execute "silent!bash /vagrant_data/shs/mkinc.sh ".fileName
+    execute "silent!cp ".fileName . " ".preFileName
+    execute "!bash /vagrant_data/shs/mkinc.sh ".fileName
     execute "edit ".preFileName
     execute "MarkdownPreview"
 endfun
