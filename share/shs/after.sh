@@ -21,11 +21,35 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/lualine.rc.lua
-   require('lualine').setup({
-     options = {
-        disabled_filetypes = {'NvimTree', 'VimspectorPrompt'}
-     }
-   })
+local function getEnWords()
+  if vim.bo.filetype == "md" or vim.bo.filetype == "markdown" then
+    return ""
+  end
+
+  local fileName = vim.fn.expand('%')
+  local res = os.capture("cat " .. fileName .. " | sed 's/!\\[.*]\\(.*\\)//g' | sed 's/[[:punct:]]//g' | tr -cd '\\11\\12\\15\\40-\\176' | wc -w")
+  return res .. " words"
+end
+
+local function getCnWords()
+  if vim.bo.filetype == "md" or vim.bo.filetype == "markdown" then
+    return ""
+  end
+  
+  local fileName = vim.fn.expand('%')
+  local res = os.capture("cat " .. fileName .. " | sed 's/!\\[.*]\\(.*\\)//g' | grep -o -P '[\\p{Han}]'| tr -d '\\n' | wc -m")
+  return res .. " zi"
+end
+
+
+require('lualine').setup({
+  options = {
+    disabled_filetypes = {'NvimTree', 'VimspectorPrompt'}
+  },
+  sections = {
+    lualine_c = {'filename', {getEnWords}, {getCnWords}},
+  }
+})
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
@@ -57,7 +81,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
         },
       },
       float = {
-        enable = true,
+        enable = false,
         open_win_config = {
           relative = "editor",
           border = "rounded",
