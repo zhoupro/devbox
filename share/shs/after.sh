@@ -22,22 +22,14 @@ EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/lualine.rc.lua
 local function getEnWords()
-  if vim.bo.filetype == "md" or vim.bo.filetype == "markdown" then
-    return ""
-  end
-
-  local fileName = vim.fn.expand('%')
-  local res = os.capture("cat " .. fileName .. " | sed 's/!\\[.*]\\(.*\\)//g' | sed 's/[[:punct:]]//g' | tr -cd '\\11\\12\\15\\40-\\176' | wc -w")
+  local fileName = vim.fn.expand(''%:t')
+  local res = os.capture("cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | sed 's/[[:punct:]]//g' | tr -cd '\\\\11\\\\12\\\\15\\\\40-\\\\176' | wc -w")
   return res .. " words"
 end
 
 local function getCnWords()
-  if vim.bo.filetype == "md" or vim.bo.filetype == "markdown" then
-    return ""
-  end
-  
-  local fileName = vim.fn.expand('%')
-  local res = os.capture("cat " .. fileName .. " | sed 's/!\\[.*]\\(.*\\)//g' | grep -o -P '[\\p{Han}]'| tr -d '\\n' | wc -m")
+  local fileName = vim.fn.expand(''%:t')
+  local res = os.capture("cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | grep -o -P '[\\\\p{Han}]'| tr -d '\\n' | wc -m")
   return res .. " zi"
 end
 

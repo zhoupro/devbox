@@ -351,6 +351,14 @@ fun! JsonMinFun()
     endif
 endfun
 
+fun! MkView()
+    let fileName =  expand('%:t')
+    let preFileName = "_pre-".fileName
+    execute "silent!bash /vagrant_data/shs/mkinc.sh ".fileName
+    execute "edit ".preFileName
+    execute "MarkdownPreview"
+endfun
+
 EOF
 
 cat <<EOF > ~/.config/nvim/cmd.vim
@@ -368,6 +376,7 @@ command! RunVimServer   call  Run_vim_server()
 command! Ranger         call  Run_Ranger()
 command! JsonMin         call  JsonMinFun()
 command! JsonPretty         call  JsonPrettyFun()
+command! MkView         call  MkView()
 EOF
 
 mkdir -p ~/.config/nvim/after/plugin
