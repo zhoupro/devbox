@@ -81,7 +81,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     augroup nvim-tree
         au!
         au VimEnter * sil! au! FileExplorer *
-        au BufEnter * if s:isdir(expand('%')) | bd | exe 'NvimTreeOpen' | endif
+        au BufEnter * if s:isdir(expand('%')) |  exe 'NvimTreeOpen' | endif
     augroup END
 
     fu! s:isdir(dir) abort
@@ -382,9 +382,6 @@ EOF
 
 mkdir -p ~/.config/nvim/after/plugin
 
-cat <<'EOF' > ~/.config/nvim/after/plugin/markdown.rc.vim
-    let g:vim_markdown_folding_disabled = 1
-EOF
 
 
 cat <<'EOF' > ~/.config/nvim/after/plugin/toggleterm.rc.vim
