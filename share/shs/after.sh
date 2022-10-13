@@ -26,7 +26,7 @@ local function getEnWords()
       return ""
    end
   local fileName = vim.fn.expand('%')
-  local res = os.capture("cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | sed 's/[[:punct:]]//g' | tr -cd '\\\\11\\\\12\\\\15\\\\40-\\\\176' | wc -w")
+  local res = os.capture("[ -e "..fileName.." ] && cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | sed 's/[[:punct:]]//g' | tr -cd '\\\\11\\\\12\\\\15\\\\40-\\\\176' | wc -w")
   return res .. " words"
 end
 
@@ -35,7 +35,7 @@ local function getCnWords()
       return ""
    end
   local fileName = vim.fn.expand('%')
-  local res = os.capture("cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | grep -o -P '[\\\\p{Han}]'| tr -d '\\n' | wc -m")
+  local res = os.capture("[ -e "..fileName.." ] && cat " .. fileName .. " | sed 's/!\\\\[.*]\\\\(.*\\\\)//g' | grep -o -P '[\\\\p{Han}]'| tr -d '\\n' | wc -m")
   return res .. " zi"
 end
 

@@ -4,15 +4,15 @@ getDownloadUrl(){
 }
 
 proxy() {
-    CUSTOM_PROXY="http://192.168.56.1:7890"
-    if  [  -z $1 ];then
-        prox="http://localhost:8899"
-        prox=$CUSTOM_PROXY
-    elif [ -z $CUSTOM_PROXY ]; then
-        prox=$CUSTOM_PROXY
+    #CUSTOM_PROXY="http://192.168.56.1:7890"
+    if  [[ ! -z $CUSTOM_PROXY ]] ;then
+         prox=$CUSTOM_PROXY
+    elif [[ ! -z "$1"  ]]; then
+        prox=$1
     else
         prox=""
     fi
+
     echo $prox
 
     export ALL_PROXY="$prox"
