@@ -7,8 +7,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   -- plugAddPoint
   use {'MunifTanjim/nui.nvim'}
-
-
+  use 'aklt/plantuml-syntax'
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }
   --use {'nvim-treesitter/nvim-treesitter-textobjects'} 

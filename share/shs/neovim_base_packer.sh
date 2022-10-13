@@ -54,7 +54,7 @@ cat <<EOF > ~/.config/nvim/settings.vim
     set tabstop=4
     set shiftwidth=4
     set expandtab
-    set foldmethod=manual
+    "set foldmethod=manual
     set mouse=i
     let g:vimspector_enable_mappings = 'HUMAN'
     let test#strategy='neovim'
@@ -353,7 +353,7 @@ endfun
 
 fun! MkView()
     let fileName =  expand('%:t')
-    let preFileName = "_pre-".fileName
+    let preFileName = "_pre-".fileName.".md"
     execute "silent!cp ".fileName . " ".preFileName
     execute "!bash /vagrant_data/shs/mkinc.sh ".fileName
     execute "edit ".preFileName

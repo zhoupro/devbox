@@ -2,5 +2,10 @@ share/dict
 share/soft
 .vagrant
 disk
-share/background
+share/background/horizal/*.jpg
+share/background/vertical/*.jpg
+share/background/horizal/*.png
+share/background/vertical/*.png
+share/background/horizal/*.jpeg
+share/background/vertical/*.jpeg
 store

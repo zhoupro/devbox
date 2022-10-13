@@ -1,8 +1,8 @@
 #!/bin/bash
 
 fileName=$1
-cp $fileName "_pre-$fileName"
-newName="_pre-$fileName"
+cp $fileName "_pre-$fileName.md"
+newName="_pre-$fileName.md"
 
 while IFS= read -r line
 do
