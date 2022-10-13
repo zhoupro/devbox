@@ -8,6 +8,9 @@ return require('packer').startup(function(use)
   -- plugAddPoint
   use {'MunifTanjim/nui.nvim'}
   use 'aklt/plantuml-syntax'
+  use {'godlygeek/tabular'}
+  use 'preservim/vim-markdown'
+
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }
   --use {'nvim-treesitter/nvim-treesitter-textobjects'} 
@@ -81,7 +84,6 @@ return require('packer').startup(function(use)
 
   use {'zhoupro/md-image-paste'}
   use {'dhruvasagar/vim-table-mode'}
-  use {'godlygeek/tabular'}
   use {'MattesGroeger/vim-bookmarks'}
   use {'rlue/vim-barbaric'}
   use 'voldikss/vim-floaterm'
