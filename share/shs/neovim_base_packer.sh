@@ -65,11 +65,13 @@ cat <<EOF > ~/.config/nvim/settings.vim
     set mouse+=a
     let g:go_gopls_enabled = 0
 
+
     let g:fzf_preview_window = ['up:10%:hidden','ctrl-/']
     let g:fzf_layout = {'window':{'width':0.90, 'height':0.90}}
     let g:vsnip_snippet_dir = expand('~/.config/nvim/snips')
 
     let g:mkdp_open_to_the_world = 1
+    let g:mkdp_command_for_global = 1
     let g:mkdp_open_ip = '192.168.56.100'
     let g:mkdp_port = 8080
     function! g:Open_browser(url)
@@ -353,7 +355,7 @@ endfun
 
 fun! MkView()
     let fileName =  expand('%:t')
-    let preFileName = "_pre-".fileName.".md"
+    let preFileName = "_pre-".fileName
     execute "silent!cp ".fileName . " ".preFileName
     execute "!bash /vagrant_data/shs/mkinc.sh ".fileName
     execute "edit ".preFileName
