@@ -12,7 +12,7 @@ sudo chmod u+x /usr/bin/fsed
 
 #awesome
 export CUSTOM_HOME=$HOME
-sudo apt-get install -y   awesome
+sudo apt-get install -y   awesome xfce4
 sudo apt-get install -y   rofi    feh xcompmgr  flameshot  x11-apps
 sudo mkdir -p $CUSTOM_HOME/.config/awesome
 
