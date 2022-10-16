@@ -10,7 +10,7 @@ aptenv(){
  
   myarray=(
             git  unrar p7zip   locales tig xclip xsel fzf
-            wget curl axel gdebi tmux-plugin-manager
+            wget curl axel gdebi tmux-plugin-manager fuse
          )
 	
 	for i in ${myarray[@]};
@@ -21,6 +21,11 @@ aptenv(){
 	   fi
 	done
 }
+
+if [ ! -f /usr/bin/google-chrome ];then
+   wget 'https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb' &&\
+	sudo gdebi -n google-chrome-stable_current_amd64.deb && sudo rm -f google-chrome-stable_current_amd64.deb
+fi
 
 #base apt
 aptenv
