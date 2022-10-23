@@ -309,3 +309,5 @@ EOF
 
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.zshrc
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.bashrc
+
+sudo apt autoremove -y

@@ -1,6 +1,18 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
+packer = require("packer")
+packer.init({
+    git = {
+        clone_timeout = 300, -- 5 mins
+    },
+    max_jobs = 20,
+     profile = {
+        enable = true,
+    },
+})
+
+
 return require('packer').startup(function(use)
   -- Packer can manage itself
 

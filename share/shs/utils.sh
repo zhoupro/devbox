@@ -5,12 +5,13 @@ getDownloadUrl(){
 
 proxy() {
     #CUSTOM_PROXY="http://192.168.56.1:7890"
-    if  [[ ! -z $CUSTOM_PROXY ]] ;then
-         prox=$CUSTOM_PROXY
-    elif [[ ! -z "$1"  ]]; then
-        prox=$1
+    if  [[ ! -z $1   ]] ;then
+         prox=$1
+    elif [[ ! -z $CUSTOM_PROXY   ]]; then
+        prox=$CUSTOM_PROXY
     else
-        prox=""
+        w2 restart
+        prox="http://localhost:8899"
     fi
 
     echo $prox
@@ -33,6 +34,7 @@ proxy() {
 
 noproxy() {
     echo "noproxy"
+    unset CUSTOM_PROXY
     unset ALL_PROXY
     unset all_proxy 
     unset https_proxy

@@ -13,6 +13,8 @@ if [ ! -f /usr/local/bin/vim ];then
       sudo chmod 777 /usr/local/bin/nvim 
 fi
 
+sudo apt install -y fuse
+
 if [ ! "$(pip3 list | grep neovim)" ];then
     pip3 install neovim --upgrade
 fi
