@@ -23,7 +23,7 @@ function install_go_server(){
 
 }
 
-install_go_server 1.18.3
+install_go_server 1.19.2
 
 
 function go_vim_ins(){
@@ -48,7 +48,7 @@ END
 go_vim_ins
 
 if [ ! -f /usr/local/bin/gopkgs  ];then
-	wget https://github.com/haya14busa/gopkgs/releases/download/v1.0.0/gopkgs_linux_amd64 && mv gopkgs_linux_amd64 /usr/local/bin/gopkgs && chmod u+x /usr/local/bin/gopkgs
+	wget https://github.com/haya14busa/gopkgs/releases/download/v1.0.0/gopkgs_linux_amd64 && sudo mv gopkgs_linux_amd64 /usr/local/bin/gopkgs && chmod u+x /usr/local/bin/gopkgs
 fi
 
 cat <<EOF >> ~/.config/nvim/settings.vim

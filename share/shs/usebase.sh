@@ -73,7 +73,7 @@ function install_node_server(){
     fi
 }
 
-install_node_server 16.17.0
+install_node_server 16.18.0
 
 
 
@@ -97,3 +97,16 @@ fi
 
 npm install -g awk-language-server --registry=https://registry.npm.taobao.org
 npm i -g bash-language-server --registry=https://registry.npm.taobao.org
+
+
+# #sogou
+# if (( $(dpkg -l | awk '{print $2}' | grep ^sogou | wc -l)==0 )) ;then
+   
+#     if ! dpkg -l | grep -q "sogoupinyin" ; then
+# 	    sudo  wget 'http://cdn2.ime.sogou.com/dl/index/1599192613/sogoupinyin_2.3.2.07_amd64-831.deb?st=1cXIZ9xRzyq4GPkctOsB3Q&e=1602396489&fn=sogoupinyin_2.3.2.07_amd64-831.deb' -O sougou.deb && \
+#         sudo dpkg -i sougou.deb ||   sudo apt-get install -fy  && sudo rm -f sougou.deb
+
+#     fi
+#      sudo apt install -y libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
+#      sudo apt install -y libgsettings-qt1
+# fi

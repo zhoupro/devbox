@@ -11,7 +11,7 @@ aptenv(){
   myarray=(
             build-essential 
             python3-pip exuberant-ctags
-            lua5.3 jq
+            lua5.3 jq  fuse
          )
 
 	
