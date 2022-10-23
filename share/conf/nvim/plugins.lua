@@ -6,7 +6,7 @@ packer.init({
     git = {
         clone_timeout = 300, -- 5 mins
     },
-    max_jobs = 20,
+    max_jobs = 60,
      profile = {
         enable = true,
     },

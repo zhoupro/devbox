@@ -410,7 +410,7 @@ EOF
 
 
 
-proxy && \
+proxy  && \
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
 nvim --headless +TSUpdate +qa && \
 noproxy
