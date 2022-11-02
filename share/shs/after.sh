@@ -95,6 +95,7 @@ EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-lspconfig.lua
 
+vim.o.timeoutlen=1000
 require("nvim-lsp-installer").setup {
   automatic_installation = false
 }
@@ -150,6 +151,8 @@ capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true
 }
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
@@ -178,15 +181,13 @@ lspconfig.sumneko_lua.setup {
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls' }
+local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
     capabilities = capabilities,
   }
 end
-
-
 
 
 local signature_config = {
@@ -310,4 +311,12 @@ EOF
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.zshrc
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.bashrc
 
-sudo apt autoremove -y
+
+cat <<EOF > ~/.config/nvim/after/plugin/webtools.lua
+require'web-tools'.setup({
+      keymaps = {
+        rename = nil,  -- by default use same setup of lspconfig
+        repeat_rename = '.', -- . to repeat
+      },
+    })
+EOF

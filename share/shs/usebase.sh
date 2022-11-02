@@ -98,6 +98,9 @@ fi
 npm install -g awk-language-server --registry=https://registry.npm.taobao.org
 npm i -g bash-language-server --registry=https://registry.npm.taobao.org
 
+npm i -g vscode-langservers-extracted   --registry=https://registry.npm.taobao.org
+npm install -g browser-sync --registry=https://registry.npm.taobao.org
+
 
 # #sogou
 if (( $(dpkg -l | awk '{print $2}' | grep ^sogou | wc -l)==0 )) ;then

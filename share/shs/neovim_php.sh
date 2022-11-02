@@ -1,6 +1,6 @@
 #!/bin/bash
 echo "php vim"
-apt install -y php php-curl php-dom
+sudo apt install -y php php-curl php-dom
 
 
 # wget https://getcomposer.org/composer.phar -O composer  && \

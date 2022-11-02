@@ -15,7 +15,8 @@ packer.init({
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
-
+  use 'mattn/emmet-vim'
+  use 'AndrewRadev/tagalong.vim'
   use 'wbthomason/packer.nvim'
   -- plugAddPoint
   use {'MunifTanjim/nui.nvim'}
