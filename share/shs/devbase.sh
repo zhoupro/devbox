@@ -46,6 +46,9 @@ EOF
 sudo cp /vagrant_data/conf/docker-service/mongo/mongosh.sh /usr/local/bin/mongosh && \
 sudo chmod 777 -R /usr/local/bin/mongosh
 
+sudo cp /vagrant_data/conf/docker-service/mysql/mysql.sh /usr/local/bin/mysql && \
+sudo chmod 777 -R /usr/local/bin/mysql
+
 
 
 

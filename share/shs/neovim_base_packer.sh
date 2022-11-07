@@ -196,10 +196,19 @@ fun! VimspectorConfigGen()
       endif        
 endfun
 
+fun! Toggle_database()
+    let $DATABASE_URL=system("make sql| tr -d '\n\r'")
+endfun
+
+
 fun! Toggle_debug()
     if !exists('b:qmode_debug')
       
         call VimspectorConfigGen()
+
+        if filereadable('Makefile')
+            let $EXEC_FILE=system("make out")
+        endif
       
         let b:qmode_debug = 1
          nmap b <Plug>VimspectorToggleBreakpoint
@@ -382,6 +391,7 @@ command! Ranger         call  Run_Ranger()
 command! JsonMin         call  JsonMinFun()
 command! JsonPretty         call  JsonPrettyFun()
 command! MkView         call  MkView()
+command! ToggleDatabase    call  Toggle_database()
 EOF
 
 mkdir -p ~/.config/nvim/after/plugin

@@ -39,6 +39,7 @@ function go_vim_ins(){
     nvim +'GoInstallBinaries' +qall && \
     #go get -u github.com/cweill/gotests/...
     go install github.com/cweill/gotests/...@latest
+    go install github.com/lighttiger2505/sqls@latest
     ! ( grep -F "leetcode_solution_filetype" ~/.config/nvim/init.vim ) && \
     cat >> ~/.config/nvim/init.vim <<END
     let g:leetcode_solution_filetype='golang'

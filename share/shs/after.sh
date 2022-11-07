@@ -181,7 +181,7 @@ lspconfig.sumneko_lua.setup {
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html' }
+local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html','sqls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -312,11 +312,3 @@ echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/
 echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.bashrc
 
 
-cat <<EOF > ~/.config/nvim/after/plugin/webtools.lua
-require'web-tools'.setup({
-      keymaps = {
-        rename = nil,  -- by default use same setup of lspconfig
-        repeat_rename = '.', -- . to repeat
-      },
-    })
-EOF

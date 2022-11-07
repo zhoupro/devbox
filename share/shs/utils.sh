@@ -4,7 +4,7 @@ getDownloadUrl(){
 }
 
 proxy() {
-    # CUSTOM_PROXY="http://192.168.56.1:7890"
+    CUSTOM_PROXY="http://192.168.56.1:7890"
     # CUSTOM_PROXY="http://192.168.56.1:10811"
 
     if  [[ ! -z $1   ]] ;then
