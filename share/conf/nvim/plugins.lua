@@ -15,6 +15,7 @@ packer.init({
 
 return require('packer').startup(function(use)
   -- Packer can manage itself
+  use 'zhoupro/vim-dadbod'
   use 'mattn/emmet-vim'
   use 'AndrewRadev/tagalong.vim'
   use 'wbthomason/packer.nvim'

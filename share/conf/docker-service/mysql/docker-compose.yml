@@ -2,7 +2,7 @@ version: '3'
 services:
   mysql:
     restart: always
-    image: mysql:5.7
+    image: mysql/mysql-server:5.7
     container_name: mysql-5.7
     volumes:
       - ./store:/var/lib/mysql
@@ -11,5 +11,9 @@ services:
       - "MYSQL_ROOT_PASSWORD=pass"
       - "MYSQL_DATABASE=mysql"
       - "TZ=Asia/Shanghai"
+      - "MYSQL_ROOT_HOST='%'"
+
     ports:
       - 3306:3306
+    expose:
+      - '3306'

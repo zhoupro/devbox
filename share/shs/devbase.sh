@@ -43,6 +43,9 @@ cat > $HOME/.pip/pip.conf << EOF
  index-url=http://mirrors.aliyun.com/pypi/simple/
 EOF
 
+sudo cp /vagrant_data/conf/docker-service/mongo/mongosh.sh /usr/local/bin/mongosh && \
+sudo chmod 777 -R /usr/local/bin/mongosh
+
 
 
 
