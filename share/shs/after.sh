@@ -219,6 +219,12 @@ cmp.setup {
     { name = 'vsnip' },
   },
 }
+
+vim.cmd([[
+  autocmd FileType sql lua require('cmp').setup.buffer{
+    \sources = {{name='nvim_lsp'}},
+  \}
+]])
 EOF
 
 
