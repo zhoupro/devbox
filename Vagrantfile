@@ -18,7 +18,7 @@ Vagrant.configure("2") do |config|
     node.vm.provider :virtualbox do |v|
       v.gui = false
       v.name    = "kmaster"
-      v.memory  =  1024*5 
+      v.memory  =  1024*8 
       v.cpus    =  4
     end
     node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"

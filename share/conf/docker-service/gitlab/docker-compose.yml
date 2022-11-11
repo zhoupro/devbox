@@ -1,0 +1,21 @@
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ce:latest'
+    restart: always
+    # host server hostname
+    hostname: 'kmaster'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        # host server ip
+        external_url 'http://192.168.56.100'
+        # Add any other gitlab.rb configuration here, each on its own line
+    ports:
+      - '80:80'
+      - '443:443'
+      - '822:22'
+    volumes:
+      - './data/config:/etc/gitlab'
+      - './data/logs:/var/log/gitlab'
+      - './data/data:/var/opt/gitlab'
+    shm_size: '512m'
