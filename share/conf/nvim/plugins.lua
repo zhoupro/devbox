@@ -14,6 +14,19 @@ packer.init({
 
 
 return require('packer').startup(function(use)
+  use({ "zhoupro/leetcode.vim", run = "pip3 install -r requirements.txt" })
+  use {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("trouble").setup {
+        -- your configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      }
+    end
+  }
+  
   -- Packer can manage itself
   use 'zhoupro/vim-dadbod'
   use 'mattn/emmet-vim'
