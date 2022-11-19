@@ -248,16 +248,16 @@ func! RunProgram()
       elseif &filetype == 'cpp'    
          exec "!g++ % -o %<"    
          exec "! ./%<"    
-      elseif &filetype == 'sh'    
-         exec "!bash %"    
+      elseif &filetype == 'sh'
+        TermExec cmd="clear && echo && bash %"   
       elseif &filetype == 'go'    
-         exec "!go run %"    
+         TermExec cmd="clear && echo && go run %"   
       elseif &filetype == 'python'    
-         exec "!python %"    
+         TermExec cmd="clear && echo && python3 %"    
       elseif &filetype == 'php'    
-         exec "!php %"    
-      elseif &filetype == 'lua'    
-         exec "!lua %"    
+         TermExec cmd="clear && echo && php %"    
+      elseif &filetype == 'lua'  
+          TermExec cmd="clear && echo && lua %"     
       elseif &filetype == 'java'    
          exec "!javac %"    
          exec "!java -cp %:p:h %:t:r"    
