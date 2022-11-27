@@ -50,7 +50,8 @@ return require('packer').startup(function(use)
   use {'morhetz/gruvbox'}
   use {'tpope/vim-commentary'}
   --use {'neoclide/coc.nvim', branch = 'release'}
-  use 'williamboman/nvim-lsp-installer'
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
   use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -87,6 +88,7 @@ return require('packer').startup(function(use)
   use {'puremourning/vimspector'}
   use {'majutsushi/tagbar'}
   use {'nvim-lualine/lualine.nvim'}
+  use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
 
   use {
     'kyazdani42/nvim-tree.lua',

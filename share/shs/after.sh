@@ -45,7 +45,7 @@ require('lualine').setup({
     disabled_filetypes = {'NvimTree', 'VimspectorPrompt'}
   },
   sections = {
-    lualine_c = {'filename', {getEnWords}, {getCnWords}},
+    lualine_c = {'filename', {getEnWords}, {getCnWords},'lsp_progress'},
   }
 })
 EOF
@@ -96,8 +96,9 @@ EOF
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-lspconfig.lua
 
 vim.o.timeoutlen=1000
-require("nvim-lsp-installer").setup {
-  automatic_installation = false
+require("mason").setup {
+}
+require("mason-lspconfig").setup {
 }
 
 local lspconfig = require("lspconfig")
@@ -181,7 +182,7 @@ lspconfig.sumneko_lua.setup {
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html','sqls' }
+local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html','sqls','volar' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
