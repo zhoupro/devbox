@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.100"
     config.vm.synced_folder "./share", "/vagrant_data"
-    config.vm.synced_folder "./disk", "/home/vagrant/playground"
+    #config.vm.synced_folder "../disk", "/home/vagrant/playground"
     config.vm.synced_folder ".", "/home/vagrant/devbox"
     #config.vm.synced_folder "C:\\Users\\zhoupro\\.ssh", "/root/.ssh"
     config.ssh.username = "vagrant"
