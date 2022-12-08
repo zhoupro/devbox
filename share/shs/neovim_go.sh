@@ -23,7 +23,7 @@ function install_go_server(){
 
 }
 
-install_go_server 1.19.2
+install_go_server 1.18.9
 
 
 function go_vim_ins(){

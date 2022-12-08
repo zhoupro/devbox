@@ -315,9 +315,3 @@ vim.keymap.set('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', {desc='HIDDE
 EOF
 
 
-
-
-echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.zshrc
-echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin:\$HOME/.local/bin" >> ~/.bashrc
-
-

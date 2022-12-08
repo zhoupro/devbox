@@ -41,4 +41,5 @@ END
     
 fi
 echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.zshrc
+echo "export PATH=\$PATH:\$HOME/.local/bin" >> ~/.zshrc
 noproxy
