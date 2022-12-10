@@ -8,26 +8,25 @@
 | iamcco/markdown-preview.nvim | MarkdownPreview  | priview current md file            |
 
 ### coding
-| plugin                   | commands or maps | desc            |
-|--------------------------|------------------|-----------------|
-| godlygeek/tabular        | Tabularize /=    | = is sep symbol |
-| zhoupro/leetcode.vim     | LeetCodeList     | leet ide        |
-| zhoupro/vim-dadbod       |                  | database        |
-| mattn/emmet-vim          |                  | emmet           |
-| AndrewRadev/tagalong.vim |                  | change tag      |
-| akinsho/toggleterm.nvim  |                  | terminal        |
-| kevinhwang91/nvim-ufo    |                  | fold            |
-| ThePrimeagen/harpoon     |                  | file mark       |
-| tpope/vim-commentary     |                  | comment         |
-| linty-org/key-menu.nvim  |                  |                 |
-| RishabhRD/nvim-cheat.sh  |                  |                 |
-| wellle/targets.vim       |                  |                 |
-| jiangmiao/auto-pairs     |                  |                 |
-| tpope/vim-abolish        |                  |                 |
-| tpope/vim-surround       |                  |                 |
-| tpope/vim-repeat         |                  |                 |
-| rlue/vim-barbaric        |                  |                 |
-
+| plugin                   | commands or maps    | desc                     |
+|--------------------------|---------------------|--------------------------|
+| godlygeek/tabular        | Tabularize /=       | = is sep symbol          |
+| zhoupro/leetcode.vim     | LeetCodeList        | leet ide                 |
+| RishabhRD/nvim-cheat.sh  | Cheat               |                          |
+| wellle/targets.vim       | t                   | text object              |
+| tpope/vim-abolish        | m c s u - . t space |                          |
+| tpope/vim-surround       | ds cs yss           |                          |
+| tpope/vim-commentary     | gcc                 | comment                  |
+| ThePrimeagen/harpoon     | tt  ta              | file mark                |
+| akinsho/toggleterm.nvim  | ctrl_t              | terminal                 |
+| kevinhwang91/nvim-ufo    | zr zm               | fold                     |
+| AndrewRadev/tagalong.vim |                     | change tag               |
+| mattn/emmet-vim          |                     | emmet                    |
+| jiangmiao/auto-pairs     |                     | brackets, parens, quotes |
+| zhoupro/vim-dadbod       |                     | database                 |
+| tpope/vim-repeat         |                     |                          |
+| rlue/vim-barbaric        |                     |                          |
+| linty-org/key-menu.nvim  |                     |                          |
 
 
 
