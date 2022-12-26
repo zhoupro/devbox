@@ -27,6 +27,7 @@
 | tpope/vim-repeat         |                     |                          |
 | rlue/vim-barbaric        |                     |                          |
 | linty-org/key-menu.nvim  |                     |                          |
+| trmckay/based.nvim       | c-b                 | hex-dec  view            |
 
 
 

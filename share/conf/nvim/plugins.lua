@@ -37,6 +37,7 @@ return require('packer').startup(function(use)
   use 'aklt/plantuml-syntax'
   use {'godlygeek/tabular'}
   use 'preservim/vim-markdown'
+  use 'trmckay/based.nvim'
 
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }

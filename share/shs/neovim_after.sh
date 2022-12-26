@@ -2,10 +2,10 @@
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "go" },
+    ensure_installed = { "go","lua" },
     highlight = {
     enable = true,
-    disable = {"json","markdown"},
+    disable = {"json","markdown","vim"},
   },
   textobjects = {
       select = {
@@ -315,3 +315,12 @@ vim.keymap.set('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', {desc='HIDDE
 EOF
 
 
+cat <<EOF > ~/.config/nvim/after/plugin/base.lua
+local based = require("based")
+
+based.setup({
+    highlight = "MyHighlightGroup"
+})
+vim.keymap.set('n', '<C-b>',  based.convert)
+
+EOF
