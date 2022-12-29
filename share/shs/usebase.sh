@@ -102,15 +102,4 @@ npm i -g vscode-langservers-extracted   --registry=https://registry.npm.taobao.o
 npm install -g browser-sync --registry=https://registry.npm.taobao.org
 
 
-# #sogou
-if (( $(dpkg -l | awk '{print $2}' | grep ^sogou | wc -l)==0 )) ;then
-   
-    if ! dpkg -l | grep -q "sogoupinyin" ; then
-        downUrl=`curl https://shurufa.sogou.com/linux 2&>/dev/null | grep -o 'https://ime.*x86_64.deb'`
-	    sudo  wget  $downUrl -O sougou.deb && \
-        sudo dpkg -i sougou.deb ||   sudo apt-get install -fy  && sudo rm -f sougou.deb
-
-    fi
-     sudo apt install -y libqt5qml5 libqt5quick5 libqt5quickwidgets5 qml-module-qtquick2
-     sudo apt install -y libgsettings-qt1
-fi
+sudo apt install -y fcitx-table-wbpy fcitx-googlepinyin

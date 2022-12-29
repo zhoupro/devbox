@@ -49,6 +49,7 @@ EOF
 cat <<EOF > ~/.config/nvim/settings.vim
     let mapleader=","
     set noswapfile
+    set clipboard=unnamedplus
     set hlsearch
     set incsearch
     set nu
