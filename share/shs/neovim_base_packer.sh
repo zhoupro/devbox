@@ -150,11 +150,8 @@ EOF
 cat <<'EOF' > ~/.config/nvim/func.vim
 
 fun! CopyToTmp()
-   execute  "!echo "" > /tmp/copy.txt"
-   execute  "edit /tmp/copy.txt"
-   execute  "normal p"
-   execute  "write"
-   execute  "bd"
+   let buffer_raw = getreg('@')
+   call writefile(split(buffer_raw, "\n", 1) , "/tmp/copy.txt", "b")
    call system('curl -H "Content-Type:text/plain" --data-binary @/tmp/copy.txt http://192.168.56.1:8377/setclip')
 endfun
 

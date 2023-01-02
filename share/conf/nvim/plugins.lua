@@ -13,7 +13,7 @@ packer.init({
 })
 
 
-return require('packer').startup(function(use)
+ return require('packer').startup(function(use)
   use({ "zhoupro/leetcode.vim", run = "pip3 install -r requirements.txt" })
   use {
     "folke/trouble.nvim",
@@ -26,7 +26,11 @@ return require('packer').startup(function(use)
       }
     end
   }
-  
+  use {
+    'AckslD/messages.nvim',
+    config = 'require("messages").setup()',
+  }
+
   -- Packer can manage itself
   use 'zhoupro/vim-dadbod'
   use 'mattn/emmet-vim'
