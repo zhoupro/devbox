@@ -1,7 +1,7 @@
 #!/bin/bash
 
 FILE_NAME=".vimspector.json"
-if [[ $1 =~ ^Test_ ]] ;then
+if [[ $1 =~ ^Test ]] ;then
   cat << 'EOF' > $FILE_NAME
 {
   "configurations": {

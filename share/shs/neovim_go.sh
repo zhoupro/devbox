@@ -74,26 +74,32 @@ cat <<'EOF' >> ~/.config/nvim/func.vim
 fun! GenTest()
     execute "normal yaf"
     " func line
-    let funcName = matchstr(@*, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')
-    
+    let funcName = matchstr(@@, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')
+
     " func name
-    "let funcName = matchstr(@*, '\vfunc ?\(.*\) ?\zs\w+\ze\(')
+    "let funcName = matchstr(@@, '\vfunc ?\(.*\) ?\zs\w+\ze\(')
 
     " type name
-    let typeName = matchstr(@*, '\v^func ?\([a-z]+ \zs[a-z]+\ze\)')
+    let typeName = matchstr(@@, '\v^func ?\([a-z]+ \zs[a-z]+\ze\)')
 
-    let testPrefix="Test_"
+    let testOriPrefix = "Test"
+    let testPrefix= testOriPrefix."_"
     if len(typeName) > 0
-      let testPrefix="Test_".typeName."_"
+      let testPrefix=testPrefix.typeName."_"
     endif
-
 
     let tmplDir = ''
     let file = expand('%')
-    
+
     if stridx(file, "_test") >= 0
        let normal_file = substitute(file, '_test\.go', '\.go', "")
        let splitParts = split(funcName, '_')
+
+       if splitParts[0] != testOriPrefix
+           echom "not generates"
+           return
+       endif
+
        execute "edit " . normal_file
        execute "normal /" . splitParts[-1] ."\<CR>"
     else
