@@ -34,9 +34,14 @@ sudo sed -i '$a\awful.util.spawn("flameshot")' $CUSTOM_HOME/.config/awesome/rc.l
 sudo sed -i '$a\awful.util.spawn("fcitx")' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i '$a\awful.util.spawn("xfce4-clipman")' $CUSTOM_HOME/.config/awesome/rc.lua
 
-sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "", "", "", "",""  }, s, awful.layout.layouts[7])'  $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/awful.layout.suit.fair/,+7{s/(.*)/--\1/}' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/awful.layout.suit.floating/{s/(.*)/--\1/}' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/Set Firefox/a\ {rule={class="Alacritty"},properties={screen=1,tag="2", opacity=0.85,switchtotag=true}},' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/mykeyboardlayout,/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/wibox.widget.textclock/s/textclock\(\)/textclock\("%H:%M %a %m-%d"\)/' $CUSTOM_HOME/.config/awesome/rc.lua
 
 
+sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "1", "2", "3", "4","5"  }, s, awful.layout.layouts[1])'  $CUSTOM_HOME/.config/awesome/rc.lua
 read -r -d '' VAR <<-'EOF'
 sig_add = true
 EOF
@@ -60,7 +65,7 @@ read -r -d '' VAR <<-'EOF'
 EOF
 sudo sed -i "s/Layout manipulation/Layout manipulation@$(echo "$VAR"|tr "\n" "@")/g;s/@/\n/g" $CUSTOM_HOME/.config/awesome/rc.lua
 
-sudo sed -i "s!mytextclock,!--mytextclock,!g"  $CUSTOM_HOME/.config/awesome/rc.lua
+#sudo sed -i "s!mytextclock,!--mytextclock,!g"  $CUSTOM_HOME/.config/awesome/rc.lua
 
 
 
