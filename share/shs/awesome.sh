@@ -15,13 +15,11 @@ export CUSTOM_HOME=$HOME
 sudo apt-get install -y   awesome xfce4
 #sudo apt-get install -y   awesome xfce4 ubuntu-desktop
 sudo apt-get install -y   rofi    feh xcompmgr  flameshot  x11-apps
-sudo mkdir -p $CUSTOM_HOME/.config/awesome
+mkdir -p $CUSTOM_HOME/.config/awesome
+cp /vagrant_data/conf/awesome/fancy_taglist.lua  $CUSTOM_HOME/.config/awesome/fancy_taglist.lua
+cp /etc/xdg/awesome/rc.lua $CUSTOM_HOME/.config/awesome/rc.lua
 
-
-
-sudo cp /etc/xdg/awesome/rc.lua $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/"Mod4"/"Mod1"/g' $CUSTOM_HOME/.config/awesome/rc.lua
-
 sudo sed -i 's/x-terminal-emulator/alacritty/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/mylauncher,/--mylauncher,/g' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i 's/titlebars_enabled = true/titlebars_enabled = false/g' $CUSTOM_HOME/.config/awesome/rc.lua
@@ -40,6 +38,23 @@ sudo sed -i  -E '/Set Firefox/a\ {rule={class="Alacritty"},properties={screen=1,
 sudo sed -i  -E '/mykeyboardlayout,/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i  -E '/wibox.widget.textclock/s/textclock\(\)/textclock\("%H:%M %a %m-%d"\)/' $CUSTOM_HOME/.config/awesome/rc.lua
 
+sudo sed -i -E '/Example/a\theme.taglist_font = "JetBrainsMono Nerd Font Mono 8"' /usr/share/awesome/themes/default/theme.lua
+
+sudo sed -i -E '/s.mytaglist,/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/s.mytasklist,/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/s.mytasklist,/a\s.mytaglist,' $CUSTOM_HOME/.config/awesome/rc.lua
+
+sudo sed -i -E '/widget\.taglist/,+4s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/systray/s/.*/wibox.container.margin(wibox.widget.systray(),0,0,5,5),/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/for_each_screen/a\
+        local fancy_taglist = require("fancy_taglist") \
+        s.mytaglist = fancy_taglist.new({ \
+          screen = s, \
+          taglist_buttons = mytagbuttons, \
+          tasklist_buttons = mytasklistbuttons \
+      })\
+	 s.mytaglist = wibox.container.margin(s.mytaglist,0,0,5,5)\
+    ' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "1", "2", "3", "4","5"  }, s, awful.layout.layouts[1])'  $CUSTOM_HOME/.config/awesome/rc.lua
 read -r -d '' VAR <<-'EOF'
@@ -85,13 +100,14 @@ sudo sed -i "s!mylauncher,!mylauncher,@$(echo "$VAR"|tr "\n" "@")!g;s!@!\n!g" $C
 
 sudo sed -i 's!theme.bg_normal     = "#222222"!theme.bg_normal     = "#535d6c"!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.bg_focus      = "#535d6c"!theme.bg_focus      = "#242e30"!g' /usr/share/awesome/themes/default/theme.lua
-
+sudo sed -i 's!theme.border_focus  = "#535d6c"!theme.border_focus  = "#755058"!g' /usr/share/awesome/themes/default/theme.lua
 
 sudo sed -i 's!theme.bg_systray    = theme.bg_normal .. 50!theme.bg_systray    = theme.bg_normal!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.bg_systray    = theme.bg_normal!theme.bg_systray    = theme.bg_normal .. 50!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.font          = "sans 8"!theme.font          = "JetBrainsMono Nerd Font Mono 12"!g' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i 's!theme.fg_focus      = "#ffffff"!theme.fg_focus      = "#00ffef"!g' /usr/share/awesome/themes/default/theme.lua
 
+sudo sed -i -E '/theme.border_width/s/.*/theme.border_width = dpi(1.5)/' /usr/share/awesome/themes/default/theme.lua
 sudo sed -i '$ a --END'  $CUSTOM_HOME/.config/awesome/rc.lua
 
 read -r -d '' VAR <<-'EOF'
