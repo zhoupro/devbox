@@ -34,7 +34,7 @@ sudo sed -i '$a\awful.util.spawn("xfce4-clipman")' $CUSTOM_HOME/.config/awesome/
 
 sudo sed -i  -E '/awful.layout.suit.fair/,+7{s/(.*)/--\1/}' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i  -E '/awful.layout.suit.floating/{s/(.*)/--\1/}' $CUSTOM_HOME/.config/awesome/rc.lua
-sudo sed -i  -E '/Set Firefox/a\ {rule={class="Alacritty"},properties={screen=1,tag="2", opacity=0.85,switchtotag=true}},' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i  -E '/Set Firefox/a\ {rule={class="Alacritty"},properties={screen=1, opacity=0.85,switchtotag=true}},' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i  -E '/mykeyboardlayout,/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i  -E '/wibox.widget.textclock/s/textclock\(\)/textclock\("%H:%M %a %m-%d"\)/' $CUSTOM_HOME/.config/awesome/rc.lua
 
@@ -46,15 +46,22 @@ sudo sed -i -E '/s.mytasklist,/a\s.mytaglist,' $CUSTOM_HOME/.config/awesome/rc.l
 
 sudo sed -i -E '/widget\.taglist/,+4s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i -E '/systray/s/.*/wibox.container.margin(wibox.widget.systray(),0,0,5,5),/' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/awful.tag\(/{s/(.*)/--\1/}' $CUSTOM_HOME/.config/awesome/rc.lua
 sudo sed -i -E '/for_each_screen/a\
         local fancy_taglist = require("fancy_taglist") \
-        s.mytaglist = fancy_taglist.new({ \
-          screen = s, \
-          taglist_buttons = mytagbuttons, \
-          tasklist_buttons = mytasklistbuttons \
+        s.mytaglist = fancy_taglist.new({\
+          screen = s,\
       })\
 	 s.mytaglist = wibox.container.margin(s.mytaglist,0,0,5,5)\
+     if s.geometry.width >= s.geometry.height then\
+         awful.tag({ "1", "2", "3", "4", "5"}, s, awful.layout.layouts[1]) \
+    else\
+      awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[3])\
+    end \
     ' $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/set_wallpaper\)/s/set_wallpaper/awesome.restart/' $CUSTOM_HOME/.config/awesome/rc.lua
+
+sudo sed -i -E '/ {3,}set_wallpaper\(/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
 
 sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "1", "2", "3", "4","5"  }, s, awful.layout.layouts[1])'  $CUSTOM_HOME/.config/awesome/rc.lua
 read -r -d '' VAR <<-'EOF'
