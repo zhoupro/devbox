@@ -155,7 +155,7 @@ capabilities.textDocument.foldingRange = {
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 
-lspconfig.sumneko_lua.setup {
+lspconfig.lua_ls.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     settings = {
