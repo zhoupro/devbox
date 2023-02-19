@@ -447,7 +447,7 @@ noproxy
 
 
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
-silent! colorscheme dracula
+silent! colorscheme tokyonight
 highlight Normal ctermbg=None
 EOF
 
