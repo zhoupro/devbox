@@ -1,4 +1,7 @@
 # self devbox
+## picture
+![desktop](./imgs/desktop.png)
+
 ## neovim
 ###  writing
 | plugin                       | commands or maps | desc                               |
