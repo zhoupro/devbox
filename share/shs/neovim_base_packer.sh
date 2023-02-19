@@ -100,6 +100,20 @@ cat <<EOF > ~/.config/nvim/settings.vim
     \ 'vimspectorBPDisabled': 999,
     \ 'vimspectorPC': 999,
    \ }
+    set termguicolors
+    highlight BufferCurrent             guibg=#5fd7ff guifg=#282a2e
+    highlight link BufferCurrentMod     BufferCurrent
+    highlight link BufferCurrentSign    BufferCurrent
+    highlight BufferCurrentTarget       guibg=#d7ff5f
+    highlight BufferInactive            guibg=#0087d7 guifg=#ffffff
+    highlight link BufferInactiveMod    BufferInactive
+    highlight link BufferInactiveSign   BufferInactive
+    highlight link BufferInactiveTarget BufferCurrentTarget
+    highlight link BufferVisible        BufferInactive
+    highlight link BufferVisibleMod     BufferVisible
+    highlight link BufferVisibleSign    BufferVisible
+    highlight link BufferVisibleTarget  BufferInactiveTarget
+    highlight BufferTabpages            guibg=#ff0000 guifg=#ff0000
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim
