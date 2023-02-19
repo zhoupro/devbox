@@ -7,4 +7,5 @@ if (( $(dpkg -l | awk '{print $2}' | grep ^alacritty | wc -l)==0 )) ;then
 fi
 
 mkdir -p /home/vagrant/.config/alacritty && \
- cp /vagrant_data/conf/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+ cp /vagrant_data/conf/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml && \
+ cp /vagrant_data/conf/alacritty/dracula.yml ~/.config/alacritty/dracula.yml

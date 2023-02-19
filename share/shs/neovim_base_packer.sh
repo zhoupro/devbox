@@ -433,8 +433,7 @@ noproxy
 
 
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
-silent! colorscheme gruvbox
-set background=dark
+silent! colorscheme dracula
 highlight Normal ctermbg=None
 EOF
 

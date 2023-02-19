@@ -1,5 +1,5 @@
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+vim.cmd [[ packadd packer.nvim ]]
 
 packer = require("packer")
 packer.init({
@@ -53,7 +53,8 @@ packer.init({
 
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   use {'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim'}
-  use {'morhetz/gruvbox'}
+  -- use {'morhetz/gruvbox'}
+  use {'dracula/vim'}
   use {'tpope/vim-commentary'}
   --use {'neoclide/coc.nvim', branch = 'release'}
   use 'williamboman/mason.nvim'
