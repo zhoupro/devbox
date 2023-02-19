@@ -54,6 +54,7 @@ set -g @sysstat_cpu_view_tmpl 'CPU:#{cpu.pused}'
 set -g status-right "#{sysstat_cpu} |#{sysstat_mem}|NET:#{download_speed}|BAT:#{battery_percentage}"
 set -g @download_speed_format "%7s"
 
+set-option -g set-titles on
 bind-key s run -b "~/.tmux/plugins/tmux-fuzzback/scripts/fuzzback.sh";
 
 

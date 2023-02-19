@@ -93,6 +93,13 @@ cat <<EOF > ~/.config/nvim/settings.vim
         return !empty(a:dir) && (isdirectory(a:dir) ||
         \ (!empty(\$SYSTEMDRIVE) && isdirectory('/'.tolower(\$SYSTEMDRIVE[0]).a:dir)))
     endfu
+    let g:vimspector_sign_priority = {
+    \ 'vimspectorBP': 999,
+    \ 'vimspectorBPCond': 999,
+    \ 'vimspectorBPLog': 999,
+    \ 'vimspectorBPDisabled': 999,
+    \ 'vimspectorPC': 999,
+   \ }
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim

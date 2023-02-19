@@ -36,6 +36,7 @@ packer.init({
   use 'mattn/emmet-vim'
   use 'AndrewRadev/tagalong.vim'
   use 'wbthomason/packer.nvim'
+  use 'solarnz/thrift.vim'
   -- plugAddPoint
   use {'MunifTanjim/nui.nvim'}
   use 'aklt/plantuml-syntax'
@@ -123,5 +124,6 @@ packer.init({
   use {'MattesGroeger/vim-bookmarks'}
   use {'rlue/vim-barbaric'}
   use 'voldikss/vim-floaterm'
+  use 'ggandor/leap.nvim'
 
 end)

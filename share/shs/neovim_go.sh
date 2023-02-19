@@ -74,34 +74,32 @@ cat <<'EOF' >> ~/.config/nvim/func.vim
 fun! GenTest()
     execute "normal yaf"
     " func line
-    let funcName = matchstr(@@, '^func\s*\(([^)]\+)\)\=\s*\zs\w\+\ze(')
+    local re = 'func +%([a-zA-Z0-9_]+ +%*?([a-zA-Z0-9_]+)%) +([a-zA-Z0-9_]*)'
+    lua X = function(a) local _,_,typeName, funcName = string.find(a,re); return typeName  end
+    let typeName = luaeval('X(_A[1])',[@@])
+    lua X = function(a) local _,_,typeName, funcName = string.find(a,re); return funcName  end
+    let funcName = luaeval('X(_A[1])',[@@])
 
-    " func name
-    "let funcName = matchstr(@@, '\vfunc ?\(.*\) ?\zs\w+\ze\(')
+    if typeName is v:null
+        lua X = function(a) local _,_, funcName = string.find(a,'func +([a-zA-Z0-9_]*)'); return funcName  end
+        let funcName = luaeval('X(_A[1])', [@@])
+        let typeName = ""
+    endif
 
-    " type name
-    let typeName = matchstr(@@, '\v^func ?\([a-z]+ \zs[a-z]+\ze\)')
 
     let testOriPrefix = "Test"
     let testPrefix= testOriPrefix."_"
     if len(typeName) > 0
-      let testPrefix=testPrefix.typeName."_"
+      let testPrefix=testOriPrefix.typeName."_"
     endif
 
     let tmplDir = ''
     let file = expand('%')
-
     if stridx(file, "_test") >= 0
        let normal_file = substitute(file, '_test\.go', '\.go', "")
        let splitParts = split(funcName, '_')
-
-       if splitParts[0] != testOriPrefix
-           echom "not generates"
-           return
-       endif
-
        execute "edit " . normal_file
-       execute "normal /" . splitParts[-1] ."\<CR>"
+       execute "normal /" . splitParts[1] ."\<CR>"
     else
        let test_file = substitute(file, '\.go', '_test\.go', "")
        let out = system('gotests -w -only "(?i)^(' . typeName . funcName . ')" ' . tmplDir . ' ' . shellescape(file))

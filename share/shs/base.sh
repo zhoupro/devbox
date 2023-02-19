@@ -10,7 +10,7 @@ aptenv(){
  
   myarray=(
             git  unrar p7zip   locales tig xclip xsel fzf meld gpick
-            wget curl axel gdebi tmux-plugin-manager fuse
+            wget curl axel gdebi tmux-plugin-manager fuse numix-icon-theme-circle
          )
 	
 	for i in ${myarray[@]};

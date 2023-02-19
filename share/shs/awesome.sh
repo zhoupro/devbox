@@ -63,7 +63,10 @@ sudo sed -i -E '/set_wallpaper\)/s/set_wallpaper/awesome.restart/' $CUSTOM_HOME/
 
 sudo sed -i -E '/ {3,}set_wallpaper\(/s/(.*)/--\1/' $CUSTOM_HOME/.config/awesome/rc.lua
 
-sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "1", "2", "3", "4","5"  }, s, awful.layout.layouts[1])'  $CUSTOM_HOME/.config/awesome/rc.lua
+sudo sed -i -E '/position =/s/top/bottom/'  $CUSTOM_HOME/.config/awesome/rc.lua
+
+#sudo fsed  'awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])' 'awful.tag({  "1", "2", "3", "4","5"  }, s, awful.layout.layouts[1])'  $CUSTOM_HOME/.config/awesome/rc.lua
+
 read -r -d '' VAR <<-'EOF'
 sig_add = true
 EOF
@@ -127,6 +130,31 @@ read -r -d '' VAR <<-'EOF'
             awful.util.spawn("bash /vagrant_data/shs/custom/feh.sh")
         end
     }
+
+local function setImg(iconImg, c)
+    local cairo = require("lgi").cairo
+    local s = gears.surface(iconImg)
+    local img = cairo.ImageSurface.create(cairo.Format.ARGB32, s:get_width(),s:get_height())
+    local cr = cairo.Context(img)
+    cr:set_source_surface(s,0,0)
+    cr:paint()
+    c.icon = img._native
+end
+
+
+client.connect_signal("property::name", function(c)
+    -- naughty.notify({title = c.name})
+    if c.class ~= "Alacritty" and c.class ~= "Gnome-terminal" then
+        return
+    end
+
+    local iconImg = "/usr/share/icons/Numix-Circle/48/apps/Terminal.svg"
+    if string.find(c.name, "vim") then
+        iconImg = "/usr/share/icons/Numix-Circle/48/apps/neovim.svg"
+    end
+    setImg(iconImg, c)
+end)
+
 EOF
 
 sudo sed -i "s#END#END@$(echo "$VAR"|tr "\n" "@")#g;s#@#\n#g" $CUSTOM_HOME/.config/awesome/rc.lua

@@ -23,6 +23,7 @@ local module = {}
 
 local generate_filter = function(t)
 	return function(c, scr)
+        _ = scr
 		local ctags = c:tags()
 		for _, v in ipairs(ctags) do
 			if v == t then
@@ -73,10 +74,18 @@ function module.new(config)
 				{
 					-- tag
 					{
-						id = "text_role",
-						widget = wibox.widget.textbox,
-
-       					},
+                        {
+                            {
+                                id = "text_role",
+                                widget = wibox.widget.textbox,
+                            },
+                            margins = 4,
+                            widget = wibox.container.margin,
+                        },
+                        bg = '#555555',
+                        shape = gears.shape.circle,
+                        widget = wibox.container.background,
+                    },
 					-- tasklist
 					{
 						id = "tasklist_placeholder",

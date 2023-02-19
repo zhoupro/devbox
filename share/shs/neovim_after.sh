@@ -324,3 +324,11 @@ based.setup({
 vim.keymap.set('n', '<C-b>',  based.convert)
 
 EOF
+
+
+
+cat <<EOF > ~/.config/nvim/after/plugin/leap.lua
+require("leap").add_default_mappings()
+vim.keymap.del({'x','o'},'x')
+vim.keymap.del({'x','o'},'X')
+EOF

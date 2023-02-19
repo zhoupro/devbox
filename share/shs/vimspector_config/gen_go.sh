@@ -6,7 +6,11 @@ if [[ $1 =~ ^Test ]] ;then
 {
   "configurations": {
       "test": {
-      "adapter": "delve",
+      "adapter": {
+        "extends":"delve",
+        "sync_timeout":1500000,
+        "iasync_timeout":1500000
+      },
       "configuration": {
         "buildFlags": "-tags=BUILDTAG",
         "args": [
@@ -22,7 +26,7 @@ if [[ $1 =~ ^Test ]] ;then
             "maxStructFields": -1
         },
         "request": "launch",
-        "timeout": 30,
+        "timeout": 3000000,
         "program": "${fileDirname}",
         "mode": "test",
         "dlvToolPath": "$HOME/go/bin/dlv"     }
@@ -37,7 +41,12 @@ else
 {
   "configurations": {
     "run": {
-      "adapter": "delve",
+     "adapter": {
+        "extends":"delve",
+        "sync_timeout":1500000,
+        "iasync_timeout":1500000
+      },
+      "timeout": 3000000,
       "filetypes": [ "go" ],
       "variables": {
          "dlvFlags": "--check-go-version=false"
