@@ -74,10 +74,10 @@ cat <<'EOF' >> ~/.config/nvim/func.vim
 fun! GenTest()
     execute "normal yaf"
     " func line
-    local re = 'func +%([a-zA-Z0-9_]+ +%*?([a-zA-Z0-9_]+)%) +([a-zA-Z0-9_]*)'
-    lua X = function(a) local _,_,typeName, funcName = string.find(a,re); return typeName  end
+    " local re = 'func +%([a-zA-Z0-9_]+ +%*?([a-zA-Z0-9_]+)%) +([a-zA-Z0-9_]*)'
+    lua X = function(a) local _,_,typeName, funcName = string.find(a,'func +%([a-zA-Z0-9_]+ +%*?([a-zA-Z0-9_]+)%) +([a-zA-Z0-9_]*)'); return typeName  end
     let typeName = luaeval('X(_A[1])',[@@])
-    lua X = function(a) local _,_,typeName, funcName = string.find(a,re); return funcName  end
+    lua X = function(a) local _,_,typeName, funcName = string.find(a,'func +%([a-zA-Z0-9_]+ +%*?([a-zA-Z0-9_]+)%) +([a-zA-Z0-9_]*)'); return funcName  end
     let funcName = luaeval('X(_A[1])',[@@])
 
     if typeName is v:null
