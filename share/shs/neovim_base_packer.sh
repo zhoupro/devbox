@@ -109,7 +109,7 @@ cat <<EOF > ~/.config/nvim/maps.vim
    map <leader>m :TagbarOpenAutoClose<CR>
    autocmd VimEnter * noremap  <leader>t  :call RunProgram()<CR>
    nnoremap <Leader>f :Files<CR>
-   nnoremap <leader>y :call CopyToTmp()<CR>
+   " nnoremap <leader>y :call CopyToTmp()<CR>
    " Terminal mode:
     tnoremap <leader>h <c-\><c-n><c-w>h
     tnoremap <leader>j <c-\><c-n><c-w>j

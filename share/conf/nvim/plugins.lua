@@ -30,7 +30,10 @@ packer.init({
     'AckslD/messages.nvim',
     config = 'require("messages").setup()',
   }
-
+    use {
+     'zhoupro/own_neovim_commands',
+     config = 'require("own_neovim_commands").setup()',
+   }
   -- Packer can manage itself
   use 'zhoupro/vim-dadbod'
   use 'mattn/emmet-vim'
