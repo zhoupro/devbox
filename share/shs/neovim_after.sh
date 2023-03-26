@@ -95,6 +95,11 @@ EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-lspconfig.lua
 
+
+require("neodev").setup({
+  -- add any options here, or leave empty to use the default settings
+})
+
 vim.o.timeoutlen=1000
 require("mason").setup {
 }
@@ -166,6 +171,7 @@ lspconfig.lua_ls.setup {
         },
         diagnostics = {
           globals = {'vim','describe','it'},
+          enable= false,
         },
         workspace = {
           -- Make the server aware of Neovim runtime files
@@ -175,6 +181,9 @@ lspconfig.lua_ls.setup {
         -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
           enable = false,
+        },
+        completion = {
+           callSnippet = "Replace"
         },
       },
   },

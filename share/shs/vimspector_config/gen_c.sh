@@ -9,6 +9,7 @@ cat << 'EOF' > $FILE_NAME
          "configuration": {
             "request": "launch",
             "program": "${EXEC_FILE}",
+            "args": [ "*${args: /opt/github/redis/redis.conf}" ],
             "MIMode": "gdb",
             "stopAtEntry": true,
             "setupCommands": [

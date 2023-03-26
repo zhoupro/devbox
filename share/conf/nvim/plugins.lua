@@ -1,5 +1,5 @@
 -- Only required if you have packer configured as `opt`
-vim.cmd [[ packadd packer.nvim ]]
+-- vim.cmd [[ packadd packer.nvim ]]
 
 packer = require("packer")
 packer.init({
@@ -122,7 +122,7 @@ packer.init({
   use {'tpope/vim-abolish'}
   use {'tpope/vim-surround'}
   use {'tpope/vim-repeat'}
-
+  use "folke/neodev.nvim"
   use {'zhoupro/md-image-paste'}
   use {'dhruvasagar/vim-table-mode'}
   use {'MattesGroeger/vim-bookmarks'}
