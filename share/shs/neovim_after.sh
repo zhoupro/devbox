@@ -2,7 +2,7 @@
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-treesitter.rc.lua
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = { "go","lua" },
+    ensure_installed = { "go","lua","vim" },
     highlight = {
     enable = true,
     disable = {"json","markdown","vim"},
