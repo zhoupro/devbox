@@ -1,5 +1,5 @@
 -- Only required if you have packer configured as `opt`
--- vim.cmd [[ packadd packer.nvim ]]
+vim.cmd [[ packadd packer.nvim ]]
 
 packer = require("packer")
 packer.init({
@@ -129,5 +129,5 @@ packer.init({
   use {'rlue/vim-barbaric'}
   use 'voldikss/vim-floaterm'
   use 'ggandor/leap.nvim'
-
+  use 'editorconfig/editorconfig-vim'
 end)
