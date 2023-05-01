@@ -130,4 +130,8 @@ packer.init({
   use 'voldikss/vim-floaterm'
   use 'ggandor/leap.nvim'
   use 'editorconfig/editorconfig-vim'
+  use 'preservim/vim-pencil'
+  use 'junegunn/limelight.vim'
+  use 'junegunn/goyo.vim'
+
 end)

@@ -378,6 +378,23 @@ fun! MkView()
     execute "MarkdownPreview"
 endfun
 
+function! s:goyo_enter()
+   lua require('lualine').hide()
+   Limelight
+   PencilSoft
+endfunction
+
+function! s:goyo_leave()
+   Limelight!
+   PencilOff
+endfunction
+
+let g:pencil#conceallevel = 0
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
+
+
 EOF
 
 cat <<EOF > ~/.config/nvim/cmd.vim
