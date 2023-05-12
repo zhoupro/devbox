@@ -33,8 +33,12 @@ fi
 
 mkdir -p ~/.config/nvim
 sudo rm -f ~/.config/nvim/init.vim
+sudo rm -f ~/.config/nvim/snips
 mkdir -p  ~/.config/nvim/lua && \
 cp /vagrant_data/conf/nvim/plugins.lua  ~/.config/nvim/lua/plugins.lua
+
+mkdir -p  ~/.config/nvim/snips && \
+cp /vagrant_data/conf/nvim/snips ~/.config/nvim/snips -R
 
 
 cat <<EOF > ~/.config/nvim/init.vim

@@ -1,0 +1,196 @@
+
+{
+  "Note": {
+    "prefix": ["note"],
+    "body": [
+      "note right",
+      "\t$0",
+      "endnote"
+    ],
+    "description": "note"
+  },
+  "ifelseif": {
+    "prefix": ["ifi"],
+    "body": [
+      "if ($1) then ($2)",
+      "\t$0",
+      "elseif ($3) then($4)",
+      "\t",
+      "else ($5)",
+      "\t",
+      "endelse"
+    ],
+    "description": "if elseif"
+  },
+  "ifelse": {
+    "prefix": ["ife"],
+    "body": [
+      "if ($1) then ($2)",
+      "\t$0",
+      "else ($3)",
+      "\t",
+      "endelse"
+    ],
+    "description": "if elseif"
+  },
+
+  "elseif": {
+    "prefix": ["eif"],
+    "body": [
+      "elseif ($1) then ($2)",
+      "\t$0"
+    ],
+    "description": "elseif"
+  },
+  "switch": {
+    "prefix": ["sw"],
+    "body": [
+      "switch ($1)",
+      "\tcase ($2):",
+      "\t\t$0",
+      "endswitch"
+    ],
+    "description": "switch"
+  },
+  "case": {
+    "prefix": ["ca"],
+    "body": [
+      "case ($1):",
+      "\t$0"
+    ],
+    "description": "case"
+  },
+
+  "while": {
+    "prefix": ["wh"],
+    "body": [
+      "while ($1):",
+      "\t$0",
+      "endwhile"
+    ],
+    "description": "while"
+  },
+  "red": {
+    "prefix": ["red"],
+    "body": [
+      "#EC5D57"
+    ],
+    "description": "red"
+  },
+  "green": {
+    "prefix": ["green"],
+    "body": [
+      "#70BF41"
+    ],
+    "description": "green"
+  },
+  "blue": {
+    "prefix": ["blue"],
+    "body": [
+      "#51A7F9"
+    ],
+    "description": "blue"
+  },
+  "yellow": {
+    "prefix": ["yellow"],
+    "body": [
+      "#F5D328"
+    ],
+    "description": "yellow"
+  },
+
+  "purple": {
+    "prefix": ["purple"],
+    "body": [
+      "#B36AE2"
+    ],
+    "description": "purple"
+  },
+  "orange": {
+    "prefix": ["orange"],
+    "body": [
+      "#F39019"
+    ],
+    "description": "orange"
+  },
+  "cyan": {
+    "prefix": ["cyan"],
+    "body": [
+      "#00E5F9"
+    ],
+    "description": "cyan"
+  },
+  "fork": {
+    "prefix": ["fork"],
+    "body": [
+      "fork",
+      "\t$0",
+      "fork again",
+      "\t",
+      "end fork"
+    ],
+    "description": "fork"
+  },
+  "split": {
+    "prefix": ["split"],
+    "body": [
+      "split",
+      "\t$0",
+      "split again",
+      "\t",
+      "end split"
+    ],
+    "description": "split"
+  },
+
+  "group": {
+    "prefix": ["group"],
+    "body": [
+      "group $1",
+      "\t$0",
+      "end group"
+    ],
+    "description": "group"
+  },
+  "rectangle": {
+    "prefix": ["rectangle"],
+    "body": [
+      "rectangle }",
+      "\t$0",
+      "}"
+    ],
+    "description": "rectangle"
+  },
+  "swimlane": {
+    "prefix": ["swimlane"],
+    "body": [
+      "|$1|",
+      "\t$0"
+    ],
+    "description": "swimlane"
+  },
+  "dotted": {
+    "prefix": ["dotted"],
+    "body": [
+      "dotted"
+    ],
+    "description": "dotted"
+  },
+
+  "dashed": {
+    "prefix": ["dashed"],
+    "body": [
+      "dashed"
+    ],
+    "description": "dashed"
+  },
+  "arrow": {
+    "prefix": ["arrow"],
+    "body": [
+      "-[$1,$2]->"
+    ],
+    "description": "arrow"
+  }
+
+}
+
