@@ -38,6 +38,16 @@ if [ ! -d ~/.oh-my-zsh ];then
 	autoload -U promptinit; promptinit
 	prompt pure
 END
+
+cat >> ~/.zshrc <<END
+set -o vi
+export EDITOR=nvim
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line  
+END
+
+
     
 fi
 echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.zshrc
