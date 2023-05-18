@@ -34,7 +34,7 @@ aptenv
 
 sudo apt-get remove -y ibus
 sudo apt-get purge -y ibus
-sudo apt install -y fcitx-pinyin locales
+sudo apt install -y fcitx-rime locales
 sudo locale-gen zh_CN.UTF-8
 sudo im-config -n fcitx
 
@@ -101,5 +101,3 @@ npm i -g bash-language-server --registry=https://registry.npm.taobao.org
 npm i -g vscode-langservers-extracted   --registry=https://registry.npm.taobao.org
 npm install -g browser-sync --registry=https://registry.npm.taobao.org
 
-
-sudo apt install -y fcitx-table-wbpy fcitx-googlepinyin

@@ -30,7 +30,7 @@ sudo apt-get -y update && \
 
 sudo apt-get -y update && \
    sudo apt-get remove -y ibus indicator-keyboard && sudo apt-get purge -y ibus && \
-   sudo apt install -y fcitx-table-wbpy fcitx-config-gtk gdebi \
+   sudo apt install -y fcitx-rime gdebi \
    gawk curl  zsh \
     git unzip wget    python3-pip  lsof sudo python \
     autojump  nmap iproute2 net-tools  axel netcat ripgrep fzf  xcompmgr feh libappindicator3-1 software-properties-common \
@@ -509,8 +509,6 @@ if ! dpkg -l | grep -q "sogoupinyin" ; then
 fi
 
 sudo killall fcitx
-sudo sed -i 's#sogoupinyin:False#sogoupinyin:True#g'  /home/vagrant/.config/fcitx/profile
-sudo sed -i 's#fcitx-keyboard-us:True#fcitx-keyboard-us:False#g' /home/vagrant/.config/fcitx/profile
 
 sudo sed -i '$a\awful.util.spawn("fcitx &")' /home/vagrant/.config/awesome/rc.lua
 
