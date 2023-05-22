@@ -185,6 +185,11 @@ lspconfig.lua_ls.setup {
         completion = {
            callSnippet = "Replace"
         },
+        window = {
+              completion = {
+                col_offset = 12,
+              }
+       },
       },
   },
 }

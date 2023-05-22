@@ -70,7 +70,7 @@ packer.init({
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-buffer'
   use  'rafamadriz/friendly-snippets'
-
+  use 'Exafunction/codeium.vim'
   use 'ray-x/lsp_signature.nvim'
   use 'jbyuki/one-small-step-for-vimkind'
   use 'mfussenegger/nvim-dap'
