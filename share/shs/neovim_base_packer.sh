@@ -104,6 +104,10 @@ cat <<EOF > ~/.config/nvim/settings.vim
   \    'vimspectorBPDisabled': 101,
   \    'vimspectorPC':         999,
   \ }
+   let g:pencil#conceallevel = 0
+    let g:mkdp_preview_options = {
+    \ 'uml': { 'server': 'http://192.168.56.100:8080'}
+    \ }
 EOF
 
 cat <<EOF > ~/.config/nvim/maps.vim

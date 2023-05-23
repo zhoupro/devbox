@@ -116,3 +116,10 @@ docs/c.md
 
 ## fe
 docs/fe.md
+
+
+## other
+
+```sh
+docker run -d -p 8080:8080 plantuml/plantuml-server:tomcat
+```
