@@ -13,7 +13,7 @@ if [ ! -f /usr/local/bin/vim ];then
       sudo chmod 777 /usr/local/bin/nvim 
 fi
 
-sudo apt install -y fuse
+sudo apt install -y fuse3
 
 if [ ! "$(pip3 list | grep neovim)" ];then
     pip3 install neovim --upgrade
@@ -455,19 +455,6 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
 nvim --headless +TSUpdate +qa && \
 noproxy
 
-
-
-cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
-silent! colorscheme tokyonight
-highlight Normal ctermbg=None
-EOF
-
-cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
-    autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
-    " there are some defaults for image directory and image name, you can change them
-    " let g:mdip_imgdir = 'img'
-    " let g:mdip_imgname = 'image'"
-EOF
 
 
 

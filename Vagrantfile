@@ -3,8 +3,8 @@
 Vagrant.configure("2") do |config|
   #config.vm.provision "shell", path: "share/bootstraps/base.sh"
   # master server
-  config.vm.define "kmaster" do |node|
-    node.vm.box               = "ubuntu2204"
+  config.vm.define "kmaster-kali" do |node|
+    node.vm.box               = "kali"
     node.vm.box_check_update  = false
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.100"
@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
     config.ssh.insert_key = false
     node.vm.provider :virtualbox do |v|
       v.gui = false
-      v.name    = "kmaster"
+      v.name    = "kmaster-kali"
       v.memory  =  1024*8 
       v.cpus    =  4
     end
@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
   NodeCount = 0
   (1..NodeCount).each do |i|
     config.vm.define "kworker#{i}" do |node|
-      node.vm.box               = "ubuntu2204"
+      node.vm.box               = "kali"
       node.vm.box_check_update  = false
       node.vm.hostname          = "kworker#{i}.example.com"
       node.vm.network "private_network", ip: "192.168.56.10#{i}"

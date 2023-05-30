@@ -196,7 +196,7 @@ lspconfig.lua_ls.setup {
 
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html','sqls','volar','tsserver' }
+local servers = { 'gopls', 'pyright','clangd','phpactor', 'bashls','awk_ls','html','volar','tsserver' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     on_attach = on_attach,
@@ -345,4 +345,16 @@ cat <<EOF > ~/.config/nvim/after/plugin/leap.lua
 require("leap").add_default_mappings()
 vim.keymap.del({'x','o'},'x')
 vim.keymap.del({'x','o'},'X')
+EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
+silent! colorscheme tokyonight
+highlight Normal ctermbg=None
+EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
+    autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+    " there are some defaults for image directory and image name, you can change them
+    " let g:mdip_imgdir = 'img'
+    " let g:mdip_imgname = 'image'"
 EOF
