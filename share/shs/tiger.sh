@@ -18,11 +18,12 @@ export XMODIFIERS=@im=fcitx
 export LIBGL_ALWAYS_SOFTWARE=1
 
 #vncserver :1 -geometry 1600x1200 -SecurityTypes None -local no --I-KNOW-THIS-IS-INSECURE 
-
-#tigervncserver -xstartup /usr/bin/awesome -geometry 800x600 -localhost no :3 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
-#tigervncserver -kill :2
 #tigervncserver -xstartup /usr/bin/gnome-session  -localhost no :2 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
-#tigervncserver -xstartup /usr/bin/xfce4-session  -localhost no :2 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
+#tigervncserver -xstartup /usr/bin/awesome -geometry 800x600 -localhost no :3 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
+
+# tigervncserver -kill :2
+# tigervncserver -xstartup /usr/bin/xfce4-session  -localhost no :2 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
+
 tigervncserver -kill :3
 tigervncserver -xstartup /usr/bin/awesome  -localhost no :3 -SecurityTypes none --I-KNOW-THIS-IS-INSECURE
 
