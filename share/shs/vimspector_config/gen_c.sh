@@ -4,7 +4,7 @@ FILE_NAME=".vimspector.json"
 cat << 'EOF' > $FILE_NAME
 {
   "configurations": {
-    "linux debug": {
+    "redis debug": {
          "adapter": "vscode-cpptools",
          "configuration": {
             "request": "launch",

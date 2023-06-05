@@ -38,7 +38,7 @@ mkdir -p  ~/.config/nvim/lua && \
 cp /vagrant_data/conf/nvim/plugins.lua  ~/.config/nvim/lua/plugins.lua
 
 mkdir -p  ~/.config/nvim/snips && \
-cp /vagrant_data/conf/nvim/snips ~/.config/nvim/snips -R
+cp /vagrant_data/conf/nvim/snips/* ~/.config/nvim/snips -R
 
 
 cat <<EOF > ~/.config/nvim/init.vim
@@ -204,6 +204,10 @@ fun! VimspectorConfigGen()
           call system("bash /vagrant_data/shs/vimspector_config/gen_c.sh " . funcName)  
       elseif &filetype == 'go'    
           call system("bash /vagrant_data/shs/vimspector_config/gen_go.sh " . funcName)  
+      elseif &filetype == 'py'    
+          call system("bash /vagrant_data/shs/vimspector_config/gen_py.sh " . funcName)  
+      elseif &filetype == 'php'    
+          call system("bash /vagrant_data/shs/vimspector_config/gen_php.sh " . funcName)  
       elseif &filetype == 'lua'    
          call system("bash /vagrant_data/shs/vimspector_config/gen_lua.sh " . funcName)      
       endif        

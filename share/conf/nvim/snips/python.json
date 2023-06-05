@@ -1,0 +1,10 @@
+{
+    "Note": {
+      "prefix": ["debugpy"],
+      "body": [
+        "import debugpy;debugpy.listen(8888);debugpy.wait_for_client()"
+      ],
+      "description": "debugpy"
+    }
+  }
+    
