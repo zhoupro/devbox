@@ -227,7 +227,15 @@ fun! Toggle_debug()
             let $EXEC_FILE=system("make out")
         endif
       
-        let b:qmode_debug = 1
+       let b:qmode_debug = 1
+       if &filetype == 'java'
+         nmap b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+         nmap c <Cmd>lua require'dap'.continue()<CR>
+         nmap n <Cmd>lua require'dap'.step_over()<CR>
+         nmap ui <Cmd>lua require("dapui").toggle()<CR>
+         nmap e <Cmd>lua require("dapui").eval()<CR>
+         nmap rs <Cmd>lua require'dap'.terminate()<CR>
+      else
          nmap b <Plug>VimspectorToggleBreakpoint
          nmap bc <Plug>VimspectorToggleConditionalBreakpoint
          nmap bf <Plug>VimspectorAddFunctionBreakpoint
@@ -236,25 +244,30 @@ fun! Toggle_debug()
          nmap si <Plug>VimspectorStepInto
          nmap so <Plug>VimspectorStepOut
          nmap e <Plug>VimspectorBalloonEval
-         nmap d <Plug>VimspectorDownFrame
-         nmap u <Plug>VimspectorUpFrame	
-         
+         nmap fd <Plug>VimspectorDownFrame
+         nmap fu <Plug>VimspectorUpFrame	
          nmap t :call GenTest()<CR>
          nmap rs :VimspectorReset<CR>
-     else
+
+
+      endif
+    else
          unlet b:qmode_debug
          unmap b
          unmap bc
          unmap bf
          unmap c
          unmap n
-         unmap u
-         unmap d
+         unmap fu
+         unmap fd
          unmap si
          unmap so
          unmap t
+         unmap ui 
      endif
 endfun
+
+
 
 
 func! RunProgram()    

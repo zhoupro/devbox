@@ -247,6 +247,7 @@ EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-dap.lua
 local dap = require"dap"
+local dap, dapui = require("dap"), require("dapui") 
 dap.configurations.lua = { 
   { 
     type = 'nlua', 
@@ -267,6 +268,34 @@ dap.configurations.lua = {
 
 dap.adapters.nlua = function(callback, config)
   callback({ type = 'server', host = config.host, port = config.port })
+end
+
+
+local dapuicfg = {
+    layouts = { {
+        elements = { {
+            id = "repl",
+            size = 0.5
+          }, {
+            id = "console",
+            size = 0.5
+          } },
+        position = "bottom",
+        size = 3
+      } },
+  }
+
+
+dapui.setup(dapuicfg)
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
 end
 
 EOF

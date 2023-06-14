@@ -74,24 +74,14 @@ packer.init({
   use 'ray-x/lsp_signature.nvim'
   use 'jbyuki/one-small-step-for-vimkind'
   use 'mfussenegger/nvim-dap'
+  use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+  use 'mfussenegger/nvim-jdtls'
   use {'zhoupro/lsp_calltree', requires='MunifTanjim/nui.nvim'}
   use 'linty-org/key-menu.nvim'
   use 'RishabhRD/popfix'
   use 'RishabhRD/nvim-cheat.sh'
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-
-
-  use {
-    'phaazon/hop.nvim',
-    branch = 'v2', -- optional but strongly recommended
-    config = function()
-      -- you can configure Hop the way you like here; see :h hop-config
-      require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
-    end
-  }
-
-
- use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end })
+  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end })
 
   use { 'kyazdani42/nvim-web-devicons' }
 

@@ -18,8 +18,8 @@ Vagrant.configure("2") do |config|
     node.vm.provider :virtualbox do |v|
       v.gui = false
       v.name    = "kmaster-kali"
-      v.memory  =  1024*8 
-      v.cpus    =  4
+      v.memory  =  1024*4 
+      v.cpus    =  3
     end
     node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
     node.vm.provision "shell", path: "share/bootstraps/tiger.sh", run: "always"
