@@ -170,25 +170,92 @@ fun! CopyToTmp()
    call system('curl -H "Content-Type:text/plain" --data-binary @/tmp/copy.txt http://192.168.56.1:8377/setclip')
 endfun
 
-function! s:get_go_pkgs()
-	    function! s:go_import(pk)
-		execute 'GoImport' a:pk
-	    endfunction
-	    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_import')}))
-	endfunction
-	function! s:get_go_doc()
-	    function! s:go_doc(pk)
-		execute 'GoDoc' a:pk
-	    endfunction
-	    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_doc')}))
-	endfunction
-	augroup gopkgs
-	    autocmd!
-	    autocmd FileType go command! -buffer GI exe s:get_go_pkgs()
-	    autocmd FileType go command! -buffer GD exe s:get_go_doc()
-	augroup END
-	map <leader>i :GI<cr>
-	map <leader>d :GD<cr>
+function! s:get_std_pkgs()
+    function! s:go_import(pk)
+        execute 'GoImport' a:pk
+    endfunction
+    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_import')}))
+endfunction
+
+
+function! s:get_lib_pkgs(flag)
+    echom a:flag
+    let gomod = system('bash /vagrant_data/shs/getpwd.sh')
+
+    function! s:go_import(pk)
+        execute 'GoImport' a:pk
+
+        let packpostfix = system("echo ".a:pk."|awk -F '/' '{printf $NF}'")
+        execute 'normal o' packpostfix
+    endfunction
+
+    function! s:go_import_lib(pk)
+        let gomod = system('bash /vagrant_data/shs/getpwd.sh')
+        let cmd_str = "cat ". gomod ."| grep -v '=>' | grep  '.*\..*' | grep -w ^ | grep  ".a:pk."|awk '{printf $2}'"
+        let lib_version = system(cmd_str)
+        let lib_dir = "~/go/pkg/mod/".a:pk.'@'.lib_version
+        let source_cmd_str = "cd ".lib_dir." && go list ./... | grep -v 'downloading'|sort"
+        call fzf#run(fzf#wrap({'source': source_cmd_str, 'sink': function('s:go_import')}))
+    endfunction
+
+    let cmd_str = "cat ". gomod ."| grep -v '=>' | grep  '.*\..*' | grep -w ^ | awk '{print $1}' | sort | uniq"
+
+    if a:flag == 1
+        call fzf#run(fzf#wrap({'source': cmd_str, 'sink': function('s:go_import')}))
+    else
+        call fzf#run(fzf#wrap({'source': cmd_str, 'sink': function('s:go_import_lib')}))
+    endif
+
+endfunction
+
+
+function! s:get_workspace_pkgs(flag)
+    let workspace = system('bash /vagrant_data/shs/getpwdpath.sh')
+    let gomod = system('bash /vagrant_data/shs/getpwd.sh')
+    let gomoduleprefix = system("cat ".gomod."|grep '^module' | awk '{printf $2}'")
+
+    function! s:go_import(pk)
+        let gomod = system('bash /vagrant_data/shs/getpwd.sh')
+        let gomoduleprefix = system("cat ".gomod."|grep '^module' | awk '{printf $2}'")
+        let pack = gomoduleprefix."/". a:pk
+        execute 'GoImport' pack
+
+        let packpostfix = system("echo ".a:pk."|awk -F '/' '{printf $NF}'")
+        execute 'normal o' packpostfix
+    endfunction
+
+    let cachefile = system("cat ".gomod."| grep '^module'|awk '{printf $2}' | sed 's/\\./_/g' |sed 's#/#_#g'")
+    echom cachefile
+
+    if filereadable(expand("/tmp/".cachefile)) && a:flag == 1
+        let cmd_str = "cat /tmp/".cachefile
+    else
+        let cmd_str = "cd ".workspace." && go list ./... | sed 's#".gomoduleprefix."/##g' | sort | uniq | tee /tmp/".cachefile
+        echom cmd_str
+    endif
+
+    call fzf#run(fzf#wrap({'source': cmd_str, 'sink': function('s:go_import')}))
+endfunction
+
+
+function! s:get_go_doc()
+    function! s:go_doc(pk)
+    execute 'GoDoc' a:pk
+    endfunction
+    call fzf#run(fzf#wrap({'source': 'gopkgs | sort | uniq', 'sink': function('s:go_doc')}))
+endfunction
+augroup gopkgs
+    autocmd!
+    autocmd FileType go command! -buffer GW exe s:get_workspace_pkgs(1)
+    autocmd FileType go command! -buffer GWR exe s:get_workspace_pkgs(2)
+    autocmd FileType go command! -buffer GLN exe s:get_lib_pkgs(1)
+    autocmd FileType go command! -buffer GLM exe s:get_lib_pkgs(2)
+    autocmd FileType go command! -buffer GS exe s:get_std_pkgs()
+    autocmd FileType go command! -buffer GD exe s:get_go_doc()
+augroup END
+
+map <leader>i :GI<cr>
+map <leader>d :GD<cr>
 
 
 
