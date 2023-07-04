@@ -387,3 +387,8 @@ cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
     " let g:mdip_imgdir = 'img'
     " let g:mdip_imgname = 'image'"
 EOF
+
+
+cat <<EOF > ~/.config/nvim/after/plugin/outline.rc.vim
+require("symbols-outline").setup()
+EOF
