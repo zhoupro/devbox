@@ -51,46 +51,52 @@ require('lualine').setup({
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
-vim.api.nvim_create_autocmd('BufEnter', {
-    command = "if winnr('$') == 1 && bufname() == ''  | quit | endif",
-    nested = true,
-})
-  require("nvim-tree").setup({
-    actions = {
-      open_file = {
-        quit_on_open = true,
-      },
-  
+  require("symbols-outline").setup()
+  require("neo-tree").setup({
+    window = {
+        position = "right",
     },
-    view = {
-      adaptive_size = true,
-      centralize_selection = false,
-      width = 30,
-      hide_root_folder = false,
-      side = "left",
-      preserve_window_proportions = false,
-      number = false,
-      relativenumber = false,
-      signcolumn = "yes",
-      mappings = {
-        custom_only = false,
-        list = {
-          -- user mappings go here
+    enable_git_status = false,
+    event_handlers = {
+        {
+            event = "file_opened",
+            handler = function(file_path)
+                require("neo-tree").close("filesystem")
+                require("neo-tree.command").execute({action="show", source="buffers",reveal=true })
+                vim.cmd("wincmd h")
+                vim.api.nvim_set_keymap('n', '11', ':lua print(11)<CR>', {noremap = true})
+            end
         },
-      },
-      float = {
-        enable = false,
-        open_win_config = {
-          relative = "editor",
-          border = "rounded",
-          width = 100,
-          height = 30,
-          row = 1,
-          col = 1,
+        {
+            event = "neo_tree_window_after_close",
+            handler = function(args)
+                vim.api.nvim_set_keymap('n', '11', ':lua print(11)<CR>', {noremap = true})
+                vim.api.nvim_del_keymap('n', '11')
+            end
         },
-      },
+
     },
-  }) 
+    renderers = {
+        file = {
+          { "indent" },
+          { "icon" },
+          {
+            "container",
+            content = {
+              { "bufnr", zindex = 10 },
+              {
+                "name",
+                zindex = 10
+              },
+              { "clipboard", zindex = 10 },
+              { "modified", zindex = 20, align = "right" },
+              { "diagnostics",  zindex = 20, align = "right" },
+              { "git_status", zindex = 20, align = "right" },
+            },
+          },
+        },
+    },
+  })
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/nvim-lspconfig.lua

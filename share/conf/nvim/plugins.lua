@@ -93,13 +93,6 @@ packer.init({
   use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
 
   use {
-    'kyazdani42/nvim-tree.lua',
-    requires = {
-      'kyazdani42/nvim-web-devicons',
-    }
-  }
-
-  use {
     'romgrk/barbar.nvim',
     requires = {'kyazdani42/nvim-web-devicons'}
   }
