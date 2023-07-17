@@ -91,6 +91,15 @@ packer.init({
   use {'majutsushi/tagbar'}
   use {'nvim-lualine/lualine.nvim'}
   use 'WhoIsSethDaniel/lualine-lsp-progress.nvim'
+  use {
+    "zhoupro/neogen",
+    config = function()
+        require('neogen').setup {}
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    -- Uncomment next line if you want to follow only stable versions
+    -- tag = "*"
+  }
 
   use {
     'romgrk/barbar.nvim',

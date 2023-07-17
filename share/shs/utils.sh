@@ -5,7 +5,8 @@ getDownloadUrl(){
 
 proxy() {
     # CUSTOM_PROXY="http://192.168.56.1:7890"
-    CUSTOM_PROXY="http://192.168.56.1:20809"
+    # CUSTOM_PROXY="http://192.168.56.1:20809"
+    #CUSTOM_PROXY="http://127.0.0.1:38457"
     # CUSTOM_PROXY="http://192.168.56.1:10811"
     # CUSTOM_PROXY="http://192.168.56.1:1081"
 

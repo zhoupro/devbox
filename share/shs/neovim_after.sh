@@ -55,7 +55,9 @@ cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
   require("neo-tree").setup({
     window = {
         position = "right",
+        auto_expand_width = true, 
     },
+    enable_diagnostics = false,
     enable_git_status = false,
     event_handlers = {
         {
@@ -398,3 +400,8 @@ EOF
 cat <<EOF > ~/.config/nvim/after/plugin/outline.rc.vim
 require("symbols-outline").setup()
 EOF
+
+cat <<EOF > ~/.config/nvim/after/plugin/neogen.rc.vim
+require('neogen').setup({ snippet_engine = "vsnip" })
+EOF
+
