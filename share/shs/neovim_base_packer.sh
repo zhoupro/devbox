@@ -107,7 +107,7 @@ EOF
 cat <<EOF > ~/.config/nvim/maps.vim
    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-   map <leader>n :NvimTreeToggle<CR>
+   map <leader>n :NeoTree buffers close<CR>:NeoTree<CR>
    map <leader>m :TagbarOpenAutoClose<CR>
    autocmd VimEnter * noremap  <leader>t  :call RunProgram()<CR>
    nnoremap <Leader>f :Files<CR>

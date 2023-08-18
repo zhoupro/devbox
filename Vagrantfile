@@ -3,8 +3,8 @@
 Vagrant.configure("2") do |config|
   #config.vm.provision "shell", path: "share/bootstraps/base.sh"
   # master server
-  config.vm.define "kmaster-kali" do |node|
-    node.vm.box               = "kali"
+  config.vm.define "kmaster-ubuntu" do |node|
+    node.vm.box               = "ubuntu/jammy64"
     node.vm.box_check_update  = false
     node.vm.hostname          = "kmaster.example.com"
     node.vm.network "private_network", ip: "192.168.56.250"
@@ -12,14 +12,14 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "../devbox-disk", "/home/vagrant/playground"
     config.vm.synced_folder ".", "/home/vagrant/devbox"
     #config.vm.synced_folder "C:\\Users\\zhoupro\\.ssh", "/root/.ssh"
-    config.ssh.username = "vagrant"
-    config.ssh.password = "vagrant"
+    #config.ssh.username = "vagrant"
+    #config.ssh.password = "vagrant"
     config.ssh.insert_key = false
     node.vm.provider :virtualbox do |v|
       v.gui = false
-      v.name    = "kmaster-kali"
-      v.memory  =  1024*4 
-      v.cpus    =  3
+      v.name    = "kmaster-ubuntu"
+      v.memory  =  1024*16
+      v.cpus    =  4
     end
     node.vm.provision "shell", path: "share/bootstraps/bootstrap_leet_with_go.sh"
     node.vm.provision "shell", path: "share/bootstraps/tiger.sh", run: "always"
