@@ -1,6 +1,40 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd [[ packadd packer.nvim ]]
 
+-- dev plugin.
+
+basePluginDir = "~/playground/github/" 
+
+devPlugin = {
+    ["leetcode-vim"] = "zhoupro/leetcode.vim",
+    ["own-neovim-commands"] = "zhoupro/own_neovim_commands",
+}
+
+
+function isDir( sPath )
+  if type( sPath ) ~= "string" then return false end
+
+  local response = os.execute( "cd " .. sPath )
+  if response == 0 then
+    return true
+  end
+  return false
+end
+
+for key, value in pairs(devPlugin) do
+    i, _ = string.find(value, "/")
+    pluginLen = string.len(value)
+    pluginName = string.sub(value, i+1 )
+    pluginFullPath = basePluginDir .. pluginName
+
+    if isDir(pluginFullPath) then
+        devPlugin[key] = pluginFullPath
+    else
+        devPlugin[key] = value
+    end
+end
+
+
 packer = require("packer")
 packer.init({
     git = {
@@ -14,7 +48,7 @@ packer.init({
 
 
  return require('packer').startup(function(use)
-  use({ "zhoupro/leetcode.vim", run = "pip3 install -r requirements.txt" })
+  use({ devPlugin["leetcode-vim"], run = "pip3 install -r requirements.txt" })
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
@@ -31,7 +65,7 @@ packer.init({
     config = 'require("messages").setup()',
   }
     use {
-     'zhoupro/own_neovim_commands',
+     devPlugin["own-neovim-commands"],
      config = 'require("own_neovim_commands").setup()',
    }
   -- Packer can manage itself
