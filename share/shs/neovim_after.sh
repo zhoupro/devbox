@@ -50,8 +50,24 @@ require('lualine').setup({
 })
 EOF
 
-cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
-  require("symbols-outline").setup()
+cat <<EOF > ~/.config/nvim/after/plugin/neo-tree.rc.lua
+require("symbols-outline").setup()
+
+local harpoon_func = function(config, node, state)
+  local Marked = require("harpoon.mark")
+  local path = node:get_id()
+  local succuss, index = pcall(Marked.get_index_of, path)
+  if succuss and index and index > 0 then
+    return {
+      text = "+", -- <-- Add your favorite harpoon like arrow here
+      highlight = config.highlight or "NeoTreeDirectoryIcon",
+    }
+  else
+    return {}
+  end
+end
+
+
   require("neo-tree").setup({
     window = {
         position = "right",
@@ -98,6 +114,37 @@ cat <<EOF > ~/.config/nvim/after/plugin/nvim-tree.rc.lua
           },
         },
     },
+    buffers = {
+    -- filesystem = {
+          components = {
+            harpoon_index =  harpoon_func
+         },
+          renderers = {
+           file = {
+             { "bufnr", zindex = 10 },
+             {"icon"},
+             {"harpoon_index"},
+             {"name", use_git_status_colors = true},
+             {"diagnostics"},
+             {"git_status", highlight = "NeoTreeDimText"},
+           }
+          }
+        },
+    filesystem = {
+          components = {
+            harpoon_index = harpoon_func
+          },
+          renderers = {
+           file = {
+             {"icon"},
+             {"harpoon_index"},
+             {"name", use_git_status_colors = true},
+             {"diagnostics"},
+             {"git_status", highlight = "NeoTreeDimText"},
+           }
+          }
+        },
+
   })
 
   vim.api.nvim_create_autocmd("QuitPre", {
@@ -345,8 +392,15 @@ require("ufo").setup()
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/harpoon.lua
-vim.keymap.set('n', 'tt',require("harpoon.mark").add_file )
+
+local toggle_file = function ()
+    require("harpoon.mark").toggle_file()
+    require("neo-tree").close("filesystem")
+    require("neo-tree.command").execute({action="show", source="buffers",reveal=true })
+end
+vim.keymap.set('n', 'tt',toggle_file )
 vim.keymap.set('n', 'ta',require("harpoon.ui").toggle_quick_menu)
+
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/key-menu.lua
