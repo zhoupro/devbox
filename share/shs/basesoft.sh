@@ -18,7 +18,7 @@ aptenv(){
             git  unrar p7zip    build-essential 
             wget curl axel gdebi fcitx
             zsh python3-pip exuberant-ctags
-            lua5.3 jq  shotwell
+            lua5.3 jq  shotwell dos2unix
          )
 	
 	for i in ${myarray[@]};

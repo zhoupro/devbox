@@ -2,7 +2,6 @@
 vim.cmd [[ packadd packer.nvim ]]
 
 -- dev plugin.
-
 basePluginDir = "~/playground/github/" 
 
 devPlugin = {
@@ -47,24 +46,20 @@ packer.init({
 })
 
 
- return require('packer').startup(function(use)
+return require('packer').startup(function(use)
   use({ devPlugin["leetcode-vim"], run = "pip3 install -r requirements.txt" })
   use {
     "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require("trouble").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
+      require("trouble").setup {}
     end
   }
   use {
     'AckslD/messages.nvim',
     config = 'require("messages").setup()',
   }
-    use {
+  use {
      devPlugin["own-neovim-commands"],
      config = 'require("own_neovim_commands").setup()',
    }
@@ -80,14 +75,12 @@ packer.init({
   use {'godlygeek/tabular'}
   use 'preservim/vim-markdown'
   use 'trmckay/based.nvim'
-
   -- plugEndPoint
   use { 'nvim-treesitter/nvim-treesitter' }
   --use {'nvim-treesitter/nvim-treesitter-textobjects'} 
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-  require("toggleterm").setup()
+      require("toggleterm").setup()
   end}
-
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   use {'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim'}
   -- use {'morhetz/gruvbox'}
@@ -116,9 +109,10 @@ packer.init({
   use 'RishabhRD/nvim-cheat.sh'
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
   use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end })
-
-  use { 'kyazdani42/nvim-web-devicons' }
-
+  use { 'kyazdani42/nvim-web-devicons'}
+  use {'zhoupro/jc.nvim',  requires = 'mfussenegger/nvim-jdtls' ,config = function()
+      require('jc').setup{}
+  end}
   use {'junegunn/fzf'}
   use {'junegunn/fzf.vim'}
   use {'puremourning/vimspector'}
@@ -131,18 +125,13 @@ packer.init({
         require('neogen').setup {}
     end,
     requires = "nvim-treesitter/nvim-treesitter",
-    -- Uncomment next line if you want to follow only stable versions
-    -- tag = "*"
   }
-
   use {
     'romgrk/barbar.nvim',
     requires = {'kyazdani42/nvim-web-devicons'}
   }
-
   use {'tpope/vim-fugitive'}
   use {'airblade/vim-gitgutter'}
-
   use {'wellle/targets.vim'}
   use {'jiangmiao/auto-pairs'}
   use {'tpope/vim-abolish'}
@@ -160,17 +149,15 @@ packer.init({
   use 'junegunn/limelight.vim'
   use 'junegunn/goyo.vim'
   use 'simrat39/symbols-outline.nvim'
-
-  vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
-
   use {
    "nvim-neo-tree/neo-tree.nvim",
     branch = "v2.x",
-    requires = { 
+    requires = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
     }
   }
-
 end)
+
+vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])

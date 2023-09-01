@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  xxl-job-admin:
+    image: xuxueli/xxl-job-admin:2.4.0
+    container_name: xxl-job-admin
+    depends_on:
+      - job-db
+    ports:
+      - "8077:8077"
+    links:
+      - job-db
+    volumes:
+      - ./data/logs:/data/applogs
+      - ./data/xxl-job/:/xxl-job
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://job-db:3306/xxl_job?serverTimezone=UTC&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Shanghai
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=
+      - SERVER_PORT=8077
+
+  job-db:
+    image: mysql:5.7
+    container_name: job-db
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    depends_on:
+      - job-dbdata
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+    volumes_from:
+      - job-dbdata
+
+  job-dbdata:
+    image: alpine:latest
+    container_name: job-dbdata
+    volumes:
+      - /var/lib/mysql
+
