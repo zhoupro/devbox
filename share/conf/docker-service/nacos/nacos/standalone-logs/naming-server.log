@@ -1,0 +1,12 @@
+2023-09-20 15:50:08,194 INFO GlobalConfig{taskDispatchPeriod=200, batchSyncKeyCount=1000, syncRetryDelay=5000, dataWarmup=true, expireInstance=true, loadDataRetryDelayMillis=30000}
+
+2023-09-20 15:50:09,223 INFO open empty service auto clean job, initialDelay : 50000 ms, period : 30000 ms
+
+2023-09-20 15:50:09,224 INFO listen for service meta change
+
+2023-09-20 15:50:13,180 INFO [NACOS-DISTRO] healthy server list changed, old: [27825ac731d9:8848], new: [27825ac731d9:8848]
+
+2023-09-20 15:51:04,694 WARN [NamingServerHttpClientManager] Start destroying HTTP-Client
+
+2023-09-20 15:51:04,710 WARN [NamingServerHttpClientManager] Destruction of the end
+

@@ -24,6 +24,7 @@ EOF
 
 }
 
+sudo apt install -y python3-pip
 
 # dockerenv
 function k8s_ins(){
