@@ -8,8 +8,8 @@ if [ ! -f /usr/local/bin/vim ];then
       proxy && \
       axel -n 20 -o nvim.appimage 'https://github.com/neovim/neovim/releases/download/stable/nvim.appimage'
       noproxy && \
-      sudo mv ./nvim.appimage /usr/local/bin/nvim    && \
-      sudo ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
+      sudo sudo mv ./nvim.appimage /usr/local/bin/nvim    && \
+      sudo sudo ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
       sudo chmod 777 /usr/local/bin/nvim 
 fi
 
@@ -107,7 +107,7 @@ EOF
 cat <<EOF > ~/.config/nvim/maps.vim
    inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-   map <leader>n :NeoTree buffers close<CR>:NeoTree<CR>
+   map <leader>n :NeoTreeClose<CR>:NeoTreeFocus<CR>
    map <leader>m :TagbarOpenAutoClose<CR>
    autocmd VimEnter * noremap  <leader>t  :call RunProgram()<CR>
    nnoremap <Leader>f :Files<CR>
@@ -529,8 +529,8 @@ EOF
 
 
 proxy  && \
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
-nvim --headless +TSUpdate +qa && \
+nvim  -c 'autocmd User PackerComplete quitall' -c 'PackerSync' && \
+nvim  +TSUpdate +qa && \
 noproxy
 
 

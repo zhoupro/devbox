@@ -104,7 +104,7 @@ return require('packer').startup(function(use)
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
   use 'mfussenegger/nvim-jdtls'
   use {'zhoupro/lsp_calltree', requires='MunifTanjim/nui.nvim'}
-  use 'linty-org/key-menu.nvim'
+  -- use 'linty-org/key-menu.nvim'
   use 'RishabhRD/popfix'
   use 'RishabhRD/nvim-cheat.sh'
   use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
@@ -160,4 +160,4 @@ return require('packer').startup(function(use)
   }
 end)
 
-vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+--vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])

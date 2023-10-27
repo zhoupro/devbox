@@ -7,9 +7,9 @@ if [ ! -f /usr/local/bin/vim ];then
       proxy && \
       axel -n 20 -o nvim.appimage 'https://github.com/neovim/neovim/releases/download/stable/nvim.appimage'
       noproxy && \
-      mv ./nvim.appimage /usr/local/bin/nvim    && \
-      ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
-      chmod 777 /usr/local/bin/nvim 
+      sudo mv ./nvim.appimage /usr/local/bin/nvim    && \
+      sudo ln -s /usr/local/bin/nvim /usr/local/bin/vim && \
+      sudo chmod 777 /usr/local/bin/nvim 
 fi
 
 if [ ! "$(pip3 list | grep neovim)" ];then

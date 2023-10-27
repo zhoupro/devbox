@@ -403,49 +403,6 @@ vim.keymap.set('n', 'ta',require("harpoon.ui").toggle_quick_menu)
 
 EOF
 
-cat <<EOF > ~/.config/nvim/after/plugin/key-menu.lua
-vim.o.timeoutlen = 300
-require 'key-menu'.set('n', '<Space>')
-vim.keymap.set('n', '<Space>w', '<Cmd>w<CR>', {desc='Save'})
-vim.keymap.set('n', '<Space>q', '<Cmd>q<CR>', {desc='Quit'})
-
-local erase_all_lines = function()
-  vim.api.nvim_buf_set_lines(0, 0, -1, false, {})
-end
-vim.keymap.set('n', '<Space>k', erase_all_lines, {desc='Erase all'})
-
-vim.keymap.set('n', '<Space>gs', '<Cmd>Git status<CR>')
-vim.keymap.set('n', '<Space>gc', '<Cmd>Git commit<CR>')
-
-require 'key-menu'.set('n', '<Space>g', {desc='Git'})
-
-vim.keymap.set('n', '<Space>g',
-  function() require 'key-menu'.open_window('<Space>g') end,
-  {desc='Git'})
-
-
-require 'key-menu'.set('n', '<Space>s',
-  {desc = 'Say something', buffer = true})
-vim.keymap.set('n', '<Space>sh',
-  function() print('Hello, world') end,
-  {desc = '...hello!', buffer = true})
-vim.keymap.set('n', '<Space>sg',
-  function() print('Goodbye, world!') end,
-  {desc = '...goodbye!', buffer = true})
-
-vim.keymap.set('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', {desc='HIDDEN'})
-EOF
-
-
-cat <<EOF > ~/.config/nvim/after/plugin/base.lua
-local based = require("based")
-
-based.setup({
-    highlight = "MyHighlightGroup"
-})
-vim.keymap.set('n', '<C-b>',  based.convert)
-
-EOF
 
 
 
@@ -468,11 +425,11 @@ cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
 EOF
 
 
-cat <<EOF > ~/.config/nvim/after/plugin/outline.rc.vim
+cat <<EOF > ~/.config/nvim/after/plugin/outline.rc.lua
 require("symbols-outline").setup()
 EOF
 
-cat <<EOF > ~/.config/nvim/after/plugin/neogen.rc.vim
+cat <<EOF > ~/.config/nvim/after/plugin/neogen.rc.lua
 require('neogen').setup({ snippet_engine = "vsnip" })
 EOF
 
