@@ -84,7 +84,7 @@ return require('packer').startup(function(use)
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   use {'ThePrimeagen/harpoon', requires = 'nvim-lua/plenary.nvim'}
   -- use {'morhetz/gruvbox'}
-  use {'folke/tokyonight.nvim'}
+  --use {'folke/tokyonight.nvim'}
   use {'tpope/vim-commentary'}
   --use {'neoclide/coc.nvim', branch = 'release'}
   use 'williamboman/mason.nvim'
@@ -158,6 +158,25 @@ return require('packer').startup(function(use)
       "MunifTanjim/nui.nvim",
     }
   }
+
+  use 'huggingface/llm.nvim'
+  use 'mrcjkb/rustaceanvim'
+
+  use({
+  "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup()
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  })
+
+  use { "David-Kunz/gen.nvim" }
+
 end)
 
 --vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
