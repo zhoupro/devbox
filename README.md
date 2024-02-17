@@ -1,8 +1,32 @@
 # self devbox
 ## picture
 ![desktop](./imgs/desktop.png)
-
+## os
+* kitty installer
+```
+curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+```
+* kitty.desktop
+```
+[Desktop Entry]
+Name=Kitty
+Comment=Code Editing. Redefined.
+GenericName=Text Editor
+Exec=/opt/soft/kitty/bin/kitty
+Icon=/opt/soft/kitty/share/icons/hicolor/256x256/apps/kitty.png
+Type=Application
+StartupNotify=false
+StartupWMClass=Kitty
+Categories=TextEditor;Development;IDE;
+MimeType=text/plain;inode/directory;application/x-code-workspace;
+Actions=new-empty-window;
+Keywords=kitty;
+```
 ## neovim
+###  vim help
+```
+vim +"help lua | only"
+```
 ###  writing
 | plugin                       | commands or maps | desc                               |
 |------------------------------|------------------|------------------------------------|
