@@ -415,6 +415,8 @@ EOF
 cat <<EOF > ~/.config/nvim/after/plugin/colorschem.rc.vim
 "silent! colorscheme tokyonight
 highlight Normal ctermbg=None
+highlight NormalFloat guifg=none guibg=none
+highlight NormalFloat guifg=none guibg=none
 EOF
 
 cat <<EOF > ~/.config/nvim/after/plugin/mdpaste.rc.vim
