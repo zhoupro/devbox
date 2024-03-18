@@ -20,7 +20,7 @@ function install_node_server(){
          sudo rm -rf node-v${SERVER_VERSION}-linux-x64.tar.xz && \
          sudo ln -s  /usr/local/lib/nodejs/node/bin/npm /usr/local/bin/npm && \
          sudo ln -s  /usr/local/lib/nodejs/node/bin/node /usr/local/bin/node && \
-         echo "export PATH=\$PATH:/usr/local/bin/nodejs/node/bin" >> ~/.customrc
+         echo "export PATH=\$PATH:/usr/local/lib/nodejs/node/bin" >> ~/.customrc
     fi
 }
 
