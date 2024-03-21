@@ -1,0 +1,10 @@
+version: '3'
+services:
+  datart:
+    image: datart/datart
+    container_name: datart
+    ports:
+      - "8090:8080"
+    volumes:
+      - ./datart.conf:/datart/config/datart.conf
+
